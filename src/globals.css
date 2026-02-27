@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+/* MotorMoura Design System – High-End Engineered Metal */
+:root {
+  --mm-gunmetal: #1F1F23;
+  --mm-gunmetal-light: #27272C;
+  --mm-gunmetal-mid: #2E2E34;
+  --mm-orange: #FB923C;
+  --mm-orange-dark: #EA7C28;
+  --mm-blueprint: #1D4ED8;
+  --mm-blueprint-light: #2563EB;
+  --mm-silver: #E5E7EB;
+  --mm-silver-dim: #9CA3AF;
+  --mm-border: rgba(255,255,255,0.08);
+  --mm-border-blue: rgba(29,78,216,0.5);
+}
+
+/* Brushed metal texture background */
+.mm-bg {
+  background-color: var(--mm-gunmetal);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.012) 2px,
+      rgba(255,255,255,0.012) 4px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 4px,
+      rgba(255,255,255,0.008) 4px,
+      rgba(255,255,255,0.008) 8px
+    );
+}
+
+/* Card 3D tilt effect */
+.mm-card {
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.mm-card:hover {
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(29,78,216,0.15);
+}
+
+/* Tilt effect via JS — card-inner rotation */
+.mm-card-inner {
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+}
+
+/* SKU badge pulse on hover */
+.mm-card:hover .mm-sku-badge {
+  animation: skuPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skuPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(29,78,216,0.6); }
+  50% { box-shadow: 0 0 0 6px rgba(29,78,216,0); }
+}
+
+/* Tactile button press */
+.mm-btn-tactile {
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.mm-btn-tactile:active {
+  transform: translateY(2px) scale(0.97);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.3) !important;
+}
+
+/* Metal gradient text */
+.mm-text-metal {
+  background: linear-gradient(135deg, #E5E7EB 0%, #9CA3AF 30%, #E5E7EB 60%, #6B7280 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Orange CTA gradient */
+.mm-text-orange {
+  background: linear-gradient(135deg, #FB923C, #F97316, #EA7C28);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Blueprint border */
+.mm-border-blueprint {
+  border: 1px solid rgba(29,78,216,0.5);
+  position: relative;
+}
+.mm-border-blueprint::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(29,78,216,0.4) 0%, transparent 50%, rgba(29,78,216,0.2) 100%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Chamfered corners */
+.mm-chamfer {
+  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+}
+
+/* Scan line overlay */
+.mm-scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.05) 3px,
+    rgba(0,0,0,0.05) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Electric specs panel */
+.mm-spec-panel {
+  background: linear-gradient(135deg, rgba(29,78,216,0.12) 0%, rgba(29,78,216,0.05) 100%);
+  border: 1px solid rgba(29,78,216,0.3);
+}
+
+/* Glow effect */
+.mm-glow-orange {
+  box-shadow: 0 0 20px rgba(251,146,60,0.3), 0 0 60px rgba(251,146,60,0.1);
+}
+.mm-glow-blue {
+  box-shadow: 0 0 20px rgba(29,78,216,0.4), 0 0 60px rgba(29,78,216,0.15);
+}
+
+/* Cart panel slide */
+.mm-cart-panel {
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.mm-cart-panel.open {
+  transform: translateX(0);
+}
+
+/* Category card hover glow */
+.mm-cat-card {
+  transition: all 0.3s ease;
+}
+.mm-cat-card:hover {
+  background: linear-gradient(135deg, rgba(251,146,60,0.08) 0%, rgba(29,78,216,0.08) 100%);
+  border-color: rgba(251,146,60,0.4);
+  box-shadow: 0 0 30px rgba(251,146,60,0.15), inset 0 0 20px rgba(29,78,216,0.05);
+}
+
+/* Mono font util */
+.font-mono-tech {
+  font-family: 'Space Mono', monospace;
+}
+
+/* Spinning gear animation */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.mm-spin { animation: spinSlow 20s linear infinite; }
+.mm-spin-reverse { animation: spinSlow 15s linear infinite reverse; }
+
+/* Data blink */
+@keyframes dataBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0.3; }
+}
+.mm-data-blink { animation: dataBlink 3s ease-in-out infinite; }
+
+/* Hero piston animation */
+@keyframes pistonFloat {
+  0%, 100% { transform: translateY(0px) rotateY(0deg); }
+  25% { transform: translateY(-8px) rotateY(5deg); }
+  75% { transform: translateY(4px) rotateY(-3deg); }
+}
+.mm-piston-float { animation: pistonFloat 6s ease-in-out infinite; }
