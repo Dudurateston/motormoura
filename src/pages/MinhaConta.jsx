@@ -1,53 +1,71 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { User, Package, Clock, CheckCircle, ArrowRight } from "lucide-react";
+import { User, Building2, Phone, MapPin, Clock, CheckCircle, XCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 
-const statusColors = {
-  pendente: "bg-yellow-100 text-yellow-700 border-yellow-200",
-  em_analise: "bg-blue-100 text-blue-700 border-blue-200",
-  respondido: "bg-green-100 text-green-700 border-green-200",
-  fechado: "bg-gray-100 text-gray-600 border-gray-200",
-};
-
-const statusLabels = {
-  pendente: "Pendente",
-  em_analise: "Em Análise",
-  respondido: "Respondido",
-  fechado: "Fechado",
+const statusConfig = {
+  pendente: { label: "Pendente de aprovação", color: "bg-yellow-100 text-yellow-800", Icon: Clock },
+  aprovado: { label: "Lojista aprovado", color: "bg-green-100 text-green-800", Icon: CheckCircle },
+  suspenso: { label: "Conta suspensa", color: "bg-red-100 text-red-800", Icon: XCircle },
 };
 
 export default function MinhaConta() {
   const [user, setUser] = useState(null);
-  const [orcamentos, setOrcamentos] = useState([]);
   const [lojista, setLojista] = useState(null);
+  const [form, setForm] = useState({ nome_loja: "", nif: "", telefone: "", cidade: "", estado: "" });
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     base44.auth.me().then(async (u) => {
       setUser(u);
-      const [orcs, lojs] = await Promise.all([
-        base44.entities.Orcamentos.filter({ lojista_email: u.email }),
-        base44.entities.Lojistas.filter({ user_email: u.email }),
-      ]).catch(() => [[], []]);
-      setOrcamentos(orcs || []);
-      setLojista(lojs?.[0] || null);
+      const lojistas = await base44.entities.Lojistas.filter({ user_email: u.email });
+      if (lojistas.length > 0) {
+        setLojista(lojistas[0]);
+        setForm({
+          nome_loja: lojistas[0].nome_loja || "",
+          nif: lojistas[0].nif || "",
+          telefone: lojistas[0].telefone || "",
+          cidade: lojistas[0].cidade || "",
+          estado: lojistas[0].estado || "",
+        });
+      }
       setLoading(false);
     }).catch(() => {
       setLoading(false);
     });
   }, []);
 
-  if (!user) {
+  const handleSave = async () => {
+    setSaving(true);
+    if (lojista) {
+      await base44.entities.Lojistas.update(lojista.id, form);
+    } else {
+      const novoLojista = await base44.entities.Lojistas.create({
+        ...form,
+        user_email: user.email,
+        status: "pendente",
+      });
+      setLojista(novoLojista);
+    }
+    setSaving(false);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
+  };
+
+  if (!user && !loading) {
     return (
-      <div className="max-w-xl mx-auto px-4 py-20 text-center">
-        <User className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-        <h2 className="text-xl font-bold text-gray-700 mb-2">Precisa de estar autenticado</h2>
+      <div className="max-w-lg mx-auto px-4 py-20 text-center">
+        <User className="w-14 h-14 mx-auto text-gray-300 mb-4" />
+        <h2 className="text-xl font-bold text-gray-700 mb-2">Acesso restrito</h2>
+        <p className="text-gray-500 mb-6">Faça login para aceder à sua conta.</p>
         <Button
           onClick={() => base44.auth.redirectToLogin()}
-          className="bg-[#0a2540] hover:bg-[#0d3060] text-white mt-4"
+          className="bg-[#0a2540] hover:bg-[#0d3060] text-white"
         >
           Entrar / Registar
         </Button>
@@ -55,93 +73,109 @@ export default function MinhaConta() {
     );
   }
 
+  if (loading) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-20 text-center text-gray-400">A carregar...</div>
+    );
+  }
+
+  const status = lojista ? statusConfig[lojista.status] || statusConfig.pendente : null;
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-[#0a2540] mb-6">Minha Conta</h1>
+    <div className="max-w-2xl mx-auto px-4 py-8">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-[#0a2540]">Minha Conta</h1>
+        <p className="text-gray-500 text-sm mt-1">Gerencie os dados da sua loja</p>
+      </div>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {/* Perfil */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-full bg-[#0a2540] flex items-center justify-center">
-              <span className="text-white font-bold text-lg">{user.full_name?.[0] || "U"}</span>
-            </div>
-            <div>
-              <p className="font-semibold text-gray-900 text-sm">{user.full_name}</p>
-              <p className="text-xs text-gray-400">{user.email}</p>
-            </div>
+      {/* User Info */}
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 mb-5">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 bg-[#0a2540] rounded-full flex items-center justify-center text-white font-bold text-lg">
+            {user.full_name?.charAt(0) || "U"}
           </div>
-
-          {lojista ? (
-            <div className="space-y-2">
-              <div>
-                <p className="text-xs text-gray-400">Loja</p>
-                <p className="text-sm font-medium">{lojista.nome_loja}</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-400">Status:</span>
-                <Badge className={`text-xs border ${
-                  lojista.status === "aprovado" ? "bg-green-100 text-green-700 border-green-200" :
-                  lojista.status === "suspenso" ? "bg-red-100 text-red-700 border-red-200" :
-                  "bg-yellow-100 text-yellow-700 border-yellow-200"
-                }`}>
-                  {lojista.status === "aprovado" ? "✓ Aprovado" :
-                   lojista.status === "suspenso" ? "Suspenso" : "Pendente"}
-                </Badge>
-              </div>
-            </div>
-          ) : (
-            <div className="text-center py-3">
-              <p className="text-xs text-gray-400 mb-3">Não é lojista registado</p>
-              <Button size="sm" variant="outline" className="text-xs w-full">
-                Solicitar Registo
-              </Button>
+          <div>
+            <p className="font-semibold text-gray-900">{user.full_name}</p>
+            <p className="text-sm text-gray-500">{user.email}</p>
+          </div>
+          {status && (
+            <div className={`ml-auto flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium ${status.color}`}>
+              <status.Icon className="w-3.5 h-3.5" />
+              {status.label}
             </div>
           )}
         </div>
+      </div>
 
-        {/* Histórico */}
-        <div className="md:col-span-2 bg-white rounded-xl border border-gray-200 p-5">
-          <h2 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-            <Package className="w-4 h-4 text-[#0a2540]" />
-            Histórico de Cotações
-          </h2>
+      {/* Lojista Form */}
+      <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
+        <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <Building2 className="w-4 h-4 text-[#0a2540]" />
+          Dados da Empresa
+        </h2>
 
-          {loading ? (
-            <div className="space-y-3">
-              {[1, 2, 3].map(i => <div key={i} className="h-16 bg-gray-50 rounded-lg animate-pulse" />)}
-            </div>
-          ) : orcamentos.length === 0 ? (
-            <div className="text-center py-8">
-              <Clock className="w-8 h-8 text-gray-200 mx-auto mb-2" />
-              <p className="text-sm text-gray-400">Sem cotações ainda</p>
-            </div>
-          ) : (
-            <div className="space-y-3 max-h-96 overflow-y-auto pr-1">
-              {orcamentos.map((orc) => (
-                <div key={orc.id} className="border border-gray-100 rounded-lg p-3 hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm font-semibold text-[#0a2540]">
-                      {orc.numero_orcamento || `ORC-${orc.id?.slice(-6)}`}
-                    </span>
-                    <Badge className={`text-xs border ${statusColors[orc.status] || statusColors.pendente}`}>
-                      {statusLabels[orc.status] || "Pendente"}
-                    </Badge>
-                  </div>
-                  <p className="text-xs text-gray-400">
-                    {orc.itens?.length || 0} {orc.itens?.length === 1 ? "item" : "itens"} · {" "}
-                    {new Date(orc.created_date).toLocaleDateString("pt-BR")}
-                  </p>
-                  {orc.itens?.length > 0 && (
-                    <p className="text-xs text-gray-500 mt-1 truncate">
-                      {orc.itens.map(i => i.nome_peca).join(", ")}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+        {!lojista && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-sm text-blue-700 flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            Preencha os dados abaixo para se registar como lojista. Após registo, a sua conta será analisada em até 24h.
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="md:col-span-2">
+            <Label className="text-sm font-medium text-gray-700 mb-1.5 block">Nome da Loja / Empresa *</Label>
+            <Input
+              value={form.nome_loja}
+              onChange={(e) => setForm({ ...form, nome_loja: e.target.value })}
+              placeholder="Ex: Loja do João Ltda."
+              className="h-10"
+            />
+          </div>
+          <div>
+            <Label className="text-sm font-medium text-gray-700 mb-1.5 block">NIF / CNPJ</Label>
+            <Input
+              value={form.nif}
+              onChange={(e) => setForm({ ...form, nif: e.target.value })}
+              placeholder="00.000.000/0001-00"
+              className="h-10"
+            />
+          </div>
+          <div>
+            <Label className="text-sm font-medium text-gray-700 mb-1.5 block">Telefone</Label>
+            <Input
+              value={form.telefone}
+              onChange={(e) => setForm({ ...form, telefone: e.target.value })}
+              placeholder="+55 (11) 99999-9999"
+              className="h-10"
+            />
+          </div>
+          <div>
+            <Label className="text-sm font-medium text-gray-700 mb-1.5 block">Cidade</Label>
+            <Input
+              value={form.cidade}
+              onChange={(e) => setForm({ ...form, cidade: e.target.value })}
+              placeholder="São Paulo"
+              className="h-10"
+            />
+          </div>
+          <div>
+            <Label className="text-sm font-medium text-gray-700 mb-1.5 block">Estado</Label>
+            <Input
+              value={form.estado}
+              onChange={(e) => setForm({ ...form, estado: e.target.value })}
+              placeholder="SP"
+              className="h-10"
+            />
+          </div>
         </div>
+
+        <Button
+          onClick={handleSave}
+          disabled={saving || !form.nome_loja}
+          className="mt-5 bg-[#0a2540] hover:bg-[#0d3060] text-white gap-2"
+        >
+          {saving ? "A guardar..." : saved ? "✓ Guardado!" : lojista ? "Atualizar dados" : "Registar como Lojista"}
+        </Button>
       </div>
     </div>
   );
