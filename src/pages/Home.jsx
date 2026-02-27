@@ -2,19 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { Search, Zap, Fuel, Battery, Droplets, Settings, ChevronRight, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Search, ChevronRight, ArrowRight, Cpu, Shield, Truck } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-const categoryIcons = {
-  "Motores a Gasolina": Zap,
-  "Motores a Diesel": Fuel,
-  "Geradores 4 Tempos": Battery,
-  "Motobombas 4 Tempos": Droplets,
-  "Bombas de Pulverização": Settings,
-  "Acessórios Universais": Settings,
-};
+import HeroPiston from "../components/home/HeroPiston";
+import CategoryCard from "../components/home/CategoryCard";
 
 export default function Home() {
   const [marcas, setMarcas] = useState([]);
@@ -30,130 +21,312 @@ export default function Home() {
 
   const handleSearch = () => {
     const params = new URLSearchParams();
-    if (selectedMarca) params.set("marca", selectedMarca);
-    if (selectedCategoria) params.set("categoria", selectedCategoria);
+    if (selectedMarca && selectedMarca !== "all") params.set("marca", selectedMarca);
+    if (selectedCategoria && selectedCategoria !== "all") params.set("categoria", selectedCategoria);
     if (searchText) params.set("q", searchText);
     window.location.href = createPageUrl("Catalogo") + "?" + params.toString();
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") handleSearch();
-  };
-
   return (
-    <div>
-      {/* Hero */}
+    <div className="mm-bg min-h-screen">
+
+      {/* ── HERO ───────────────────────────────────────────────── */}
       <section
-        className="relative bg-[#0a2540] text-white py-20 px-4 overflow-hidden"
+        className="relative overflow-hidden mm-scanlines"
         style={{
-          backgroundImage: "linear-gradient(135deg, #0a2540 0%, #0d3060 60%, #0a2540 100%)",
+          background: "linear-gradient(145deg, #0F0F11 0%, #1A1A1F 50%, #0F0F11 100%)",
+          minHeight: "90vh",
         }}
       >
-        <div className="absolute inset-0 opacity-5"
-          style={{ backgroundImage: "url(https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=1400)", backgroundSize: "cover", backgroundPosition: "center" }} />
-        <div className="relative max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-1.5 mb-6 text-sm text-yellow-300 font-medium">
-            <Zap className="w-4 h-4" />
-            Plataforma B2B exclusiva para lojistas
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            Assistente de Reposição
-            <span className="block text-[#e8b84b]">MotorMoura</span>
-          </h1>
-          <p className="text-gray-300 text-lg mb-10 max-w-2xl mx-auto">
-            Encontre rapidamente as peças certas para motores, geradores e motobombas. Filtre por marca, categoria ou código SKU.
-          </p>
+        {/* Grid blueprint background */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "linear-gradient(rgba(29,78,216,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(29,78,216,0.8) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
 
-          {/* Search Bar */}
-          <div className="bg-white rounded-2xl shadow-2xl p-4 md:p-5 max-w-3xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
-              <Select value={selectedMarca} onValueChange={setSelectedMarca}>
-                <SelectTrigger className="h-11 text-gray-700 border-gray-200">
-                  <SelectValue placeholder="Todas as marcas" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todas as marcas</SelectItem>
-                  {marcas.map((m) => (
-                    <SelectItem key={m.id} value={m.nome}>{m.nome}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+        {/* Radial glow center */}
+        <div
+          className="absolute"
+          style={{
+            right: "10%",
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: 400,
+            height: 400,
+            background: "radial-gradient(ellipse, rgba(29,78,216,0.12) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
 
-              <Select value={selectedCategoria} onValueChange={setSelectedCategoria}>
-                <SelectTrigger className="h-11 text-gray-700 border-gray-200">
-                  <SelectValue placeholder="Todas as categorias" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todas as categorias</SelectItem>
-                  {categorias.map((c) => (
-                    <SelectItem key={c.id} value={c.nome}>{c.nome}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Input
-                placeholder="Digite o SKU ou nome da peça..."
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="h-11 border-gray-200 text-gray-700"
-              />
-            </div>
-            <Button
-              onClick={handleSearch}
-              className="w-full h-11 bg-[#0a2540] hover:bg-[#0d3060] text-white font-semibold gap-2 text-base"
+        <div className="relative max-w-7xl mx-auto px-4 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center" style={{ zIndex: 2 }}>
+          {/* Left: Copy */}
+          <div>
+            <div
+              className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 text-xs font-mono-tech"
+              style={{
+                background: "rgba(29,78,216,0.1)",
+                border: "1px solid rgba(29,78,216,0.3)",
+                color: "#60A5FA",
+                borderRadius: "2px",
+              }}
             >
-              <Search className="w-4 h-4" />
-              Buscar Peças
-            </Button>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#4ADE80] mm-data-blink inline-block" />
+              PLATAFORMA B2B · SISTEMA ATIVO
+            </div>
+
+            <h1 className="mb-4 leading-tight" style={{ fontFamily: "'Space Mono', monospace" }}>
+              <span className="block text-4xl md:text-5xl font-bold mm-text-metal">
+                ESPECIALISTAS
+              </span>
+              <span className="block text-4xl md:text-5xl font-bold mm-text-metal">
+                EM EQUIPAMENTOS
+              </span>
+              <span className="block text-3xl md:text-4xl font-bold mm-text-orange mt-1">
+                QUE TRABALHAM
+              </span>
+              <span className="block text-3xl md:text-4xl font-bold mm-text-orange">
+                COM VOCÊ.
+              </span>
+            </h1>
+
+            <p className="mb-8 text-base" style={{ color: "#6B7280", maxWidth: 440, lineHeight: 1.7 }}>
+              Distribuidora técnica de peças de reposição para motores, geradores e motobombas.
+              Catálogo B2B completo, cotação direta via WhatsApp.
+            </p>
+
+            {/* ── ASSISTENTE DE REPOSIÇÃO ────────────────────── */}
+            <div
+              className="p-4 mb-6"
+              style={{
+                background: "rgba(27,27,31,0.9)",
+                border: "1px solid rgba(29,78,216,0.35)",
+                borderRadius: "4px",
+                clipPath: "polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px)",
+                boxShadow: "0 0 30px rgba(29,78,216,0.1), inset 0 1px 0 rgba(29,78,216,0.2)",
+              }}
+            >
+              <div
+                className="flex items-center gap-2 mb-3 pb-2"
+                style={{ borderBottom: "1px solid rgba(29,78,216,0.2)" }}
+              >
+                <Cpu className="w-3.5 h-3.5" style={{ color: "#1D4ED8" }} />
+                <span className="text-xs font-mono-tech" style={{ color: "#60A5FA", letterSpacing: "0.1em" }}>
+                  ASSISTENTE DE REPOSIÇÃO v2.0
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+                <Select value={selectedMarca} onValueChange={setSelectedMarca}>
+                  <SelectTrigger
+                    className="h-10 text-sm font-mono-tech"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(29,78,216,0.3)",
+                      color: "#9CA3AF",
+                      borderRadius: "2px",
+                    }}
+                  >
+                    <SelectValue placeholder="[ MARCA ]" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Todas as marcas</SelectItem>
+                    {marcas.map((m) => <SelectItem key={m.id} value={m.nome}>{m.nome}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+
+                <Select value={selectedCategoria} onValueChange={setSelectedCategoria}>
+                  <SelectTrigger
+                    className="h-10 text-sm font-mono-tech"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(29,78,216,0.3)",
+                      color: "#9CA3AF",
+                      borderRadius: "2px",
+                    }}
+                  >
+                    <SelectValue placeholder="[ CATEGORIA ]" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Todas as categorias</SelectItem>
+                    {categorias.map((c) => <SelectItem key={c.id} value={c.nome}>{c.nome}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#1D4ED8" }} />
+                  <input
+                    placeholder="SKU ou nome da peça..."
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                    className="w-full h-10 pl-9 pr-3 text-sm font-mono-tech focus:outline-none"
+                    style={{
+                      background: "rgba(255,255,255,0.04)",
+                      border: "1px solid rgba(29,78,216,0.3)",
+                      borderRadius: "2px",
+                      color: "#E5E7EB",
+                    }}
+                  />
+                </div>
+                <button
+                  onClick={handleSearch}
+                  className="mm-btn-tactile flex items-center gap-2 px-5 h-10 font-semibold text-sm font-mono-tech"
+                  style={{
+                    background: "linear-gradient(135deg, #FB923C, #EA7C28)",
+                    color: "#fff",
+                    borderRadius: "2px",
+                    boxShadow: "0 4px 16px rgba(251,146,60,0.3)",
+                    border: "none",
+                  }}
+                >
+                  <Search className="w-4 h-4" />
+                  BUSCAR
+                </button>
+              </div>
+            </div>
+
+            <Link to={createPageUrl("Catalogo")}>
+              <button
+                className="mm-btn-tactile flex items-center gap-2 px-6 h-11 font-semibold text-sm"
+                style={{
+                  background: "transparent",
+                  border: "1px solid rgba(251,146,60,0.4)",
+                  color: "#FB923C",
+                  borderRadius: "2px",
+                }}
+              >
+                VER CATÁLOGO COMPLETO <ArrowRight className="w-4 h-4" />
+              </button>
+            </Link>
+          </div>
+
+          {/* Right: Animated Piston */}
+          <div className="hidden md:block relative" style={{ height: 380 }}>
+            <HeroPiston />
           </div>
         </div>
       </section>
 
-      {/* Categories */}
-      <section className="py-14 px-4 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+      {/* ── CATEGORIES ─────────────────────────────────────────── */}
+      <section className="py-16 px-4 max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-10">
           <div>
-            <h2 className="text-2xl font-bold text-[#0a2540]">Categorias de Produtos</h2>
-            <p className="text-gray-500 mt-1">Navegue pelo nosso catálogo completo</p>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-6 h-[2px]" style={{ background: "#FB923C" }} />
+              <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>
+                SEGMENTOS
+              </span>
+            </div>
+            <h2
+              className="text-2xl font-bold"
+              style={{ fontFamily: "'Space Mono', monospace", color: "#E5E7EB" }}
+            >
+              Categorias de Produtos
+            </h2>
           </div>
           <Link to={createPageUrl("Catalogo")}>
-            <Button variant="outline" className="gap-2 border-[#0a2540] text-[#0a2540] hidden md:flex">
-              Ver todo o catálogo <ArrowRight className="w-4 h-4" />
-            </Button>
+            <button
+              className="hidden md:flex items-center gap-2 px-4 h-9 text-sm font-mono-tech mm-btn-tactile"
+              style={{
+                background: "transparent",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: "#6B7280",
+                borderRadius: "2px",
+              }}
+            >
+              Todo o catálogo <ChevronRight className="w-3.5 h-3.5" />
+            </button>
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {categorias.map((cat) => {
-            const Icon = categoryIcons[cat.nome] || Settings;
-            return (
-              <Link
-                key={cat.id}
-                to={createPageUrl("Catalogo") + "?categoria=" + encodeURIComponent(cat.nome)}
-                className="group bg-white rounded-xl border border-gray-200 p-4 text-center hover:border-[#0a2540] hover:shadow-md transition-all duration-200"
-              >
-                <div className="w-12 h-12 bg-blue-50 group-hover:bg-[#0a2540] rounded-xl flex items-center justify-center mx-auto mb-3 transition-colors">
-                  <Icon className="w-6 h-6 text-[#0a2540] group-hover:text-white transition-colors" />
-                </div>
-                <p className="text-sm font-medium text-gray-700 group-hover:text-[#0a2540] leading-tight">{cat.nome}</p>
-              </Link>
-            );
-          })}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          {categorias.map((cat) => (
+            <CategoryCard key={cat.id} categoria={cat} />
+          ))}
         </div>
       </section>
 
-      {/* B2B CTA */}
-      <section className="py-14 bg-[#0a2540] px-4">
-        <div className="max-w-3xl mx-auto text-center text-white">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Seja um Revendedor Oficial</h2>
-          <p className="text-gray-300 mb-8 text-lg">
-            Acesso exclusivo a preços de atacado, catálogo completo e sistema de orçamento B2B.
+      {/* ── FEATURES BAR ────────────────────────────────────────── */}
+      <section
+        className="py-14 px-4"
+        style={{
+          background: "linear-gradient(145deg, #27272C, #1F1F23)",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { Icon: Shield, title: "QUALIDADE CERTIFICADA", desc: "Peças white-label com qualidade testada e garantia de compatibilidade para cada aplicação.", color: "#1D4ED8" },
+            { Icon: Truck, title: "LOGÍSTICA NACIONAL", desc: "Distribuição para todo o Brasil com rastreamento em tempo real e prazos garantidos.", color: "#FB923C" },
+            { Icon: Cpu, title: "SUPORTE TÉCNICO", desc: "Nossa equipa especializada identifica a peça exata para cada motor, gerador ou motobomba.", color: "#4ADE80" },
+          ].map((f) => (
+            <div
+              key={f.title}
+              className="p-5 relative"
+              style={{
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                borderRadius: "4px",
+              }}
+            >
+              <div
+                className="w-10 h-10 flex items-center justify-center mb-4"
+                style={{
+                  background: `${f.color}15`,
+                  border: `1px solid ${f.color}40`,
+                  borderRadius: "2px",
+                }}
+              >
+                <f.Icon className="w-5 h-5" style={{ color: f.color }} />
+              </div>
+              <h3 className="font-bold text-sm mb-2 font-mono-tech" style={{ color: "#E5E7EB" }}>{f.title}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: "#6B7280" }}>{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── B2B CTA ─────────────────────────────────────────────── */}
+      <section
+        className="py-16 px-4 relative overflow-hidden"
+        style={{
+          background: "linear-gradient(145deg, #0F0F11, #1A1A1F)",
+        }}
+      >
+        <div
+          className="absolute inset-0 pointer-events-none opacity-30"
+          style={{
+            backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(29,78,216,0.03) 20px, rgba(29,78,216,0.03) 21px)",
+          }}
+        />
+        <div className="relative max-w-2xl mx-auto text-center" style={{ zIndex: 2 }}>
+          <h2
+            className="text-2xl md:text-3xl font-bold mb-4"
+            style={{ fontFamily: "'Space Mono', monospace", color: "#E5E7EB" }}
+          >
+            SEJA UM REVENDEDOR OFICIAL
+          </h2>
+          <p className="mb-8 text-base" style={{ color: "#6B7280" }}>
+            Acesso exclusivo a preços de atacado, catálogo técnico completo e sistema B2B de orçamento.
           </p>
           <Link to={createPageUrl("MinhaConta")}>
-            <Button className="bg-[#e8b84b] hover:bg-yellow-400 text-white font-semibold px-8 h-12 text-base gap-2">
-              Quero ser Revendedor <ChevronRight className="w-4 h-4" />
-            </Button>
+            <button
+              className="mm-btn-tactile mm-glow-orange inline-flex items-center gap-2 px-8 h-12 font-bold font-mono-tech text-sm"
+              style={{
+                background: "linear-gradient(135deg, #FB923C, #EA7C28)",
+                color: "#fff",
+                borderRadius: "2px",
+                border: "none",
+              }}
+            >
+              QUERO SER REVENDEDOR <ChevronRight className="w-4 h-4" />
+            </button>
           </Link>
         </div>
       </section>
