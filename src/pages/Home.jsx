@@ -214,44 +214,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CATEGORIES ─────────────────────────────────────────── */}
-      <section className="py-16 px-4 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-10">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-6 h-[2px]" style={{ background: "#FB923C" }} />
-              <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>
-                SEGMENTOS
-              </span>
+      {/* ── LINHAS DE REPOSIÇÃO ─────────────────────────────────── */}
+      <section className="py-16 px-4" style={{ background: "#1A1A1F" }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-10">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-6 h-[2px]" style={{ background: "#FB923C" }} />
+                <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>
+                  SEGMENTOS TÉCNICOS
+                </span>
+              </div>
+              <h2 className="text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>
+                Nossas Linhas de Reposição
+              </h2>
+              <p className="mt-1" style={{ color: "#9CA3AF", fontSize: "16px", fontWeight: 400 }}>
+                Clique em uma linha para ver as peças disponíveis no catálogo.
+              </p>
             </div>
-            <h2
-              className="text-2xl font-bold"
-              style={{ fontFamily: "'Space Mono', monospace", color: "#E5E7EB" }}
-            >
-              Categorias de Produtos
-            </h2>
+            <Link to={createPageUrl("Catalogo")}>
+              <button
+                className="hidden md:flex items-center gap-2 px-4 h-9 text-sm font-mono-tech mm-btn-tactile"
+                style={{
+                  background: "transparent",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "#6B7280",
+                  borderRadius: "2px",
+                }}
+              >
+                Todo o catálogo <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </Link>
           </div>
-          <Link to={createPageUrl("Catalogo")}>
-            <button
-              className="hidden md:flex items-center gap-2 px-4 h-9 text-sm font-mono-tech mm-btn-tactile"
-              style={{
-                background: "transparent",
-                border: "1px solid rgba(255,255,255,0.1)",
-                color: "#6B7280",
-                borderRadius: "2px",
-              }}
-            >
-              Todo o catálogo <ChevronRight className="w-3.5 h-3.5" />
-            </button>
-          </Link>
-        </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          {categorias.map((cat) => (
-            <CategoryCard key={cat.id} categoria={cat} />
-          ))}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {[
+              "Motores a Gasolina",
+              "Motores a Diesel",
+              "Motobombas 4 Tempos",
+              "Geradores 4 Tempos",
+              "Geradores 2 Tempos",
+              "Bombas de Pulverização",
+            ].map((nome) => {
+              const cat = categorias.find(c => c.nome === nome) || { id: nome, nome };
+              return <CategoryCard key={cat.id} categoria={cat} />;
+            })}
+          </div>
         </div>
       </section>
+
+      {/* ── KITS ALTO GIRO ──────────────────────────────────────── */}
+      <KitsCarousel />
+
+      {/* ── COMO SER LOJISTA ────────────────────────────────────── */}
+      <ComoSerLojista />
 
       {/* ── FEATURES BAR ────────────────────────────────────────── */}
       <section
