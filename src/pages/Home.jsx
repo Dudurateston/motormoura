@@ -280,9 +280,9 @@ export default function Home() {
       >
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { Icon: Shield, title: "QUALIDADE CERTIFICADA", desc: "Peças white-label com qualidade testada e garantia de compatibilidade para cada aplicação.", color: "#1D4ED8" },
+            { Icon: Shield, title: "QUALIDADE CERTIFICADA", desc: "Peças com qualidade testada e garantia de compatibilidade para cada aplicação.", color: "#1D4ED8" },
             { Icon: Truck, title: "LOGÍSTICA NACIONAL", desc: "Distribuição para todo o Brasil com rastreamento em tempo real e prazos garantidos.", color: "#FB923C" },
-            { Icon: Cpu, title: "SUPORTE TÉCNICO", desc: "Nossa equipa especializada identifica a peça exata para cada motor, gerador ou motobomba.", color: "#4ADE80" },
+            { Icon: Cpu, title: "SUPORTE TÉCNICO", desc: "Nossa equipe especializada identifica a peça exata para cada motor, gerador ou motobomba.", color: "#4ADE80" },
           ].map((f) => (
             <div
               key={f.title}
