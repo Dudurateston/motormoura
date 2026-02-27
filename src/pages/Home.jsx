@@ -303,8 +303,8 @@ export default function Home() {
               >
                 <f.Icon className="w-5 h-5" style={{ color: f.color }} />
               </div>
-              <h3 className="font-bold text-sm mb-2 font-mono-tech" style={{ color: "#E5E7EB" }}>{f.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: "#6B7280" }}>{f.desc}</p>
+              <h3 className="font-bold text-sm mb-2 font-mono-tech" style={{ color: "#F3F4F6" }}>{f.title}</h3>
+              <p style={{ color: "#9CA3AF", fontSize: "15px", fontWeight: 400, lineHeight: 1.7 }}>{f.desc}</p>
             </div>
           ))}
         </div>
