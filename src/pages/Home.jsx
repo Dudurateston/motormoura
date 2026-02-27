@@ -6,6 +6,8 @@ import { Search, ChevronRight, ArrowRight, Cpu, Shield, Truck } from "lucide-rea
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import HeroPiston from "../components/home/HeroPiston";
 import CategoryCard from "../components/home/CategoryCard";
+import KitsCarousel from "../components/home/KitsCarousel";
+import ComoSerLojista from "../components/home/ComoSerLojista";
 
 export default function Home() {
   const [marcas, setMarcas] = useState([]);
