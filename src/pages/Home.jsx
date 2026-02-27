@@ -94,7 +94,7 @@ export default function Home() {
               </span>
             </h1>
 
-            <p className="mb-8 text-base" style={{ color: "#6B7280", maxWidth: 440, lineHeight: 1.7 }}>
+            <p className="mb-8" style={{ color: "#9CA3AF", maxWidth: 440, lineHeight: 1.7, fontSize: "16px", fontWeight: 400 }}>
               Distribuidora técnica de peças de reposição para motores, geradores e motobombas.
               Catálogo B2B completo, cotação direta via WhatsApp.
             </p>
