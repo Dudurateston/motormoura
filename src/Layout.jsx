@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { ShoppingCart, Menu, X, Zap, Trash2, Plus, Minus, MessageCircle } from "lucide-react";
-import Footer from "./components/layout/Footer";
+import { ShoppingCart, Menu, X, Zap, Trash2, Plus, Minus, MessageCircle, Mail, Instagram, ExternalLink } from "lucide-react";
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
@@ -248,7 +247,55 @@ export default function Layout({ children, currentPageName }) {
       <main>{children}</main>
 
       {/* ── FOOTER ─────────────────────────────────────────────── */}
-      <Footer />
+      <footer
+        style={{
+          background: "#0F0F11",
+          borderTop: "1px solid rgba(255,255,255,0.05)",
+          marginTop: 0,
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <div
+                className="w-7 h-7 flex items-center justify-center"
+                style={{ background: "linear-gradient(135deg, #FB923C, #EA7C28)", clipPath: "polygon(4px 0%, 100% 0%, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0% 100%, 0% 4px)" }}
+              >
+                <Zap className="w-3.5 h-3.5 text-white" />
+              </div>
+              <span className="font-bold font-mono-tech" style={{ color: "#E5E7EB" }}>MotorMoura</span>
+            </div>
+            <p className="text-sm leading-relaxed" style={{ color: "#4B5563" }}>
+              Distribuidora técnica de peças de reposição para motores estacionários, geradores e motobombas.
+            </p>
+          </div>
+          <div>
+            <h4 className="text-xs font-mono-tech mb-3" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>SEGMENTOS</h4>
+            <ul className="space-y-1.5 text-sm" style={{ color: "#4B5563" }}>
+              <li>Motores a Gasolina</li>
+              <li>Motores a Diesel</li>
+              <li>Geradores 4 Tempos</li>
+              <li>Motobombas 4 Tempos</li>
+              <li>Bombas de Pulverização</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-xs font-mono-tech mb-3" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>ACESSO B2B</h4>
+            <p className="text-sm" style={{ color: "#4B5563" }}>
+              Plataforma exclusiva para lojistas e revendedores homologados.
+            </p>
+            <p className="text-sm mt-2" style={{ color: "#4B5563" }}>
+              Registe-se e aguarde aprovação para aceder a preços de atacado.
+            </p>
+          </div>
+        </div>
+        <div
+          className="text-center py-4 text-xs font-mono-tech"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.04)", color: "#374151" }}
+        >
+          © 2026 MOTORMOURA — TODOS OS DIREITOS RESERVADOS
+        </div>
+      </footer>
 
       {/* ── CART SIDE PANEL ────────────────────────────────────── */}
       {/* Overlay */}
