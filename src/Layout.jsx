@@ -99,7 +99,7 @@ export default function Layout({ children, currentPageName }) {
               <div
                 className="w-8 h-8 flex items-center justify-center"
                 style={{
-                  background: "linear-gradient(135deg, #FB923C, #EA7C28)",
+                  background: "linear-gradient(135deg, #E53935, #C62828)",
                   clipPath: "polygon(4px 0%, 100% 0%, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0% 100%, 0% 4px)",
                 }}
               >
@@ -114,7 +114,7 @@ export default function Layout({ children, currentPageName }) {
                 </span>
                 <span
                   className="font-bold text-lg leading-none tracking-tight"
-                  style={{ fontFamily: "'Space Mono', monospace", color: "#FB923C" }}
+                  style={{ fontFamily: "'Space Mono', monospace", color: "#E53935" }}
                 >
                   Moura
                 </span>
@@ -129,7 +129,7 @@ export default function Layout({ children, currentPageName }) {
                   to={createPageUrl(link.page)}
                   className="text-xs font-mono-tech transition-colors relative"
                   style={{
-                    color: currentPageName === link.page ? "#FB923C" : "#6B7280",
+                    color: currentPageName === link.page ? "#E53935" : "#6B7280",
                     letterSpacing: "0.1em",
                   }}
                 >
@@ -137,7 +137,7 @@ export default function Layout({ children, currentPageName }) {
                   {currentPageName === link.page && (
                     <span
                       className="absolute -bottom-1 left-0 right-0 h-[1px]"
-                      style={{ background: "#FB923C" }}
+                      style={{ background: "#E53935" }}
                     />
                   )}
                 </Link>
@@ -154,7 +154,7 @@ export default function Layout({ children, currentPageName }) {
                   background: totalItems > 0 ? "rgba(251,146,60,0.1)" : "rgba(255,255,255,0.04)",
                   border: totalItems > 0 ? "1px solid rgba(251,146,60,0.3)" : "1px solid rgba(255,255,255,0.08)",
                   borderRadius: "2px",
-                  color: totalItems > 0 ? "#FB923C" : "#6B7280",
+                  color: totalItems > 0 ? "#E53935" : "#6B7280",
                 }}
               >
                 <ShoppingCart className="w-4 h-4" />
@@ -187,7 +187,7 @@ export default function Layout({ children, currentPageName }) {
                   onClick={() => base44.auth.redirectToLogin()}
                   className="hidden md:flex mm-btn-tactile px-4 h-9 text-xs font-mono-tech font-bold items-center"
                   style={{
-                    background: "linear-gradient(135deg, #FB923C, #EA7C28)",
+                    background: "linear-gradient(135deg, #E53935, #C62828)",
                     color: "#fff",
                     borderRadius: "2px",
                     border: "none",
@@ -220,7 +220,7 @@ export default function Layout({ children, currentPageName }) {
                 key={link.page}
                 to={createPageUrl(link.page)}
                 className="block py-2 text-xs font-mono-tech"
-                style={{ color: currentPageName === link.page ? "#FB923C" : "#6B7280", letterSpacing: "0.1em" }}
+                style={{ color: currentPageName === link.page ? "#E53935" : "#6B7280", letterSpacing: "0.1em" }}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
@@ -231,7 +231,7 @@ export default function Layout({ children, currentPageName }) {
                 onClick={() => base44.auth.redirectToLogin()}
                 className="w-full h-9 mt-2 text-xs font-mono-tech font-bold mm-btn-tactile"
                 style={{
-                  background: "linear-gradient(135deg, #FB923C, #EA7C28)",
+                  background: "linear-gradient(135deg, #E53935, #C62828)",
                   color: "#fff",
                   borderRadius: "2px",
                   border: "none",
@@ -249,21 +249,21 @@ export default function Layout({ children, currentPageName }) {
 
       {/* ── FOOTER ─────────────────────────────────────────────── */}
       <footer style={{ background: "#0A0A0C", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-        <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #FB923C, #1D4ED8)" }} />
+        <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
         <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
           {/* Col 1: Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
               <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{
-                background: "linear-gradient(135deg, #FB923C, #EA7C28)",
+                background: "linear-gradient(135deg, #E53935, #C62828)",
                 clipPath: "polygon(4px 0%, 100% 0%, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0% 100%, 0% 4px)",
               }}>
                 <Zap className="w-4 h-4 text-white" />
               </div>
               <div>
                 <span className="font-bold text-base font-mono-tech" style={{ color: "#F3F4F6" }}>Motor</span>
-                <span className="font-bold text-base font-mono-tech" style={{ color: "#FB923C" }}>Moura</span>
+                <span className="font-bold text-base font-mono-tech" style={{ color: "#E53935" }}>Moura</span>
               </div>
             </div>
             <p style={{ color: "#6B7280", fontSize: "15px", lineHeight: 1.7, marginBottom: "12px" }}>
@@ -275,7 +275,7 @@ export default function Layout({ children, currentPageName }) {
 
           {/* Col 2: Institucional */}
           <div>
-            <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>INSTITUCIONAL</h4>
+            <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>INSTITUCIONAL</h4>
             <ul className="space-y-2.5">
               {[
                 { label: "Sobre a Importadora", page: "MinhaConta" },
@@ -284,7 +284,7 @@ export default function Layout({ children, currentPageName }) {
                 { label: "Minha Conta", page: "MinhaConta" },
               ].map(link => (
                 <li key={link.label}>
-                  <Link to={createPageUrl(link.page)} className="transition-colors hover:text-[#FB923C]" style={{ color: "#6B7280", fontSize: "15px" }}>
+                  <Link to={createPageUrl(link.page)} className="transition-colors hover:text-[#E53935]" style={{ color: "#6B7280", fontSize: "15px" }}>
                     {link.label}
                   </Link>
                 </li>
@@ -294,11 +294,11 @@ export default function Layout({ children, currentPageName }) {
 
           {/* Col 3: Catálogo Rápido */}
           <div>
-            <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>CATÁLOGO RÁPIDO</h4>
+            <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>CATÁLOGO RÁPIDO</h4>
             <ul className="space-y-2.5">
               {["Motores a Gasolina","Motores a Diesel","Motobombas 4 Tempos","Geradores 4 Tempos","Geradores 2 Tempos","Bombas de Pulverização"].map(cat => (
                 <li key={cat}>
-                  <Link to={createPageUrl("Catalogo") + "?categoria=" + encodeURIComponent(cat)} className="transition-colors hover:text-[#FB923C]" style={{ color: "#6B7280", fontSize: "15px" }}>
+                  <Link to={createPageUrl("Catalogo") + "?categoria=" + encodeURIComponent(cat)} className="transition-colors hover:text-[#E53935]" style={{ color: "#6B7280", fontSize: "15px" }}>
                     {cat}
                   </Link>
                 </li>
@@ -308,7 +308,7 @@ export default function Layout({ children, currentPageName }) {
 
           {/* Col 4: Atendimento */}
           <div>
-            <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>ATENDIMENTO B2B</h4>
+            <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>ATENDIMENTO B2B</h4>
             <div className="space-y-4">
               <a href="https://api.whatsapp.com/send?phone=5511999999999&text=Olá,%20MotorMoura!" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
                 <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(22,163,74,0.15)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: "2px" }}>
@@ -330,11 +330,11 @@ export default function Layout({ children, currentPageName }) {
               </a>
               <a href="https://www.instagram.com/motormouraequipamentos" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
                 <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(251,146,60,0.1)", border: "1px solid rgba(251,146,60,0.25)", borderRadius: "2px" }}>
-                  <Instagram className="w-4 h-4" style={{ color: "#FB923C" }} />
+                  <Instagram className="w-4 h-4" style={{ color: "#E53935" }} />
                 </div>
                 <div>
                   <p className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>INSTAGRAM OFICIAL</p>
-                  <p className="group-hover:text-[#FB923C] transition-colors flex items-center gap-1" style={{ color: "#9CA3AF", fontSize: "14px" }}>
+                  <p className="group-hover:text-[#E53935] transition-colors flex items-center gap-1" style={{ color: "#9CA3AF", fontSize: "14px" }}>
                     @motormouraequipamentos <ExternalLink className="w-3 h-3" />
                   </p>
                 </div>
@@ -382,7 +382,7 @@ export default function Layout({ children, currentPageName }) {
           style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
         >
           <div className="flex items-center gap-2">
-            <ShoppingCart className="w-4 h-4" style={{ color: "#FB923C" }} />
+            <ShoppingCart className="w-4 h-4" style={{ color: "#E53935" }} />
             <span className="text-sm font-bold font-mono-tech" style={{ color: "#E5E7EB" }}>
               LISTA DE COTAÇÃO
             </span>
@@ -392,7 +392,7 @@ export default function Layout({ children, currentPageName }) {
                 style={{
                   background: "rgba(251,146,60,0.15)",
                   border: "1px solid rgba(251,146,60,0.3)",
-                  color: "#FB923C",
+                  color: "#E53935",
                   borderRadius: "2px",
                 }}
               >
@@ -410,7 +410,7 @@ export default function Layout({ children, currentPageName }) {
         </div>
 
         {/* Panel top accent */}
-        <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #FB923C, #1D4ED8)" }} />
+        <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
 
         {/* Cart items */}
         <div className="flex-1 overflow-y-auto py-4 px-5">
@@ -496,7 +496,7 @@ export default function Layout({ children, currentPageName }) {
               }}
             >
               <span className="text-xs font-mono-tech" style={{ color: "#6B7280" }}>TOTAL</span>
-              <span className="text-sm font-bold font-mono-tech" style={{ color: "#FB923C" }}>
+              <span className="text-sm font-bold font-mono-tech" style={{ color: "#E53935" }}>
                 {cart.reduce((s, i) => s + i.quantidade, 0)} unid. · {cart.length} ref.
               </span>
             </div>

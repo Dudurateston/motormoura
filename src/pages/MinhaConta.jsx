@@ -36,10 +36,10 @@ const statusConfig = {
 };
 
 const BENEFICIOS = [
-  { icon: Package, title: "Catálogo Técnico Completo", desc: "+1.000 SKUs disponíveis", color: "#FB923C" },
+  { icon: Package, title: "Catálogo Técnico Completo", desc: "+1.000 SKUs disponíveis", color: "#E53935" },
   { icon: Star, title: "Preços de Atacado", desc: "Tabela exclusiva para lojistas", color: "#1D4ED8" },
   { icon: MessageCircle, title: "WhatsApp B2B Direto", desc: "Atendimento prioritário", color: "#4ADE80" },
-  { icon: Zap, title: "Cotação Rápida", desc: "Resposta em até 24h úteis", color: "#FB923C" },
+  { icon: Zap, title: "Cotação Rápida", desc: "Resposta em até 24h úteis", color: "#E53935" },
 ];
 
 function StyledInput({ label, value, onChange, placeholder, disabled }) {
@@ -125,14 +125,14 @@ export default function MinhaConta() {
           <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center" style={{
             background: "rgba(251,146,60,0.1)", border: "1px solid rgba(251,146,60,0.3)", borderRadius: "4px"
           }}>
-            <User className="w-8 h-8" style={{ color: "#FB923C" }} />
+            <User className="w-8 h-8" style={{ color: "#E53935" }} />
           </div>
           <h2 className="text-xl font-bold font-mono-tech mb-2" style={{ color: "#F3F4F6" }}>Acesso Restrito</h2>
           <p className="mb-6 text-sm" style={{ color: "#6B7280" }}>Faça login para aceder à sua conta de lojista.</p>
           <button
             onClick={() => base44.auth.redirectToLogin()}
             className="mm-btn-tactile mm-glow-orange w-full h-11 font-bold font-mono-tech text-sm"
-            style={{ background: "linear-gradient(135deg, #FB923C, #EA7C28)", color: "#fff", borderRadius: "2px", border: "none" }}
+            style={{ background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none" }}
           >
             ENTRAR / REGISTAR
           </button>
@@ -166,8 +166,8 @@ export default function MinhaConta() {
         {/* Page header */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-1">
-            <div className="w-4 h-[2px]" style={{ background: "#FB923C" }} />
-            <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>ÁREA DO LOJISTA</span>
+            <div className="w-4 h-[2px]" style={{ background: "#E53935" }} />
+            <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>ÁREA DO LOJISTA</span>
           </div>
           <h1 className="text-xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>Minha Conta</h1>
         </div>
@@ -181,10 +181,10 @@ export default function MinhaConta() {
             <div className="p-5 relative overflow-hidden" style={{
               background: "rgba(27,27,31,0.95)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "4px"
             }}>
-              <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #FB923C, #1D4ED8)" }} />
+              <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #E53935, #1D4ED8)" }} />
               <div className="flex flex-col items-center text-center">
                 <div className="w-16 h-16 flex items-center justify-center font-bold text-xl font-mono-tech mb-3" style={{
-                  background: "linear-gradient(135deg, #FB923C, #EA7C28)", borderRadius: "4px", color: "#fff"
+                  background: "linear-gradient(135deg, #E53935, #C62828)", borderRadius: "4px", color: "#fff"
                 }}>
                   {initials}
                 </div>
@@ -213,7 +213,7 @@ export default function MinhaConta() {
               <div className="space-y-1">
                 <Link to={createPageUrl("Catalogo")} className="flex items-center justify-between px-3 py-2 transition-colors hover:bg-white/5" style={{ borderRadius: "2px" }}>
                   <div className="flex items-center gap-2">
-                    <Package className="w-3.5 h-3.5" style={{ color: "#FB923C" }} />
+                    <Package className="w-3.5 h-3.5" style={{ color: "#E53935" }} />
                     <span className="text-xs font-mono-tech" style={{ color: "#9CA3AF" }}>Catálogo de Peças</span>
                   </div>
                   <ChevronRight className="w-3 h-3" style={{ color: "#374151" }} />
@@ -226,7 +226,7 @@ export default function MinhaConta() {
                   <div className="flex items-center gap-1.5">
                     {cartCount > 0 && (
                       <span className="text-xs font-mono-tech px-1.5 py-0.5" style={{
-                        background: "rgba(251,146,60,0.15)", border: "1px solid rgba(251,146,60,0.3)", color: "#FB923C", borderRadius: "2px"
+                        background: "rgba(251,146,60,0.15)", border: "1px solid rgba(251,146,60,0.3)", color: "#E53935", borderRadius: "2px"
                       }}>{cartCount}</span>
                     )}
                     <ChevronRight className="w-3 h-3" style={{ color: "#374151" }} />
@@ -275,7 +275,7 @@ export default function MinhaConta() {
             }}>
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4" style={{ color: "#FB923C" }} />
+                  <Building2 className="w-4 h-4" style={{ color: "#E53935" }} />
                   <span className="font-bold text-sm font-mono-tech" style={{ color: "#F3F4F6" }}>DADOS DA EMPRESA</span>
                 </div>
                 {lojista && !editMode && (
@@ -305,7 +305,7 @@ export default function MinhaConta() {
                     onClick={handleSave}
                     disabled={saving || !form.nome_loja}
                     className="mm-btn-tactile flex items-center gap-2 px-5 h-9 text-xs font-mono-tech font-bold disabled:opacity-50"
-                    style={{ background: "linear-gradient(135deg, #FB923C, #EA7C28)", color: "#fff", borderRadius: "2px", border: "none" }}
+                    style={{ background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none" }}
                   >
                     <Save className="w-3.5 h-3.5" />
                     {saving ? "SALVANDO..." : saved ? "✓ SALVO!" : lojista ? "SALVAR ALTERAÇÕES" : "REGISTAR COMO LOJISTA"}
@@ -324,7 +324,7 @@ export default function MinhaConta() {
             <div className="p-5" style={{
               background: "rgba(27,27,31,0.95)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "4px"
             }}>
-              <p className="text-xs font-mono-tech mb-4" style={{ color: "#FB923C", letterSpacing: "0.12em" }}>BENEFÍCIOS DO PROGRAMA B2B</p>
+              <p className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.12em" }}>BENEFÍCIOS DO PROGRAMA B2B</p>
               <div className="grid grid-cols-2 gap-3">
                 {BENEFICIOS.map((b) => (
                   <div key={b.title} className="flex items-start gap-2.5 p-3" style={{
@@ -351,7 +351,7 @@ export default function MinhaConta() {
                 </div>
                 <Link to={createPageUrl("Catalogo")}>
                   <button className="mm-btn-tactile flex items-center gap-2 px-4 h-9 text-xs font-mono-tech font-bold flex-shrink-0" style={{
-                    background: "linear-gradient(135deg, #FB923C, #EA7C28)", color: "#fff", borderRadius: "2px", border: "none"
+                    background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none"
                   }}>
                     IR AO CATÁLOGO <ArrowRight className="w-3.5 h-3.5" />
                   </button>

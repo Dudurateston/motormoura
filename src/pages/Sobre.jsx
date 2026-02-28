@@ -17,10 +17,10 @@ const TIMELINE = [
 
 
 const DIFERENCIAIS = [
-{ icon: Package, title: "Portfólio Multimarcas", desc: "Mais de 1.000 itens catalogados para Honda, Toyama, Tekna, Branco, Buffalo e Husqvarna.", color: "#FB923C" },
+{ icon: Package, title: "Portfólio Multimarcas", desc: "Mais de 1.000 itens catalogados para Honda, Toyama, Tekna, Branco, Buffalo e Husqvarna.", color: "#E53935" },
 { icon: Award, title: "Qualidade Certificada", desc: "Peças importadas com especificações técnicas rigorosas, alta durabilidade e performance comprovada.", color: "#1D4ED8" },
 { icon: Truck, title: "Logística de Escala", desc: "Estruturados para operações B2B de grande volume. Sua loja nunca fica sem estoque.", color: "#4ADE80" },
-{ icon: Wrench, title: "Suporte Técnico", desc: "Equipe especializada identifica a peça exata para qualquer modelo de motor, gerador ou motobomba.", color: "#FB923C" },
+{ icon: Wrench, title: "Suporte Técnico", desc: "Equipe especializada identifica a peça exata para qualquer modelo de motor, gerador ou motobomba.", color: "#E53935" },
 { icon: Layers, title: "Catálogo Digital", desc: "Plataforma com busca por SKU, filtros avançados e cotação direta via WhatsApp B2B.", color: "#1D4ED8" },
 { icon: Globe, title: "Importação Direta", desc: "Relação direta com fabricantes internacionais, garantindo preço competitivo e disponibilidade real.", color: "#4ADE80" }];
 
@@ -66,7 +66,7 @@ export default function Sobre() {
           <div className="flex flex-wrap gap-3">
             <Link to={createPageUrl("Catalogo")}>
               <button className="mm-btn-tactile flex items-center gap-2 px-5 h-10 text-xs font-mono-tech font-bold" style={{
-                background: "linear-gradient(135deg, #FB923C, #EA7C28)", color: "#fff", borderRadius: "2px", border: "none"
+                background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none"
               }}>
                 VER CATÁLOGO COMPLETO <ArrowRight className="w-4 h-4" />
               </button>
@@ -86,10 +86,10 @@ export default function Sobre() {
       <section style={{ background: "#17171A", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="max-w-5xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-          { valor: "+1.000", label: "PEÇAS EM CATÁLOGO", color: "#FB923C" },
+          { valor: "+1.000", label: "PEÇAS EM CATÁLOGO", color: "#E53935" },
           { valor: "6+", label: "MARCAS COMPATÍVEIS", color: "#1D4ED8" },
           { valor: "14+", label: "ANOS DE MERCADO", color: "#4ADE80" },
-          { valor: "BR", label: "ENVIO NACIONAL", color: "#FB923C" }].
+          { valor: "BR", label: "ENVIO NACIONAL", color: "#E53935" }].
           map((n) =>
           <div key={n.label} className="text-center p-5 relative overflow-hidden" style={{
             background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "4px"
@@ -114,11 +114,11 @@ export default function Sobre() {
               style={{ minHeight: 380 }} />
 
             <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(10,10,12,0.3) 0%, transparent 60%)" }} />
-            <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2" style={{ borderColor: "#FB923C" }} />
-            <div className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2" style={{ borderColor: "#FB923C" }} />
+            <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2" style={{ borderColor: "#E53935" }} />
+            <div className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2" style={{ borderColor: "#E53935" }} />
             {/* Badge sobre a imagem */}
             <div className="absolute bottom-4 left-4 px-3 py-1.5 text-xs font-mono-tech" style={{
-              background: "rgba(10,10,12,0.92)", border: "1px solid rgba(251,146,60,0.4)", color: "#FB923C", borderRadius: "2px"
+              background: "rgba(10,10,12,0.92)", border: "1px solid rgba(251,146,60,0.4)", color: "#E53935", borderRadius: "2px"
             }}>
               SÃO PAULO · BRASIL
             </div>
@@ -127,8 +127,8 @@ export default function Sobre() {
           {/* Copy */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-5 h-[2px]" style={{ background: "#FB923C" }} />
-              <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>NOSSA HISTÓRIA</span>
+              <div className="w-5 h-[2px]" style={{ background: "#E53935" }} />
+              <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>NOSSA HISTÓRIA</span>
             </div>
             <h2 className="text-3xl font-bold font-mono-tech mb-5" style={{ color: "#F3F4F6", lineHeight: 1.3 }}>
               Nascemos para que o trabalho não pare.
@@ -138,17 +138,17 @@ export default function Sobre() {
                 A <strong style={{ color: "#F3F4F6" }}>MotorMoura Equipamentos e Acessórios</strong> nasceu da necessidade de entregar precisão técnica e disponibilidade imediata para o mercado de força e energia no Brasil. Como distribuidora importadora especializada, conectamos a alta tecnologia de fabricação global ao balcão dos melhores lojistas e oficinas do país.
               </p>
               <p>
-                Nossa expertise reside na <strong style={{ color: "#FB923C" }}>curadoria rigorosa de componentes</strong> para motores estacionários, geradores e motobombas, assegurando que cada item atenda aos mais altos padrões de durabilidade e performance.
+                Nossa expertise reside na <strong style={{ color: "#E53935" }}>curadoria rigorosa de componentes</strong> para motores estacionários, geradores e motobombas, assegurando que cada item atenda aos mais altos padrões de durabilidade e performance.
               </p>
             </div>
 
             {/* Pilares rápidos */}
             <div className="grid grid-cols-2 gap-3 mt-6">
               {[
-              { Icon: MapPin, label: "São Paulo, Brasil", color: "#FB923C" },
+              { Icon: MapPin, label: "São Paulo, Brasil", color: "#E53935" },
               { Icon: Users, label: "Equipe Especializada", color: "#1D4ED8" },
               { Icon: Clock, label: "+14 Anos de Mercado", color: "#4ADE80" },
-              { Icon: Star, label: "Referência em B2B", color: "#FB923C" }].
+              { Icon: Star, label: "Referência em B2B", color: "#E53935" }].
               map((p) =>
               <div key={p.label} className="flex items-center gap-2 px-3 py-2" style={{
                 background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "2px"
@@ -192,7 +192,7 @@ export default function Sobre() {
                   {/* Nó */}
                   <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center font-bold font-mono-tech text-xs z-10" style={{
                   background: "linear-gradient(135deg, rgba(29,78,216,0.2), rgba(251,146,60,0.15))",
-                  border: "1px solid rgba(251,146,60,0.4)", borderRadius: "2px", color: "#FB923C"
+                  border: "1px solid rgba(251,146,60,0.4)", borderRadius: "2px", color: "#E53935"
                 }}>
                     {item.ano}
                   </div>
@@ -221,8 +221,8 @@ export default function Sobre() {
             </h3>
           </div>
         </div>
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #FB923C, #1D4ED8)" }} />
-        <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #FB923C, #1D4ED8)" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
       </section>
 
       {/* ── DIFERENCIAIS GRID ── */}
@@ -230,9 +230,9 @@ export default function Sobre() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <div className="w-5 h-[2px]" style={{ background: "#FB923C" }} />
-              <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>DIFERENCIAIS COMPETITIVOS</span>
-              <div className="w-5 h-[2px]" style={{ background: "#FB923C" }} />
+              <div className="w-5 h-[2px]" style={{ background: "#E53935" }} />
+              <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>DIFERENCIAIS COMPETITIVOS</span>
+              <div className="w-5 h-[2px]" style={{ background: "#E53935" }} />
             </div>
             <h2 className="text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>
               O Elo Mais Forte da Sua Cadeia de Suprimentos.
@@ -342,11 +342,11 @@ export default function Sobre() {
             Movendo o Progresso do Brasil.
           </h2>
           <p style={{ color: "#9CA3AF", fontSize: "17px", lineHeight: 1.85, maxWidth: 680, margin: "0 auto 40px" }}>
-            Nosso objetivo é ser a <strong style={{ color: "#F3F4F6" }}>primeira escolha de todo revendedor e mecânico</strong> que busca confiança. Queremos eliminar a complexidade na busca por peças de reposição, sendo <strong style={{ color: "#FB923C" }}>o motor que impulsiona o crescimento do seu negócio</strong>.
+            Nosso objetivo é ser a <strong style={{ color: "#F3F4F6" }}>primeira escolha de todo revendedor e mecânico</strong> que busca confiança. Queremos eliminar a complexidade na busca por peças de reposição, sendo <strong style={{ color: "#E53935" }}>o motor que impulsiona o crescimento do seu negócio</strong>.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-            { icon: Target, title: "1ª Escolha", desc: "De todo revendedor que busca confiança e precisão técnica.", color: "#FB923C" },
+            { icon: Target, title: "1ª Escolha", desc: "De todo revendedor que busca confiança e precisão técnica.", color: "#E53935" },
             { icon: Cpu, title: "Tecnologia Ágil", desc: "Plataforma onde a informação é clara e o pedido é rápido.", color: "#1D4ED8" },
             { icon: Zap, title: "Parceria Real", desc: "Muito mais que fornecedor — motor do seu crescimento.", color: "#4ADE80" }].
             map((item) =>
@@ -368,7 +368,7 @@ export default function Sobre() {
 
       {/* ── CTA DUPLO ── */}
       <section className="py-16 px-4 relative overflow-hidden" style={{ background: "linear-gradient(145deg, #27272C, #1F1F23)" }}>
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #FB923C, #1D4ED8)" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* CTA Catálogo */}
           <div className="p-8 relative overflow-hidden" style={{
@@ -392,15 +392,15 @@ export default function Sobre() {
           <div className="p-8 relative overflow-hidden" style={{
             background: "rgba(251,146,60,0.06)", border: "1px solid rgba(251,146,60,0.25)", borderRadius: "4px"
           }}>
-            <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #FB923C, transparent)" }} />
-            <Award className="w-8 h-8 mb-4" style={{ color: "#FB923C" }} />
+            <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #E53935, transparent)" }} />
+            <Award className="w-8 h-8 mb-4" style={{ color: "#E53935" }} />
             <h3 className="font-bold font-mono-tech text-lg mb-2" style={{ color: "#F3F4F6" }}>Seja um Revendedor</h3>
             <p className="text-sm mb-5" style={{ color: "#6B7280", lineHeight: 1.6 }}>
               Acesse preços de atacado exclusivos e faça parte da rede de lojistas homologados MotorMoura.
             </p>
             <Link to={createPageUrl("MinhaConta")}>
               <button className="mm-btn-tactile mm-glow-orange flex items-center gap-2 px-5 h-9 text-xs font-mono-tech font-bold" style={{
-                background: "linear-gradient(135deg, #FB923C, #EA7C28)", color: "#fff", borderRadius: "2px", border: "none"
+                background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none"
               }}>
                 QUERO SER REVENDEDOR <ChevronRight className="w-4 h-4" />
               </button>
