@@ -82,12 +82,14 @@ export default function ProdutoCard({ produto, onAddToCart }) {
         </div>
 
         {/* Name */}
-        <h3
-          className="font-semibold text-sm leading-snug mb-2 flex-1"
-          style={{ color: "#E5E7EB", fontFamily: "'Space Grotesk', sans-serif" }}
-        >
-          {produto.nome_peca}
-        </h3>
+        <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`} className="group">
+          <h3
+            className="font-semibold text-sm leading-snug mb-2 flex-1 group-hover:text-orange-400 transition-colors"
+            style={{ color: "#E5E7EB", fontFamily: "'Space Grotesk', sans-serif" }}
+          >
+            {produto.nome_peca}
+          </h3>
+        </Link>
 
         {/* SKU badge — pulses on hover */}
         <div className="mb-3">
