@@ -158,12 +158,22 @@ export default function Catalogo() {
       <div className="max-w-[1440px] mx-auto px-4 py-6 md:py-8">
 
         {/* Page header */}
-        <div className="mb-5">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-4 h-[2px]" style={{ background: "#FB923C" }} />
-            <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>CATÁLOGO TÉCNICO B2B</span>
+        <div className="mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-4 h-[2px]" style={{ background: "#FB923C" }} />
+              <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>CATÁLOGO TÉCNICO B2B</span>
+            </div>
+            <h1 className="text-xl md:text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>{pageTitle}</h1>
           </div>
-          <h1 className="text-xl md:text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>{pageTitle}</h1>
+          <a href="https://api.whatsapp.com/send?phone=5511999999999&text=Olá%2C%20preciso%20de%20ajuda%20para%20encontrar%20uma%20peça!" target="_blank" rel="noopener noreferrer">
+            <button className="mm-btn-tactile flex items-center gap-2 px-4 h-9 text-xs font-mono-tech flex-shrink-0" style={{
+              background: "rgba(22,163,74,0.12)", border: "1px solid rgba(22,163,74,0.35)", color: "#4ADE80", borderRadius: "2px"
+            }}>
+              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.533 5.855L0 24l6.335-1.51A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.895 0-3.67-.524-5.195-1.43l-.372-.22-3.763.897.944-3.658-.242-.376A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+              NÃO ACHOU? FALAR COM ESPECIALISTA
+            </button>
+          </a>
         </div>
 
         <div className="flex gap-5 items-start">
