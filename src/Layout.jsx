@@ -72,6 +72,7 @@ export default function Layout({ children, currentPageName }) {
   const navLinks = [
     { label: "INÍCIO", page: "Home" },
     { label: "CATÁLOGO", page: "Catalogo" },
+    { label: "SOBRE", page: "Sobre" },
     { label: "CONTA", page: "MinhaConta" },
   ];
   if (user?.role === "admin") navLinks.push({ label: "ADMIN", page: "Admin" });
