@@ -51,20 +51,28 @@ export default function Home() {
     <div className="mm-bg min-h-screen">
 
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{
-        background: "linear-gradient(145deg, #0A0A0C 0%, #15151A 50%, #0A0A0C 100%)",
-        minHeight: "90vh",
-      }}>
-        {/* Blueprint grid */}
+      <section className="relative overflow-hidden" style={{ minHeight: "88vh" }}>
+        {/* Background image — motor/gerador real */}
+        <img
+          src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600&q=80"
+          alt="Motor industrial de combustão"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: "center 60%" }}
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(105deg, rgba(10,10,12,0.96) 0%, rgba(10,10,12,0.80) 45%, rgba(10,10,12,0.55) 100%)",
+        }} />
+        {/* Blueprint grid overlay */}
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: "linear-gradient(rgba(29,78,216,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(29,78,216,0.8) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }} />
-        {/* Glow */}
+        {/* Orange glow bottom-left */}
         <div className="absolute" style={{
-          right: "8%", top: "50%", transform: "translateY(-50%)",
-          width: 500, height: 500,
-          background: "radial-gradient(ellipse, rgba(29,78,216,0.1) 0%, transparent 70%)",
+          left: "40%", bottom: 0,
+          width: 600, height: 300,
+          background: "radial-gradient(ellipse, rgba(251,146,60,0.07) 0%, transparent 70%)",
           pointerEvents: "none",
         }} />
 
