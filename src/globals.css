@@ -123,9 +123,9 @@
   background-clip: text;
 }
 
-/* Orange CTA gradient */
+/* Red CTA gradient */
 .mm-text-orange {
-  background: linear-gradient(135deg, #FB923C, #F97316, #EA7C28);
+  background: linear-gradient(135deg, #E53935, #EF5350, #C62828);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -174,7 +174,7 @@
 
 /* Glow effect */
 .mm-glow-orange {
-  box-shadow: 0 0 20px rgba(251,146,60,0.3), 0 0 60px rgba(251,146,60,0.1);
+  box-shadow: 0 0 20px rgba(229,57,53,0.3), 0 0 60px rgba(229,57,53,0.1);
 }
 .mm-glow-blue {
   box-shadow: 0 0 20px rgba(29,78,216,0.4), 0 0 60px rgba(29,78,216,0.15);
@@ -194,9 +194,9 @@
   transition: all 0.3s ease;
 }
 .mm-cat-card:hover {
-  background: linear-gradient(135deg, rgba(251,146,60,0.08) 0%, rgba(29,78,216,0.08) 100%);
-  border-color: rgba(251,146,60,0.4);
-  box-shadow: 0 0 30px rgba(251,146,60,0.15), inset 0 0 20px rgba(29,78,216,0.05);
+  background: linear-gradient(135deg, rgba(229,57,53,0.08) 0%, rgba(29,78,216,0.08) 100%);
+  border-color: rgba(229,57,53,0.4);
+  box-shadow: 0 0 30px rgba(229,57,53,0.15), inset 0 0 20px rgba(29,78,216,0.05);
 }
 
 /* Mono font util */
