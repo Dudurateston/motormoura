@@ -155,6 +155,11 @@ export default function ProdutoCard({ produto, onAddToCart }) {
           </span>
         </div>
 
+        {/* Ver detalhes link */}
+        <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`} className="flex items-center gap-1 text-xs font-mono-tech mb-3 hover:text-blue-400 transition-colors" style={{ color: "#374151" }}>
+          <ExternalLink className="w-3 h-3" /> VER DETALHES
+        </Link>
+
         {/* Quantity + Add */}
         <div className="flex items-center gap-2 mt-auto">
           <div
