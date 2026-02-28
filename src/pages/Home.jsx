@@ -251,7 +251,7 @@ export default function Home() {
             </h2>
             <div className="space-y-4" style={{ color: "#9CA3AF", fontSize: "16px", lineHeight: 1.85 }}>
               <p>
-                A <strong style={{ color: "#F3F4F6" }}>MotorMoura</strong> nasceu da necessidade de entregar precisão técnica e disponibilidade imediata para o mercado de força e energia no Brasil. Como importadora especializada, conectamos a alta tecnologia de fabricação global diretamente ao balcão dos melhores lojistas e oficinas do país.
+                A <strong style={{ color: "#F3F4F6" }}>MotorMoura</strong> nasceu em Fortaleza, Ceará, com a missão de entregar precisão técnica e disponibilidade imediata para o mercado de força e energia. Como importadora especializada, conectamos a alta tecnologia de fabricação global diretamente ao balcão dos melhores lojistas e oficinas do Brasil.
               </p>
               <p>
                 Nossa expertise reside na <strong style={{ color: "#E53935" }}>curadoria rigorosa de componentes</strong> para motores estacionários, geradores e motobombas, assegurando que cada item em nosso catálogo atenda aos mais altos padrões de durabilidade e performance.

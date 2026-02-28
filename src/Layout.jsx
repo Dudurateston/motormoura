@@ -270,7 +270,7 @@ export default function Layout({ children, currentPageName }) {
               Distribuidora técnica especializada em peças de reposição para motores, geradores e motobombas.
             </p>
             <p className="text-xs font-mono-tech" style={{ color: "#374151" }}>CNPJ: 12.345.678/0001-99</p>
-            <p className="text-xs font-mono-tech mt-1" style={{ color: "#374151" }}>São Paulo — SP, Brasil</p>
+            <p className="text-xs font-mono-tech mt-1" style={{ color: "#374151" }}>Fortaleza — CE, Brasil</p>
           </div>
 
           {/* Col 2: Institucional */}
