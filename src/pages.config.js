@@ -53,6 +53,7 @@ import Orcamento from './pages/Orcamento';
 import MinhaConta from './pages/MinhaConta';
 import Admin from './pages/Admin';
 import ProdutoDetalhe from './pages/ProdutoDetalhe';
+import Sobre from './pages/Sobre';
 import __Layout from './Layout.jsx';
 
 
@@ -63,6 +64,7 @@ export const PAGES = {
     "MinhaConta": MinhaConta,
     "Admin": Admin,
     "ProdutoDetalhe": ProdutoDetalhe,
+    "Sobre": Sobre,
 }
 
 export const pagesConfig = {
