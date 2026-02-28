@@ -10,10 +10,10 @@ import {
 const MARCAS = ["Honda", "Toyama", "Tekna", "Branco", "Buffalo", "Husqvarna"];
 
 const TIMELINE = [
-{ ano: "2010", title: "Fundação", desc: "Nasce a MotorMoura como distribuidora local no interior de São Paulo, com foco em motores estacionários." },
-{ ano: "2015", title: "Expansão Nacional", desc: "Ampliamos para todo o Brasil e iniciamos a importação direta de componentes da Ásia e Europa." },
-{ ano: "2019", title: "Plataforma B2B", desc: "Lançamos o primeiro catálogo digital para lojistas, revolucionando o processo de cotação e reposição." },
-{ ano: "2024", title: "+1.000 SKUs", desc: "Atingimos a marca de mais de mil peças catalogadas, atendendo 6+ marcas com cobertura técnica completa." }];
+{ ano: "2025", title: "Fundação", desc: "Nasce a MotorMoura em Fortaleza, Ceará, com a missão de ser a distribuidora técnica de referência no mercado de força e energia." },
+{ ano: "2025", title: "Importação Direta", desc: "Firmamos parcerias com fabricantes internacionais da Ásia e Europa para importação direta de componentes técnicos." },
+{ ano: "2025", title: "Plataforma B2B", desc: "Lançamos o catálogo digital para lojistas, com busca por SKU, filtros avançados e cotação via WhatsApp B2B." },
+{ ano: "2025", title: "+1.000 SKUs", desc: "Já nascemos com mais de mil peças catalogadas, cobrindo 6+ marcas com portfólio técnico completo." }];
 
 
 const DIFERENCIAIS = [
@@ -88,8 +88,8 @@ export default function Sobre() {
           {[
           { valor: "+1.000", label: "PEÇAS EM CATÁLOGO", color: "#E53935" },
           { valor: "6+", label: "MARCAS COMPATÍVEIS", color: "#1D4ED8" },
-          { valor: "14+", label: "ANOS DE MERCADO", color: "#4ADE80" },
-          { valor: "BR", label: "ENVIO NACIONAL", color: "#E53935" }].
+          { valor: "100%", label: "SUPORTE B2B", color: "#4ADE80" },
+          { valor: "CE", label: "FORTALEZA · CEARÁ", color: "#E53935" }].
           map((n) =>
           <div key={n.label} className="text-center p-5 relative overflow-hidden" style={{
             background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "4px"
@@ -145,9 +145,9 @@ export default function Sobre() {
             {/* Pilares rápidos */}
             <div className="grid grid-cols-2 gap-3 mt-6">
               {[
-              { Icon: MapPin, label: "São Paulo, Brasil", color: "#E53935" },
+              { Icon: MapPin, label: "Fortaleza, Ceará", color: "#E53935" },
               { Icon: Users, label: "Equipe Especializada", color: "#1D4ED8" },
-              { Icon: Clock, label: "+14 Anos de Mercado", color: "#4ADE80" },
+              { Icon: Clock, label: "Nascida para Durar", color: "#4ADE80" },
               { Icon: Star, label: "Referência em B2B", color: "#E53935" }].
               map((p) =>
               <div key={p.label} className="flex items-center gap-2 px-3 py-2" style={{
