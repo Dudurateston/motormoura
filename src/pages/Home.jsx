@@ -176,9 +176,27 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Right: Animated Piston */}
-          <div className="hidden md:block relative" style={{ height: 380 }}>
-            <HeroPiston />
+          {/* Right: Tech spec panel */}
+          <div className="hidden md:flex flex-col gap-4">
+            {[
+              { label: "SEGMENTOS ATENDIDOS", value: "Motores · Geradores · Motobombas", color: "#FB923C" },
+              { label: "COMPATIBILIDADE", value: "Honda · Toyama · Tekna · Branco · Buffalo", color: "#1D4ED8" },
+              { label: "ITENS EM CATÁLOGO", value: "+ 1.000 SKUs catalogados", color: "#4ADE80" },
+              { label: "MODELO DE NEGÓCIO", value: "Exclusivo B2B — Lojistas Homologados", color: "#FB923C" },
+            ].map((item) => (
+              <div key={item.label} className="p-4 relative overflow-hidden" style={{
+                background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)",
+                border: `1px solid ${item.color}30`, borderRadius: "2px",
+                borderLeft: `3px solid ${item.color}`,
+              }}>
+                <p className="text-xs font-mono-tech mb-1" style={{ color: item.color, letterSpacing: "0.12em", opacity: 0.7 }}>{item.label}</p>
+                <p className="text-sm font-semibold" style={{ color: "#F3F4F6" }}>{item.value}</p>
+              </div>
+            ))}
+            <div className="flex items-center gap-2 mt-2 px-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#4ADE80] mm-data-blink" />
+              <span className="text-xs font-mono-tech" style={{ color: "#374151" }}>PLATAFORMA ONLINE · PRONTA ENTREGA</span>
+            </div>
           </div>
         </div>
       </section>
