@@ -120,7 +120,7 @@ export default function Sobre() {
             <div className="absolute bottom-4 left-4 px-3 py-1.5 text-xs font-mono-tech" style={{
               background: "rgba(10,10,12,0.92)", border: "1px solid rgba(251,146,60,0.4)", color: "#E53935", borderRadius: "2px"
             }}>
-              SÃO PAULO · BRASIL
+              FORTALEZA · CEARÁ
             </div>
           </div>
 
@@ -135,10 +135,10 @@ export default function Sobre() {
             </h2>
             <div className="space-y-4" style={{ color: "#9CA3AF", fontSize: "16px", lineHeight: 1.85 }}>
               <p>
-                A <strong style={{ color: "#F3F4F6" }}>MotorMoura Equipamentos e Acessórios</strong> nasceu da necessidade de entregar precisão técnica e disponibilidade imediata para o mercado de força e energia no Brasil. Como distribuidora importadora especializada, conectamos a alta tecnologia de fabricação global ao balcão dos melhores lojistas e oficinas do país.
+                A <strong style={{ color: "#F3F4F6" }}>MotorMoura Equipamentos e Acessórios</strong> nasceu em Fortaleza, Ceará, com a missão de entregar precisão técnica e disponibilidade imediata para o mercado de força e energia. Como importadora especializada, conectamos a alta tecnologia de fabricação global diretamente ao balcão dos melhores lojistas e oficinas do Brasil.
               </p>
               <p>
-                Nossa expertise reside na <strong style={{ color: "#E53935" }}>curadoria rigorosa de componentes</strong> para motores estacionários, geradores e motobombas, assegurando que cada item atenda aos mais altos padrões de durabilidade e performance.
+                Nossa expertise reside na <strong style={{ color: "#E53935" }}>curadoria rigorosa de componentes</strong> para motores estacionários, geradores e motobombas — garantindo que cada peça do catálogo atenda aos mais altos padrões de durabilidade e performance desde o primeiro dia.
               </p>
             </div>
 
@@ -339,7 +339,7 @@ export default function Sobre() {
             <div className="w-5 h-[2px]" style={{ background: "#4ADE80" }} />
           </div>
           <h2 className="text-3xl font-bold font-mono-tech mb-6" style={{ color: "#F3F4F6" }}>
-            Movendo o Progresso do Brasil.
+            Movendo o Progresso do Ceará e do Brasil.
           </h2>
           <p style={{ color: "#9CA3AF", fontSize: "17px", lineHeight: 1.85, maxWidth: 680, margin: "0 auto 40px" }}>
             Nosso objetivo é ser a <strong style={{ color: "#F3F4F6" }}>primeira escolha de todo revendedor e mecânico</strong> que busca confiança. Queremos eliminar a complexidade na busca por peças de reposição, sendo <strong style={{ color: "#E53935" }}>o motor que impulsiona o crescimento do seu negócio</strong>.
