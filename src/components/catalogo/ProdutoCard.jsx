@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
-import { ShoppingCart, Package, Zap, AlertTriangle, Plus, Minus } from "lucide-react";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+import { ShoppingCart, Package, Zap, AlertTriangle, Plus, Minus, ExternalLink } from "lucide-react";
 
 export default function ProdutoCard({ produto, onAddToCart }) {
   const [quantidade, setQuantidade] = useState(1);
