@@ -21,10 +21,10 @@ const LINHAS = [
 const MARCAS = ["HONDA", "TOYAMA", "TEKNA", "BRANCO", "BUFFALO", "HUSQVARNA"];
 
 const NUMEROS = [
-{ valor: "+1.000", label: "Peças Catalogadas", color: "#FB923C" },
+{ valor: "+1.000", label: "Peças Catalogadas", color: "#E53935" },
 { valor: "6+", label: "Marcas Compatíveis", color: "#1D4ED8" },
 { valor: "100%", label: "Suporte B2B", color: "#4ADE80" },
-{ valor: "∞", label: "Compromisso Técnico", color: "#FB923C" }];
+{ valor: "∞", label: "Compromisso Técnico", color: "#E53935" }];
 
 
 export default function Home() {
@@ -95,7 +95,7 @@ export default function Home() {
             <p className="mb-3" style={{ color: "#9CA3AF", fontSize: "17px", fontWeight: 400, maxWidth: 460, lineHeight: 1.75 }}>
               Distribuidora importadora especializada em peças de reposição para motores estacionários, geradores e motobombas. Conectamos tecnologia global ao balcão do seu negócio.
             </p>
-            <p className="mb-8 text-sm font-mono-tech" style={{ color: "#FB923C" }}>
+            <p className="mb-8 text-sm font-mono-tech" style={{ color: "#E53935" }}>
               Não apenas vendemos peças. Garantimos que o trabalho não pare.
             </p>
 
@@ -158,7 +158,7 @@ export default function Home() {
 
                 </div>
                 <button onClick={handleSearch} className="mm-btn-tactile flex items-center gap-2 px-5 h-10 font-semibold text-sm font-mono-tech" style={{
-                  background: "linear-gradient(135deg, #FB923C, #EA7C28)", color: "#fff",
+                  background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff",
                   borderRadius: "2px", boxShadow: "0 4px 16px rgba(251,146,60,0.3)", border: "none"
                 }}>
                   <Search className="w-4 h-4" /> BUSCAR
@@ -169,7 +169,7 @@ export default function Home() {
             <Link to={createPageUrl("Catalogo")}>
               <button className="mm-btn-tactile flex items-center gap-2 px-6 h-11 font-semibold text-sm font-mono-tech" style={{
                 background: "transparent", border: "1px solid rgba(251,146,60,0.4)",
-                color: "#FB923C", borderRadius: "2px"
+                color: "#E53935", borderRadius: "2px"
               }}>
                 VER CATÁLOGO COMPLETO <ArrowRight className="w-4 h-4" />
               </button>
@@ -179,10 +179,10 @@ export default function Home() {
           {/* Right: Tech spec panel */}
           <div className="hidden md:flex flex-col gap-4">
             {[
-            { label: "SEGMENTOS ATENDIDOS", value: "Motores · Geradores · Motobombas", color: "#FB923C" },
+            { label: "SEGMENTOS ATENDIDOS", value: "Motores · Geradores · Motobombas", color: "#E53935" },
             { label: "COMPATIBILIDADE", value: "Honda · Toyama · Tekna · Branco · Buffalo", color: "#1D4ED8" },
             { label: "ITENS EM CATÁLOGO", value: "+ 1.000 SKUs catalogados", color: "#4ADE80" },
-            { label: "MODELO DE NEGÓCIO", value: "Exclusivo B2B — Lojistas Homologados", color: "#FB923C" }].
+            { label: "MODELO DE NEGÓCIO", value: "Exclusivo B2B — Lojistas Homologados", color: "#E53935" }].
             map((item) =>
             <div key={item.label} className="p-4 relative overflow-hidden" style={{
               background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)",
@@ -230,11 +230,11 @@ export default function Home() {
             {/* Overlay gradient */}
             <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(10,10,12,0.5) 0%, transparent 60%)" }} />
             {/* Corner marks */}
-            <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2" style={{ borderColor: "#FB923C" }} />
-            <div className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2" style={{ borderColor: "#FB923C" }} />
+            <div className="absolute top-3 left-3 w-5 h-5 border-t-2 border-l-2" style={{ borderColor: "#E53935" }} />
+            <div className="absolute bottom-3 right-3 w-5 h-5 border-b-2 border-r-2" style={{ borderColor: "#E53935" }} />
             {/* Badge */}
             <div className="absolute bottom-4 left-4 px-3 py-1.5 text-xs font-mono-tech" style={{
-              background: "rgba(10,10,12,0.9)", border: "1px solid rgba(251,146,60,0.4)", color: "#FB923C", borderRadius: "2px"
+              background: "rgba(10,10,12,0.9)", border: "1px solid rgba(251,146,60,0.4)", color: "#E53935", borderRadius: "2px"
             }}>
               DISTRIBUIDORA TÉCNICA ESPECIALIZADA
             </div>
@@ -243,8 +243,8 @@ export default function Home() {
           {/* Copy */}
           <div className="order-1 lg:order-2">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-5 h-[2px]" style={{ background: "#FB923C" }} />
-              <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>NOSSA HISTÓRIA</span>
+              <div className="w-5 h-[2px]" style={{ background: "#E53935" }} />
+              <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>NOSSA HISTÓRIA</span>
             </div>
             <h2 className="text-3xl font-bold font-mono-tech mb-5" style={{ color: "#F3F4F6", lineHeight: 1.3 }}>
               Nascemos para que o trabalho não pare.
@@ -254,12 +254,12 @@ export default function Home() {
                 A <strong style={{ color: "#F3F4F6" }}>MotorMoura</strong> nasceu da necessidade de entregar precisão técnica e disponibilidade imediata para o mercado de força e energia no Brasil. Como importadora especializada, conectamos a alta tecnologia de fabricação global diretamente ao balcão dos melhores lojistas e oficinas do país.
               </p>
               <p>
-                Nossa expertise reside na <strong style={{ color: "#FB923C" }}>curadoria rigorosa de componentes</strong> para motores estacionários, geradores e motobombas, assegurando que cada item em nosso catálogo atenda aos mais altos padrões de durabilidade e performance.
+                Nossa expertise reside na <strong style={{ color: "#E53935" }}>curadoria rigorosa de componentes</strong> para motores estacionários, geradores e motobombas, assegurando que cada item em nosso catálogo atenda aos mais altos padrões de durabilidade e performance.
               </p>
             </div>
             <Link to={createPageUrl("Sobre")}>
               <button className="mt-6 flex items-center gap-2 px-5 h-10 text-sm font-mono-tech font-semibold mm-btn-tactile" style={{
-                background: "transparent", border: "1px solid rgba(251,146,60,0.35)", color: "#FB923C", borderRadius: "2px"
+                background: "transparent", border: "1px solid rgba(251,146,60,0.35)", color: "#E53935", borderRadius: "2px"
               }}>
                 CONHEÇA A MOTORMOURA <ChevronRight className="w-4 h-4" />
               </button>
@@ -293,8 +293,8 @@ export default function Home() {
           <div className="flex items-center justify-between mb-10">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-6 h-[2px]" style={{ background: "#FB923C" }} />
-                <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>SEGMENTOS TÉCNICOS</span>
+                <div className="w-6 h-[2px]" style={{ background: "#E53935" }} />
+                <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>SEGMENTOS TÉCNICOS</span>
               </div>
               <h2 className="text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>Nossas Linhas de Reposição</h2>
               <p className="mt-1" style={{ color: "#9CA3AF", fontSize: "16px", fontWeight: 400 }}>
@@ -329,14 +329,14 @@ export default function Home() {
         <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(10,10,12,0.85) 0%, rgba(10,10,12,0.3) 50%, rgba(10,10,12,0.85) 100%)" }} />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-4">
-            <p className="text-xs font-mono-tech mb-2" style={{ color: "#FB923C", letterSpacing: "0.2em" }}>CURADORIA TÉCNICA RIGOROSA</p>
+            <p className="text-xs font-mono-tech mb-2" style={{ color: "#E53935", letterSpacing: "0.2em" }}>CURADORIA TÉCNICA RIGOROSA</p>
             <h3 className="text-2xl md:text-3xl font-bold font-mono-tech mm-text-metal">
               Cada peça, um compromisso<br />com a performance.
             </h3>
           </div>
         </div>
-        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #FB923C, #1D4ED8)" }} />
-        <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #FB923C, #1D4ED8)" }} />
+        <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
       </section>
 
       {/* ── KITS ALTO GIRO ──────────────────────────────────────── */}
@@ -360,7 +360,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
             { Icon: Shield, title: "QUALIDADE CERTIFICADA", desc: "Peças importadas com especificações técnicas rigorosas. Alternativa de alto desempenho que equilibra custo e longevidade.", color: "#1D4ED8" },
-            { Icon: Truck, title: "LOGÍSTICA DE ESCALA", desc: "Estruturados para operações B2B de grande volume. Sua loja sempre com o estoque necessário para nunca perder uma venda.", color: "#FB923C" },
+            { Icon: Truck, title: "LOGÍSTICA DE ESCALA", desc: "Estruturados para operações B2B de grande volume. Sua loja sempre com o estoque necessário para nunca perder uma venda.", color: "#E53935" },
             { Icon: Cpu, title: "SUPORTE TÉCNICO", desc: "Nossa equipe especializada identifica a peça exata. Do motor ao gerador, da motobomba à bomba de pulverização.", color: "#4ADE80" }].
             map((f) =>
             <div key={f.title} className="p-5 relative" style={{
@@ -396,12 +396,12 @@ export default function Home() {
           <div className="flex flex-col justify-center p-8 md:p-12" style={{
             background: "rgba(29,78,216,0.06)", border: "1px solid rgba(29,78,216,0.2)", borderRadius: "0 4px 4px 0"
           }}>
-            <Quote className="w-8 h-8 mb-4 opacity-30" style={{ color: "#FB923C" }} />
+            <Quote className="w-8 h-8 mb-4 opacity-30" style={{ color: "#E53935" }} />
             <blockquote className="text-xl font-bold font-mono-tech mb-4" style={{ color: "#F3F4F6", lineHeight: 1.5 }}>
               "Queremos ser mais que um fornecedor: o motor que impulsiona o crescimento do seu negócio."
             </blockquote>
             <p className="text-sm" style={{ color: "#6B7280" }}>
-              — <span className="font-mono-tech" style={{ color: "#FB923C" }}>MotorMoura</span> · Visão Estratégica B2B
+              — <span className="font-mono-tech" style={{ color: "#E53935" }}>MotorMoura</span> · Visão Estratégica B2B
             </p>
             <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
               <div className="flex items-center gap-3">
@@ -423,8 +423,8 @@ export default function Home() {
         }} />
         <div className="relative max-w-2xl mx-auto text-center" style={{ zIndex: 2 }}>
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Award className="w-5 h-5" style={{ color: "#FB923C" }} />
-            <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>PROGRAMA DE REVENDEDORES</span>
+            <Award className="w-5 h-5" style={{ color: "#E53935" }} />
+            <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>PROGRAMA DE REVENDEDORES</span>
           </div>
           <h2 className="text-2xl md:text-3xl font-bold mb-3 font-mono-tech" style={{ color: "#F3F4F6" }}>
             POTENCIALIZE SEU ESTOQUE COM QUEM ENTENDE DE MECÂNICA.
@@ -434,7 +434,7 @@ export default function Home() {
           </p>
           <Link to={createPageUrl("MinhaConta")}>
             <button className="mm-btn-tactile mm-glow-orange inline-flex items-center gap-2 px-8 h-13 font-bold font-mono-tech text-sm" style={{
-              background: "linear-gradient(135deg, #FB923C, #EA7C28)", color: "#fff", borderRadius: "2px", border: "none",
+              background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none",
               height: "52px", fontSize: "13px"
             }}>
               QUERO SER UM REVENDEDOR PARCEIRO <ChevronRight className="w-4 h-4" />

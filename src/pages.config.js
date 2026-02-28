@@ -50,9 +50,9 @@
 import Admin from './pages/Admin';
 import Catalogo from './pages/Catalogo';
 import Home from './pages/Home';
+import MinhaConta from './pages/MinhaConta';
 import Orcamento from './pages/Orcamento';
 import ProdutoDetalhe from './pages/ProdutoDetalhe';
-import MinhaConta from './pages/MinhaConta';
 import Sobre from './pages/Sobre';
 import __Layout from './Layout.jsx';
 
@@ -61,9 +61,9 @@ export const PAGES = {
     "Admin": Admin,
     "Catalogo": Catalogo,
     "Home": Home,
+    "MinhaConta": MinhaConta,
     "Orcamento": Orcamento,
     "ProdutoDetalhe": ProdutoDetalhe,
-    "MinhaConta": MinhaConta,
     "Sobre": Sobre,
 }
 
