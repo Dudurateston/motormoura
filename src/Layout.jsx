@@ -457,9 +457,9 @@ export default function Layout({ children, currentPageName }) {
         <div className="flex-1 overflow-y-auto py-4 px-5">
           {cart.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center">
-              <ShoppingCart className="w-12 h-12 mb-3" style={{ color: "#27272C" }} />
-              <p className="text-sm font-mono-tech" style={{ color: "#4B5563" }}>LISTA VAZIA</p>
-              <p className="text-xs mt-1" style={{ color: "#374151" }}>
+              <ShoppingCart className="w-12 h-12 mb-3" style={{ color: "#E2E8F0" }} />
+              <p className="text-sm font-mono-tech" style={{ color: "#6C757D" }}>LISTA VAZIA</p>
+              <p className="text-xs mt-1" style={{ color: "#9CA3AF" }}>
                 Adicione peças do catálogo
               </p>
             </div>
@@ -470,13 +470,13 @@ export default function Layout({ children, currentPageName }) {
                   key={item.sku_codigo}
                   className="flex items-center gap-3 p-3"
                   style={{
-                    background: "rgba(255,255,255,0.02)",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: "#F8F9FA",
+                    border: "1px solid #E2E8F0",
                     borderRadius: "2px",
                   }}
                 >
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate" style={{ color: "#E5E7EB" }}>
+                    <p className="text-sm font-medium truncate" style={{ color: "#212529" }}>
                       {item.nome_peca}
                     </p>
                     <p className="text-xs font-mono-tech mt-0.5" style={{ color: "#1D4ED8" }}>
