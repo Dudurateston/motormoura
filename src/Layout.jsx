@@ -266,7 +266,7 @@ export default function Layout({ children, currentPageName }) {
           className="fixed inset-0 z-[80] flex flex-col"
           style={{ background: "rgba(248,249,250,0.98)", backdropFilter: "blur(8px)" }}
         >
-          <div className="flex items-center gap-3 px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+          <div className="flex items-center gap-3 px-4 py-3" style={{ borderBottom: "1px solid #E2E8F0" }}>
             <div className="flex-1">
               <HeaderSearch mobile onClose={() => setMobileSearchOpen(false)} />
             </div>
@@ -410,9 +410,9 @@ export default function Layout({ children, currentPageName }) {
         className="fixed top-0 right-0 h-full z-[70] flex flex-col"
         style={{
           width: "min(420px, 100vw)",
-          background: "#17171A",
-          borderLeft: "1px solid rgba(29,78,216,0.25)",
-          boxShadow: "-20px 0 60px rgba(0,0,0,0.6)",
+          background: "#FFFFFF",
+          borderLeft: "1px solid #E2E8F0",
+          boxShadow: "-8px 0 32px rgba(0,0,0,0.12)",
           transform: cartOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
         }}
