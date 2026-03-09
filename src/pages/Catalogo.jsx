@@ -159,7 +159,7 @@ export default function Catalogo() {
   const pageTitle = selectedCategoria || selectedTipo || "Todas as Peças de Reposição";
 
   return (
-    <div className="mm-bg min-h-screen">
+    <div style={{ background: "#F8F9FA", minHeight: "100vh" }}>
       <div className="max-w-[1440px] mx-auto px-4 py-6 md:py-8">
 
         {/* Page header */}
@@ -205,9 +205,10 @@ export default function Catalogo() {
           <aside
             className="hidden md:block flex-shrink-0 sticky top-20 self-start overflow-y-auto"
             style={{
-              width: 230, background: "rgba(27,27,31,0.95)",
-              border: "1px solid rgba(255,255,255,0.06)", borderRadius: "4px",
+              width: 230, background: "#FFFFFF",
+              border: "1px solid #E2E8F0", borderRadius: "4px",
               padding: "18px 14px", maxHeight: "calc(100vh - 100px)",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             }}
           >
             <CatalogoSidebar {...sidebarProps} />
@@ -217,7 +218,7 @@ export default function Catalogo() {
           {mobileDrawerOpen && (
             <>
               <div className="fixed inset-0 z-40" style={{ background: "rgba(0,0,0,0.75)" }} onClick={() => setMobileDrawerOpen(false)} />
-              <div className="fixed inset-y-0 left-0 z-50 overflow-y-auto" style={{ width: 280, background: "#17171A", borderRight: "1px solid rgba(255,255,255,0.08)", padding: "18px 14px" }}>
+              <div className="fixed inset-y-0 left-0 z-50 overflow-y-auto" style={{ width: 280, background: "#FFFFFF", borderRight: "1px solid #E2E8F0", padding: "18px 14px" }}>
                 <CatalogoSidebar {...sidebarProps} onClose={() => setMobileDrawerOpen(false)} />
               </div>
             </>
@@ -236,7 +237,7 @@ export default function Catalogo() {
                   value={searchText}
                   onChange={(e) => { setSearchText(e.target.value); setPage(1); }}
                   className="w-full h-9 pl-9 pr-7 text-xs font-mono-tech focus:outline-none"
-                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(29,78,216,0.35)", borderRadius: "2px", color: "#F3F4F6" }}
+                  style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }}
                 />
                 {searchText && (
                   <button onClick={() => { setSearchText(""); setPage(1); }} className="absolute right-2 top-1/2 -translate-y-1/2" style={{ color: "#4B5563" }}>
@@ -252,12 +253,12 @@ export default function Catalogo() {
                   value={sortOrder}
                   onChange={(e) => { setSortOrder(e.target.value); setPage(1); }}
                   className="h-9 px-2 text-xs font-mono-tech focus:outline-none appearance-none"
-                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "2px", color: "#9CA3AF", minWidth: 100 }}
+                  style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#6C757D", minWidth: 100 }}
                 >
-                  <option value="az" style={{ background: "#1F1F23" }}>A → Z</option>
-                  <option value="za" style={{ background: "#1F1F23" }}>Z → A</option>
-                  <option value="sku_asc" style={{ background: "#1F1F23" }}>SKU ↑</option>
-                  <option value="sku_desc" style={{ background: "#1F1F23" }}>SKU ↓</option>
+                  <option value="az">A → Z</option>
+                  <option value="za">Z → A</option>
+                  <option value="sku_asc">SKU ↑</option>
+                  <option value="sku_desc">SKU ↓</option>
                 </select>
               </div>
 
