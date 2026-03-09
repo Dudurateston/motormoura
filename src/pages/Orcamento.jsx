@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-const WHATSAPP_NUMBER = "5511999999999"; // Substituir pelo número real da empresa
+const WHATSAPP_NUMBER = "5585986894081";
 
 function getCart() {
   const stored = localStorage.getItem("motormoura_cart");

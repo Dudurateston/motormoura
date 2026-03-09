@@ -52,7 +52,7 @@ export default function Layout({ children, currentPageName }) {
   };
 
   const handleSendWhatsApp = async () => {
-    const WHATSAPP_NUMBER = "5511999999999";
+    const WHATSAPP_NUMBER = "5585986894081";
     await base44.entities.Orcamentos.create({
       lojista_email: user?.email || "anonimo",
       lojista_nome: user?.full_name || "Visitante",
@@ -296,9 +296,15 @@ export default function Layout({ children, currentPageName }) {
           <div>
             <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>CATÁLOGO RÁPIDO</h4>
             <ul className="space-y-2.5">
-              {["Motores a Gasolina","Motores a Diesel","Motobombas 4 Tempos","Geradores 4 Tempos","Geradores 2 Tempos","Bombas de Pulverização"].map(cat => (
+              {[
+                "Peças de Giro Rápido e Reposição",
+                "Motores Estacionários",
+                "Motobombas",
+                "Geradores de Energia",
+                "Equipamentos Agrícolas e Jardinagem"
+              ].map(cat => (
                 <li key={cat}>
-                  <Link to={createPageUrl("Catalogo") + "?categoria=" + encodeURIComponent(cat)} className="transition-colors hover:text-[#E53935]" style={{ color: "#6B7280", fontSize: "15px" }}>
+                  <Link to={createPageUrl("Catalogo") + "?cat=" + encodeURIComponent(cat)} className="transition-colors hover:text-[#E53935]" style={{ color: "#6B7280", fontSize: "15px" }}>
                     {cat}
                   </Link>
                 </li>

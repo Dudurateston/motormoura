@@ -148,12 +148,21 @@ export default function ProdutoCard({ produto, onAddToCart }) {
         )}
 
         {/* Stock */}
-        <div className="flex items-center gap-1.5 mb-4">
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#4ADE80" }} />
-          <span className="text-xs font-mono-tech" style={{ color: "#6EE7B7" }}>
-            {produto.estoque_disponivel} UNID.
-          </span>
-        </div>
+        {produto.disponibilidade === "sem_estoque" ? (
+          <div className="flex items-center gap-1.5 mb-4">
+            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#F59E0B" }} />
+            <span className="text-xs font-mono-tech" style={{ color: "#FCD34D" }}>
+              CONSULTAR DISPONIBILIDADE
+            </span>
+          </div>
+        ) : (
+          <div className="flex items-center gap-1.5 mb-4">
+            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#4ADE80" }} />
+            <span className="text-xs font-mono-tech" style={{ color: "#6EE7B7" }}>
+              {produto.estoque_disponivel > 0 ? `${produto.estoque_disponivel} UNID.` : "ESTOQUE A CONSULTAR"}
+            </span>
+          </div>
+        )}
 
         {/* Ver detalhes link */}
         <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`} className="flex items-center gap-1 text-xs font-mono-tech mb-3 hover:text-blue-400 transition-colors" style={{ color: "#374151" }}>
@@ -210,7 +219,7 @@ export default function ProdutoCard({ produto, onAddToCart }) {
             }}
           >
             <ShoppingCart className="w-3.5 h-3.5" />
-            COTAR
+            {produto.disponibilidade === "sem_estoque" ? "SOLICITAR" : "COTAR"}
           </button>
         </div>
       </div>

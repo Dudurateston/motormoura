@@ -31,7 +31,7 @@ export const TIPOS_PECA = [
 const MARCAS = [
   "Agrimotor","Anova","Argon","Bambozzi","Branco","Buffalo","Chiaperini",
   "Honda","Kawashima","Lifan","Loncin","Matsuyama","Motomil","Nagano",
-  "Schulz","Tekna","Toyama","Tramontina","Vulcan",
+  "Rossel","Savana","Schulz","Tekna","Toyama","Tramontina","Vulcan",
 ];
 
 function SectionHeader({ label, color, open, onToggle }) {
