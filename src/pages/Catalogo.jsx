@@ -174,12 +174,12 @@ export default function Catalogo() {
                 <button
                   onClick={() => { setSelectedCategoria(""); setPage(1); }}
                   className="flex items-center gap-1 text-xs font-mono-tech mm-btn-tactile px-2 h-7"
-                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", color: "#6B7280", borderRadius: "2px" }}
+                  style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", color: "#6C757D", borderRadius: "2px" }}
                 >
                   <ArrowLeft className="w-3 h-3" /> CATEGORIAS
                 </button>
               )}
-              <h1 className="text-xl md:text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>{pageTitle}</h1>
+              <h1 className="text-xl md:text-2xl font-bold font-mono-tech" style={{ color: "#212529" }}>{pageTitle}</h1>
             </div>
           </div>
           <a href="https://api.whatsapp.com/send?phone=5585986894081&text=Olá%2C%20preciso%20de%20ajuda%20para%20encontrar%20uma%20peça!" target="_blank" rel="noopener noreferrer">
@@ -275,7 +275,7 @@ export default function Catalogo() {
 
               {/* Count */}
               <span className="text-xs font-mono-tech ml-auto flex-shrink-0" style={{ color: "#9CA3AF" }}>
-                {loading ? "CARREGANDO..." : `${filtered.length} itens · p.${page}/${Math.max(1, totalPages)}`}
+                {loading ? "CARREGANDO..." : `${filtered.length} ITENS · P.${page}/${Math.max(1, totalPages)}`}
               </span>
             </div>
 
@@ -301,9 +301,9 @@ export default function Catalogo() {
               </div>
             ) : filtered.length === 0 ? (
               <div className="text-center py-24">
-                <p className="font-mono-tech text-sm mb-2" style={{ color: "#4B5563" }}>NENHUMA PEÇA ENCONTRADA</p>
-                <p className="text-xs mb-4" style={{ color: "#374151" }}>Tente outros filtros ou limpe a seleção</p>
-                <button onClick={clearFilters} className="px-4 h-9 text-xs font-mono-tech" style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.1)", color: "#6B7280", borderRadius: "2px" }}>
+                <p className="font-mono-tech text-sm mb-2" style={{ color: "#212529" }}>NENHUMA PEÇA ENCONTRADA</p>
+                <p className="text-xs mb-4" style={{ color: "#6C757D" }}>Tente outros filtros ou limpe a seleção</p>
+                <button onClick={clearFilters} className="px-4 h-9 text-xs font-mono-tech mm-btn-tactile" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", color: "#6C757D", borderRadius: "2px" }}>
                   LIMPAR FILTROS
                 </button>
               </div>
@@ -321,8 +321,8 @@ export default function Catalogo() {
                     <button
                       onClick={() => goPage(Math.max(1, page - 1))}
                       disabled={page === 1}
-                      className="px-3 h-8 text-xs font-mono-tech disabled:opacity-30"
-                      style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", color: "#6B7280", borderRadius: "2px" }}
+                      className="px-3 h-8 text-xs font-mono-tech disabled:opacity-30 mm-btn-tactile"
+                      style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", color: "#6C757D", borderRadius: "2px" }}
                     >
                       ← ANTERIOR
                     </button>
@@ -337,11 +337,11 @@ export default function Catalogo() {
                         <button
                           key={p}
                           onClick={() => goPage(p)}
-                          className="w-8 h-8 text-xs font-mono-tech"
+                          className="w-8 h-8 text-xs font-mono-tech mm-btn-tactile"
                           style={{
-                            background: page === p ? "rgba(251,146,60,0.15)" : "rgba(255,255,255,0.04)",
-                            border: page === p ? "1px solid rgba(251,146,60,0.4)" : "1px solid rgba(255,255,255,0.08)",
-                            color: page === p ? "#FB923C" : "#6B7280", borderRadius: "2px",
+                            background: page === p ? "rgba(211,47,47,0.1)" : "#FFFFFF",
+                            border: page === p ? "1px solid rgba(211,47,47,0.4)" : "1px solid #E2E8F0",
+                            color: page === p ? "#D32F2F" : "#6C757D", borderRadius: "2px",
                           }}
                         >
                           {p}
@@ -352,8 +352,8 @@ export default function Catalogo() {
                     <button
                       onClick={() => goPage(Math.min(totalPages, page + 1))}
                       disabled={page === totalPages}
-                      className="px-3 h-8 text-xs font-mono-tech disabled:opacity-30"
-                      style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", color: "#6B7280", borderRadius: "2px" }}
+                      className="px-3 h-8 text-xs font-mono-tech disabled:opacity-30 mm-btn-tactile"
+                      style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", color: "#6C757D", borderRadius: "2px" }}
                     >
                       PRÓXIMA →
                     </button>
