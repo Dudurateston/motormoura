@@ -51,6 +51,14 @@ export default function ProdutoCard({ produto, onAddToCart }) {
       {/* Top accent line */}
       <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, #1D4ED8, #D32F2F, #1D4ED8)" }} />
 
+      {/* Carro-chefe badge */}
+      {produto.destaque && (
+        <div className="absolute top-3 right-3 px-1.5 py-0.5 text-[10px] font-mono-tech font-bold z-10"
+          style={{ background: "#D32F2F", color: "#fff", borderRadius: "2px" }}>
+          ⭐ TOP
+        </div>
+      )}
+
       {/* Corner marks */}
       <div className="absolute top-2 left-2 w-3 h-3 border-t border-l opacity-20" style={{ borderColor: "#D32F2F" }} />
       <div className="absolute top-2 right-2 w-3 h-3 border-t border-r opacity-20" style={{ borderColor: "#D32F2F" }} />
@@ -168,7 +176,7 @@ export default function ProdutoCard({ produto, onAddToCart }) {
           </div>
 
           <button onClick={handleAdd}
-            className="mm-btn-tactile flex-1 flex items-center justify-center gap-1.5 h-8 text-sm font-semibold"
+            className="mm-btn-tactile flex-1 flex items-center justify-center gap-1.5 h-10 text-sm font-semibold"
             style={{
               background: pressed ? "linear-gradient(135deg, #B71C1C, #9C1919)" : "linear-gradient(135deg, #D32F2F, #B71C1C)",
               color: "#fff", borderRadius: "2px", border: "none",
