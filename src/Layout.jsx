@@ -204,6 +204,15 @@ export default function Layout({ children, currentPageName }) {
                 </button>
               )}
 
+              {/* Mobile search button */}
+              <button
+                className="md:hidden flex items-center justify-center w-8 h-8"
+                onClick={() => setMobileSearchOpen(true)}
+                style={{ color: "#6B7280" }}
+              >
+                <Search className="w-4 h-4" />
+              </button>
+
               {/* Mobile toggle */}
               <button
                 className="md:hidden"
