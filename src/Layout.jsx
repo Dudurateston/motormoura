@@ -146,6 +146,11 @@ export default function Layout({ children, currentPageName }) {
               ))}
             </nav>
 
+            {/* Desktop search bar */}
+            <div className="hidden md:block" style={{ width: 260 }}>
+              <HeaderSearch />
+            </div>
+
             {/* Right actions */}
             <div className="flex items-center gap-2">
               {/* Cart button */}
