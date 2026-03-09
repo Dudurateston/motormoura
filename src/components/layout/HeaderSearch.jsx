@@ -157,24 +157,24 @@ export default function HeaderSearch({ mobile = false, onClose }) {
         >
           {suggestions.categorias.length > 0 && (
             <div>
-              <div className="px-3 py-1.5 flex items-center gap-1.5" style={{ background: "rgba(29,78,216,0.06)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+              <div className="px-3 py-1.5 flex items-center gap-1.5" style={{ background: "#F8F9FA", borderBottom: "1px solid #E2E8F0" }}>
                 <Layers className="w-3 h-3" style={{ color: "#1D4ED8" }} />
-                <span className="text-xs font-mono-tech" style={{ color: "#4B5563", letterSpacing: "0.1em" }}>CATEGORIAS</span>
+                <span className="text-xs font-mono-tech" style={{ color: "#9CA3AF", letterSpacing: "0.1em" }}>CATEGORIAS</span>
               </div>
               {suggestions.categorias.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => handleSelectCategoria(cat)}
                   className="w-full text-left px-3 py-2.5 flex items-center gap-2.5 transition-colors group"
-                  style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
-                  onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}
+                  style={{ borderBottom: "1px solid #F1F5F9" }}
+                  onMouseEnter={e => e.currentTarget.style.background = "#F8F9FA"}
                   onMouseLeave={e => e.currentTarget.style.background = "transparent"}
                 >
-                  <div className="w-6 h-6 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(29,78,216,0.15)", border: "1px solid rgba(29,78,216,0.3)", borderRadius: "2px" }}>
-                    <Layers className="w-3.5 h-3.5" style={{ color: "#60A5FA" }} />
+                  <div className="w-6 h-6 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(29,78,216,0.1)", border: "1px solid rgba(29,78,216,0.2)", borderRadius: "2px" }}>
+                    <Layers className="w-3.5 h-3.5" style={{ color: "#1D4ED8" }} />
                   </div>
                   <span className="text-sm" style={{ color: "#212529" }}>{highlight(cat.nome, firstTerm)}</span>
-                  <ArrowRight className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "#E53935" }} />
+                  <ArrowRight className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "#D32F2F" }} />
                 </button>
               ))}
             </div>
@@ -182,21 +182,21 @@ export default function HeaderSearch({ mobile = false, onClose }) {
 
           {suggestions.produtos.length > 0 && (
             <div>
-              <div className="px-3 py-1.5 flex items-center gap-1.5" style={{ background: "rgba(229,57,53,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)", borderTop: suggestions.categorias.length > 0 ? "1px solid rgba(255,255,255,0.06)" : undefined }}>
-                <Package className="w-3 h-3" style={{ color: "#E53935" }} />
-                <span className="text-xs font-mono-tech" style={{ color: "#4B5563", letterSpacing: "0.1em" }}>PRODUTOS</span>
+              <div className="px-3 py-1.5 flex items-center gap-1.5" style={{ background: "#FEF2F2", borderBottom: "1px solid #E2E8F0", borderTop: suggestions.categorias.length > 0 ? "1px solid #E2E8F0" : undefined }}>
+                <Package className="w-3 h-3" style={{ color: "#D32F2F" }} />
+                <span className="text-xs font-mono-tech" style={{ color: "#9CA3AF", letterSpacing: "0.1em" }}>PRODUTOS</span>
               </div>
               {suggestions.produtos.map((produto) => (
                 <button
                   key={produto.id}
                   onClick={() => handleSelectProduto(produto)}
                   className="w-full text-left px-3 py-2.5 flex items-center gap-2.5 transition-colors group"
-                  style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
-                  onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}
+                  style={{ borderBottom: "1px solid #F1F5F9" }}
+                  onMouseEnter={e => e.currentTarget.style.background = "#F8F9FA"}
                   onMouseLeave={e => e.currentTarget.style.background = "transparent"}
                 >
-                  <div className="w-6 h-6 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(229,57,53,0.1)", border: "1px solid rgba(229,57,53,0.25)", borderRadius: "2px" }}>
-                    <Package className="w-3.5 h-3.5" style={{ color: "#E53935" }} />
+                  <div className="w-6 h-6 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(211,47,47,0.08)", border: "1px solid rgba(211,47,47,0.2)", borderRadius: "2px" }}>
+                    <Package className="w-3.5 h-3.5" style={{ color: "#D32F2F" }} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm truncate" style={{ color: "#212529" }}>{highlight(produto.nome_peca, firstTerm)}</p>
