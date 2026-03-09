@@ -153,17 +153,17 @@ export default function ProdutoCard({ produto, onAddToCart }) {
             background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px",
           }}>
             <button onClick={() => setQuantidade(Math.max(1, quantidade - 1))}
-              className="w-7 h-8 flex items-center justify-center transition-colors hover:bg-gray-100"
+              className="w-10 h-10 flex items-center justify-center transition-colors hover:bg-gray-100"
               style={{ color: "#6C757D" }}>
-              <Minus className="w-3 h-3" />
+              <Minus className="w-3.5 h-3.5" />
             </button>
             <span className="w-8 text-center text-sm font-mono-tech" style={{ color: "#212529" }}>
               {quantidade}
             </span>
             <button onClick={() => setQuantidade(quantidade + 1)}
-              className="w-7 h-8 flex items-center justify-center transition-colors hover:bg-gray-100"
+              className="w-10 h-10 flex items-center justify-center transition-colors hover:bg-gray-100"
               style={{ color: "#6C757D" }}>
-              <Plus className="w-3 h-3" />
+              <Plus className="w-3.5 h-3.5" />
             </button>
           </div>
 
