@@ -486,33 +486,33 @@ export default function Layout({ children, currentPageName }) {
                   <div
                     className="flex items-center"
                     style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.08)",
+                      background: "#FFFFFF",
+                      border: "1px solid #E2E8F0",
                       borderRadius: "2px",
                     }}
                   >
                     <button
                       onClick={() => updateQtd(item.sku_codigo, -1)}
-                      className="w-6 h-7 flex items-center justify-center hover:bg-white/10 transition-colors"
-                      style={{ color: "#6B7280" }}
+                      className="w-6 h-7 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                      style={{ color: "#6C757D" }}
                     >
                       <Minus className="w-3 h-3" />
                     </button>
-                    <span className="w-7 text-center text-xs font-mono-tech" style={{ color: "#E5E7EB" }}>
+                    <span className="w-7 text-center text-xs font-mono-tech" style={{ color: "#212529" }}>
                       {item.quantidade}
                     </span>
                     <button
                       onClick={() => updateQtd(item.sku_codigo, 1)}
-                      className="w-6 h-7 flex items-center justify-center hover:bg-white/10 transition-colors"
-                      style={{ color: "#6B7280" }}
+                      className="w-6 h-7 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                      style={{ color: "#6C757D" }}
                     >
                       <Plus className="w-3 h-3" />
                     </button>
                   </div>
                   <button
                     onClick={() => removeItem(item.sku_codigo)}
-                    className="w-7 h-7 flex items-center justify-center hover:bg-red-500/10 transition-colors"
-                    style={{ color: "#4B5563", borderRadius: "2px" }}
+                    className="w-7 h-7 flex items-center justify-center hover:bg-red-50 transition-colors"
+                    style={{ color: "#9CA3AF", borderRadius: "2px" }}
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -531,13 +531,13 @@ export default function Layout({ children, currentPageName }) {
             <div
               className="flex justify-between items-center py-2 px-3"
               style={{
-                background: "rgba(255,255,255,0.02)",
-                border: "1px solid rgba(255,255,255,0.06)",
+                background: "#F8F9FA",
+                border: "1px solid #E2E8F0",
                 borderRadius: "2px",
               }}
             >
-              <span className="text-xs font-mono-tech" style={{ color: "#6B7280" }}>TOTAL</span>
-              <span className="text-sm font-bold font-mono-tech" style={{ color: "#E53935" }}>
+              <span className="text-xs font-mono-tech" style={{ color: "#6C757D" }}>TOTAL</span>
+              <span className="text-sm font-bold font-mono-tech" style={{ color: "#D32F2F" }}>
                 {cart.reduce((s, i) => s + i.quantidade, 0)} unid. · {cart.length} ref.
               </span>
             </div>
