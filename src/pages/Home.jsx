@@ -304,7 +304,7 @@ export default function Home() {
             </div>
             <Link to={createPageUrl("Catalogo")}>
               <button className="hidden md:flex items-center gap-2 px-4 h-9 text-sm font-mono-tech mm-btn-tactile" style={{
-                background: "transparent", border: "1px solid rgba(255,255,255,0.1)", color: "#6B7280", borderRadius: "2px"
+                background: "#FFFFFF", border: "1px solid #E2E8F0", color: "#6C757D", borderRadius: "2px"
               }}>
                 Todo o catálogo <ChevronRight className="w-3.5 h-3.5" />
               </button>
@@ -344,10 +344,7 @@ export default function Home() {
       <KitsCarousel />
 
       {/* ── DIFERENCIAIS ───────────────────────────────────────── */}
-      <section className="py-16 px-4" style={{
-        background: "linear-gradient(145deg, #27272C, #1F1F23)",
-        borderTop: "1px solid rgba(255,255,255,0.05)"
-      }}>
+      <section className="py-16 px-4" style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -355,26 +352,27 @@ export default function Home() {
               <span className="text-xs font-mono-tech" style={{ color: "#1D4ED8", letterSpacing: "0.15em" }}>POR QUE A MOTORMOURA</span>
               <div className="w-5 h-[2px]" style={{ background: "#1D4ED8" }} />
             </div>
-            <h2 className="text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>O Elo Mais Forte da Sua Cadeia de Suprimentos.</h2>
+            <h2 className="text-2xl font-bold font-mono-tech" style={{ color: "#212529" }}>O Elo Mais Forte da Sua Cadeia de Suprimentos.</h2>
           </div>
 
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
             { Icon: Shield, title: "QUALIDADE CERTIFICADA", desc: "Peças importadas com especificações técnicas rigorosas. Alternativa de alto desempenho que equilibra custo e longevidade.", color: "#1D4ED8" },
-            { Icon: Truck, title: "LOGÍSTICA DE ESCALA", desc: "Estruturados para operações B2B de grande volume. Sua loja sempre com o estoque necessário para nunca perder uma venda.", color: "#E53935" },
-            { Icon: Cpu, title: "SUPORTE TÉCNICO", desc: "Nossa equipe especializada identifica a peça exata. Do motor ao gerador, da motobomba à bomba de pulverização.", color: "#4ADE80" }].
+            { Icon: Truck, title: "LOGÍSTICA DE ESCALA", desc: "Estruturados para operações B2B de grande volume. Sua loja sempre com o estoque necessário para nunca perder uma venda.", color: "#D32F2F" },
+            { Icon: Cpu, title: "SUPORTE TÉCNICO", desc: "Nossa equipe especializada identifica a peça exata. Do motor ao gerador, da motobomba à bomba de pulverização.", color: "#15803D" }].
             map((f) =>
             <div key={f.title} className="p-5 relative" style={{
-              background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "4px"
+              background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "4px",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.04)"
             }}>
                 <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${f.color}60, transparent)` }} />
                 <div className="w-10 h-10 flex items-center justify-center mb-4" style={{
-                background: `${f.color}18`, border: `1px solid ${f.color}40`, borderRadius: "2px"
+                background: `${f.color}12`, border: `1px solid ${f.color}30`, borderRadius: "2px"
               }}>
                   <f.Icon className="w-5 h-5" style={{ color: f.color }} />
                 </div>
-                <h3 className="font-bold text-sm mb-2 font-mono-tech" style={{ color: "#F3F4F6" }}>{f.title}</h3>
-                <p style={{ color: "#9CA3AF", fontSize: "15px", fontWeight: 400, lineHeight: 1.7 }}>{f.desc}</p>
+                <h3 className="font-bold text-sm mb-2 font-mono-tech" style={{ color: "#212529" }}>{f.title}</h3>
+                <p style={{ color: "#6C757D", fontSize: "15px", fontWeight: 400, lineHeight: 1.7 }}>{f.desc}</p>
               </div>
             )}
           </div>
@@ -382,32 +380,29 @@ export default function Home() {
       </section>
 
       {/* ── IMAGE + QUOTE BREAK ─────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ background: "#0A0A0C" }}>
+      <section className="relative overflow-hidden" style={{ background: "#F8F9FA", borderTop: "1px solid #E2E8F0" }}>
         <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch">
-          {/* Image */}
           <div className="relative overflow-hidden" style={{ minHeight: 320, borderRadius: "4px 0 0 4px" }}>
             <img
               src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80"
               alt="Gerador industrial"
               className="w-full h-full object-cover" />
-
-            <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent 60%, rgba(10,10,12,0.9) 100%)" }} />
           </div>
-          {/* Quote */}
           <div className="flex flex-col justify-center p-8 md:p-12" style={{
-            background: "rgba(29,78,216,0.06)", border: "1px solid rgba(29,78,216,0.2)", borderRadius: "0 4px 4px 0"
+            background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "0 4px 4px 0",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.05)"
           }}>
-            <Quote className="w-8 h-8 mb-4 opacity-30" style={{ color: "#E53935" }} />
-            <blockquote className="text-xl font-bold font-mono-tech mb-4" style={{ color: "#F3F4F6", lineHeight: 1.5 }}>
+            <Quote className="w-8 h-8 mb-4 opacity-20" style={{ color: "#D32F2F" }} />
+            <blockquote className="text-xl font-bold font-mono-tech mb-4" style={{ color: "#212529", lineHeight: 1.5 }}>
               "Queremos ser mais que um fornecedor: o motor que impulsiona o crescimento do seu negócio."
             </blockquote>
-            <p className="text-sm" style={{ color: "#6B7280" }}>
-              — <span className="font-mono-tech" style={{ color: "#E53935" }}>MotorMoura</span> · Visão Estratégica B2B
+            <p className="text-sm" style={{ color: "#6C757D" }}>
+              — <span className="font-mono-tech" style={{ color: "#D32F2F" }}>MotorMoura</span> · Visão Estratégica B2B
             </p>
-            <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+            <div className="mt-6 pt-6" style={{ borderTop: "1px solid #E2E8F0" }}>
               <div className="flex items-center gap-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#4ADE80] mm-data-blink" />
-                <span className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>+1.000 ITENS DISPONÍVEIS PARA PRONTA ENTREGA</span>
+                <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#16A34A" }} />
+                <span className="text-xs font-mono-tech" style={{ color: "#6C757D" }}>+1.000 ITENS DISPONÍVEIS PARA PRONTA ENTREGA</span>
               </div>
             </div>
           </div>
@@ -418,25 +413,22 @@ export default function Home() {
       <ComoSerLojista />
 
       {/* ── B2B CTA ─────────────────────────────────────────────── */}
-      <section className="py-16 px-4 relative overflow-hidden" style={{ background: "linear-gradient(145deg, #0A0A0C, #15151A)" }}>
-        <div className="absolute inset-0 pointer-events-none opacity-20" style={{
-          backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(29,78,216,0.04) 20px, rgba(29,78,216,0.04) 21px)"
-        }} />
-        <div className="relative max-w-2xl mx-auto text-center" style={{ zIndex: 2 }}>
+      <section className="py-16 px-4 relative overflow-hidden" style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
+        <div className="relative max-w-2xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Award className="w-5 h-5" style={{ color: "#E53935" }} />
-            <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>PROGRAMA DE REVENDEDORES</span>
+            <Award className="w-5 h-5" style={{ color: "#D32F2F" }} />
+            <span className="text-xs font-mono-tech" style={{ color: "#D32F2F", letterSpacing: "0.15em" }}>PROGRAMA DE REVENDEDORES</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold mb-3 font-mono-tech" style={{ color: "#F3F4F6" }}>
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 font-mono-tech" style={{ color: "#212529" }}>
             POTENCIALIZE SEU ESTOQUE COM QUEM ENTENDE DE MECÂNICA.
           </h2>
-          <p className="mb-8" style={{ color: "#9CA3AF", fontSize: "17px", fontWeight: 400 }}>
+          <p className="mb-8" style={{ color: "#6C757D", fontSize: "17px", fontWeight: 400 }}>
             Acesso exclusivo a preços de atacado, catálogo técnico completo e sistema B2B de cotação. Junte-se à rede de lojistas que nunca deixam o cliente na mão.
           </p>
           <Link to={createPageUrl("MinhaConta")}>
-            <button className="mm-btn-tactile mm-glow-orange inline-flex items-center gap-2 px-8 h-13 font-bold font-mono-tech text-sm" style={{
-              background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none",
-              height: "52px", fontSize: "13px"
+            <button className="mm-btn-tactile inline-flex items-center gap-2 px-8 font-bold font-mono-tech text-sm" style={{
+              background: "linear-gradient(135deg, #D32F2F, #B71C1C)", color: "#fff", borderRadius: "2px", border: "none",
+              height: "52px", fontSize: "13px", boxShadow: "0 4px 16px rgba(211,47,47,0.25)"
             }}>
               QUERO SER UM REVENDEDOR PARCEIRO <ChevronRight className="w-4 h-4" />
             </button>
