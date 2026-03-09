@@ -260,6 +260,31 @@ export default function Layout({ children, currentPageName }) {
         )}
       </header>
 
+      {/* ── MOBILE SEARCH OVERLAY ──────────────────────────────── */}
+      {mobileSearchOpen && (
+        <div
+          className="fixed inset-0 z-[80] flex flex-col"
+          style={{ background: "rgba(10,10,12,0.98)", backdropFilter: "blur(8px)" }}
+        >
+          <div className="flex items-center gap-3 px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+            <div className="flex-1">
+              <HeaderSearch mobile onClose={() => setMobileSearchOpen(false)} />
+            </div>
+            <button
+              onClick={() => setMobileSearchOpen(false)}
+              className="flex items-center justify-center w-8 h-8 flex-shrink-0"
+              style={{ color: "#6B7280" }}
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          <div className="flex-1 flex flex-col items-center justify-center gap-2" style={{ color: "#374151" }}>
+            <Search className="w-10 h-10 mb-2 opacity-20" />
+            <p className="text-xs font-mono-tech" style={{ letterSpacing: "0.1em" }}>BUSQUE POR NOME, SKU OU MARCA</p>
+          </div>
+        </div>
+      )}
+
       {/* ── MAIN ───────────────────────────────────────────────── */}
       <main>{children}</main>
 
