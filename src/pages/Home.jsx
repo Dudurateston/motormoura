@@ -247,15 +247,15 @@ export default function Home() {
               <div className="w-5 h-[2px]" style={{ background: "#E53935" }} />
               <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>NOSSA HISTÓRIA</span>
             </div>
-            <h2 className="text-3xl font-bold font-mono-tech mb-5" style={{ color: "#F3F4F6", lineHeight: 1.3 }}>
+            <h2 className="text-3xl font-bold font-mono-tech mb-5" style={{ color: "#212529", lineHeight: 1.3 }}>
               Nascemos para que o trabalho não pare.
             </h2>
-            <div className="space-y-4" style={{ color: "#9CA3AF", fontSize: "16px", lineHeight: 1.85 }}>
+            <div className="space-y-4" style={{ color: "#6C757D", fontSize: "16px", lineHeight: 1.85 }}>
               <p>
-                A <strong style={{ color: "#F3F4F6" }}>MotorMoura</strong> nasceu em Fortaleza, Ceará, com a missão de entregar precisão técnica e disponibilidade imediata para o mercado de força e energia. Como importadora especializada, conectamos a alta tecnologia de fabricação global diretamente ao balcão dos melhores lojistas e oficinas do Brasil.
+                A <strong style={{ color: "#212529" }}>MotorMoura</strong> nasceu em Fortaleza, Ceará, com a missão de entregar precisão técnica e disponibilidade imediata para o mercado de força e energia. Como importadora especializada, conectamos a alta tecnologia de fabricação global diretamente ao balcão dos melhores lojistas e oficinas do Brasil.
               </p>
               <p>
-                Nossa expertise reside na <strong style={{ color: "#E53935" }}>curadoria rigorosa de componentes</strong> para motores estacionários, geradores e motobombas, assegurando que cada item em nosso catálogo atenda aos mais altos padrões de durabilidade e performance.
+                Nossa expertise reside na <strong style={{ color: "#D32F2F" }}>curadoria rigorosa de componentes</strong> para motores estacionários, geradores e motobombas, assegurando que cada item em nosso catálogo atenda aos mais altos padrões de durabilidade e performance.
               </p>
             </div>
             <Link to={createPageUrl("Sobre")}>
@@ -270,16 +270,16 @@ export default function Home() {
       </section>
 
       {/* ── MARCAS ─────────────────────────────────────────────── */}
-      <section style={{ background: "#0A0A0C", borderTop: "1px solid rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+      <section style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}>
         <div className="max-w-5xl mx-auto px-4 py-8">
-          <p className="text-center text-xs font-mono-tech mb-6" style={{ color: "#374151", letterSpacing: "0.2em" }}>
+          <p className="text-center text-xs font-mono-tech mb-6" style={{ color: "#9CA3AF", letterSpacing: "0.2em" }}>
             PORTFÓLIO MULTIMARCAS — COMPATIBILIDADE GARANTIDA
           </p>
           <div className="flex items-center justify-center flex-wrap gap-3">
             {MARCAS.map((marca) =>
-            <div key={marca} className="px-4 py-2 font-bold font-mono-tech text-xs mm-cat-card" style={{
-              background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.07)",
-              color: "#4B5563", borderRadius: "2px", letterSpacing: "0.12em", cursor: "default"
+            <div key={marca} className="px-4 py-2 font-bold font-mono-tech text-xs" style={{
+              background: "#F8F9FA", border: "1px solid #E2E8F0",
+              color: "#6C757D", borderRadius: "2px", letterSpacing: "0.12em", cursor: "default"
             }}>
                 {marca}
               </div>
@@ -289,16 +289,16 @@ export default function Home() {
       </section>
 
       {/* ── LINHAS DE REPOSIÇÃO ─────────────────────────────────── */}
-      <section className="py-16 px-4" style={{ background: "#17171A" }}>
+      <section className="py-16 px-4" style={{ background: "#F8F9FA" }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-10">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-6 h-[2px]" style={{ background: "#E53935" }} />
-                <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>SEGMENTOS TÉCNICOS</span>
+                <div className="w-6 h-[2px]" style={{ background: "#D32F2F" }} />
+                <span className="text-xs font-mono-tech" style={{ color: "#D32F2F", letterSpacing: "0.15em" }}>SEGMENTOS TÉCNICOS</span>
               </div>
-              <h2 className="text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>Nossas Linhas de Reposição</h2>
-              <p className="mt-1" style={{ color: "#9CA3AF", fontSize: "16px", fontWeight: 400 }}>
+              <h2 className="text-2xl font-bold font-mono-tech" style={{ color: "#212529" }}>Nossas Linhas de Reposição</h2>
+              <p className="mt-1" style={{ color: "#6C757D", fontSize: "16px", fontWeight: 400 }}>
                 Clique em uma linha para ver as peças disponíveis no catálogo.
               </p>
             </div>
