@@ -1,41 +1,49 @@
 import React from "react";
-import { Zap, Cpu, Droplets, Activity, Leaf, ChevronRight } from "lucide-react";
+import { Cpu, Droplets, Activity, Leaf, Zap, Settings, ChevronRight } from "lucide-react";
 
+// IMPORTANT: These names MUST match exactly the LINHAS used in CatalogoSidebar and Catalogo filter logic
 export const CATEGORIES = [
   {
-    name: "Peças de Giro Rápido e Reposição",
-    icon: Zap,
-    desc: "Filtros, carburadores, partidas retráteis, cordões e acessórios de alta rotatividade.",
-    color: "#D32F2F",
-    badge: "PRIORIDADE 1",
-  },
-  {
-    name: "Motores Estacionários",
+    name: "Motores a Gasolina",
     icon: Cpu,
-    desc: "Motores a gasolina e diesel para uso industrial, agrícola e residencial.",
-    color: "#1D4ED8",
+    desc: "Pistões, anéis, carburadores, velas e kits de revisão completos.",
+    color: "#D32F2F",
     badge: "HONDA · TOYAMA · BRANCO",
   },
   {
-    name: "Motobombas",
-    icon: Droplets,
-    desc: "Bombas d'água 4 tempos para irrigação, abastecimento e construção civil.",
-    color: "#0284C7",
-    badge: "HONDA · TOYAMA",
+    name: "Motores a Diesel",
+    icon: Settings,
+    desc: "Peças de alta especificação para motores diesel industriais e agrícolas.",
+    color: "#1D4ED8",
+    badge: "BRANCO · LONCIN · YANMAR",
   },
   {
-    name: "Geradores de Energia",
+    name: "Motobombas 4 Tempos",
+    icon: Droplets,
+    desc: "Diafragmas, impeladores e vedações para motobombas de irrigação.",
+    color: "#0284C7",
+    badge: "HONDA · TOYAMA · NAGANO",
+  },
+  {
+    name: "Geradores 4 Tempos",
     icon: Activity,
-    desc: "Geradores portáteis e linha Inverter para uso residencial e profissional.",
+    desc: "Alternadores, bobinas, escovas e componentes elétricos para geradores.",
     color: "#B45309",
     badge: "HONDA · TEKNA · BUFFALO",
   },
   {
-    name: "Equipamentos Agrícolas e Jardinagem",
+    name: "Geradores 2 Tempos",
+    icon: Zap,
+    desc: "Carburadores, pistões e filtros para geradores de 2 tempos.",
+    color: "#7C3AED",
+    badge: "TEKNA · SCHULZ · SAVANA",
+  },
+  {
+    name: "Bombas de Pulverização",
     icon: Leaf,
-    desc: "Roçadeiras, cortadoras de relva e pulverizadores para uso agrícola.",
+    desc: "Diafragmas, válvulas e componentes para pulverizadores agrícolas.",
     color: "#15803D",
-    badge: "HONDA · HUSQVARNA",
+    badge: "KAWASHIMA · MATSUYAMA",
   },
 ];
 
@@ -43,7 +51,7 @@ export default function CategoriaGrid({ onSelectCategory }) {
   return (
     <div>
       <p className="text-xs font-mono-tech mb-6" style={{ color: "#6C757D", letterSpacing: "0.1em" }}>
-        SELECIONE UMA CATEGORIA PARA VER OS PRODUTOS DISPONÍVEIS
+        SELECIONE UMA LINHA DE PRODUTOS PARA VER AS PEÇAS DISPONÍVEIS
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
         {CATEGORIES.map((cat) => {
@@ -60,11 +68,16 @@ export default function CategoriaGrid({ onSelectCategory }) {
                 boxShadow: "0 2px 8px rgba(226,232,240,0.8)",
                 transition: "border-color 0.2s ease, box-shadow 0.2s ease",
               }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = `${cat.color}60`; e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,0.1)"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(226,232,240,0.8)"; }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = `${cat.color}60`;
+                e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,0.1)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = "#E2E8F0";
+                e.currentTarget.style.boxShadow = "0 2px 8px rgba(226,232,240,0.8)";
+              }}
             >
-              <div
-                className="absolute top-0 left-0 right-0 h-[2px]"
+              <div className="absolute top-0 left-0 right-0 h-[2px]"
                 style={{ background: `linear-gradient(90deg, transparent, ${cat.color}, transparent)` }}
               />
               <div className="w-12 h-12 flex items-center justify-center mb-4" style={{
@@ -89,7 +102,8 @@ export default function CategoriaGrid({ onSelectCategory }) {
                 }}>
                   {cat.badge}
                 </span>
-                <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: cat.color }} />
+                <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ color: cat.color }} />
               </div>
             </button>
           );

@@ -63,7 +63,7 @@ export default function Admin() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#0a2540]">Painel de Administração</h1>
+        <h1 className="text-2xl font-bold font-mono-tech" style={{ color: "#212529" }}>Painel de Administração</h1>
         <p className="text-gray-500 text-sm mt-1">Gestão de lojistas e orçamentos</p>
       </div>
 
@@ -74,7 +74,7 @@ export default function Admin() {
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-gray-500 text-sm">{s.label}</p>
-                <p className="text-3xl font-bold text-[#0a2540] mt-1">{s.value}</p>
+                <p className="text-3xl font-bold font-mono-tech mt-1" style={{ color: "#212529" }}>{s.value}</p>
                 <p className="text-xs text-gray-400 mt-1">{s.sub}</p>
               </div>
               <s.Icon className={`w-8 h-8 ${s.color} opacity-70`} />

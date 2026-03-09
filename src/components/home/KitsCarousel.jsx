@@ -11,9 +11,24 @@ export default function KitsCarousel() {
     base44.entities.Produtos.filter({ destaque: true, ativo: true }, "nome_peca", 20).then(setProdutos);
   }, []);
 
-  const displayItems = produtos;
-  const visible = 3;
-  const maxOffset = Math.max(0, displayItems.length - visible);
+  const [visible, setVisible] = useState(3);
+
+  useEffect(() => {
+    const update = () => {
+      if (window.innerWidth < 640) setVisible(1);
+      else if (window.innerWidth < 1024) setVisible(2);
+      else setVisible(3);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  useEffect(() => {
+    setOffset(prev => Math.min(prev, Math.max(0, produtos.length - visible)));
+  }, [visible, produtos.length]);
+
+  const maxOffset = Math.max(0, produtos.length - visible);
 
   const addToCart = (produto) => {
     const qty = 50;
@@ -28,7 +43,7 @@ export default function KitsCarousel() {
     setTimeout(() => setAdded(prev => ({ ...prev, [produto.id]: false })), 2000);
   };
 
-  if (displayItems.length === 0) return null;
+  if (produtos.length === 0) return null;
 
   return (
     <section className="py-16 px-4" style={{ background: "#F8F9FA", borderTop: "1px solid #E2E8F0" }}>
@@ -77,7 +92,7 @@ export default function KitsCarousel() {
             className="flex gap-4 transition-transform duration-400"
             style={{ transform: `translateX(calc(-${offset} * (100% / ${visible} + 16px / ${visible})))` }}
           >
-            {displayItems.map((produto) => (
+            {produtos.map((produto) => (
               <div key={produto.id} className="flex-shrink-0"
                 style={{ width: `calc(${100 / visible}% - ${(16 * (visible - 1)) / visible}px)` }}>
                 <div className="p-4 relative" style={{
