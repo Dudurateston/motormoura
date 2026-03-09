@@ -1,21 +1,13 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
-import { Search, SlidersHorizontal, X, ArrowUpDown, ChevronLeft } from "lucide-react";
+import { Search, SlidersHorizontal, X, ArrowUpDown, ArrowLeft } from "lucide-react";
 import ProdutoCard from "../components/catalogo/ProdutoCard";
 import CatalogoSidebar from "../components/catalogo/CatalogoSidebar";
-import CategoriasGrid from "../components/catalogo/CategoriasGrid";
+import CategoriaGrid from "../components/catalogo/CategoriaGrid";
 
 const PAGE_SIZE = 36;
 
-// Mapeamento das categorias top-level para as sub-categorias dos produtos
-const CATEGORIA_LINHAS_MAP = {
-  "Peças de Giro Rápido e Reposição": ["Peças de Giro Rápido e Reposição"],
-  "Motores Estacionários": ["Motores a Gasolina", "Motores a Diesel", "Motores Estacionários"],
-  "Motobombas": ["Motobombas 4 Tempos", "Motobombas 2 Tempos", "Motobombas"],
-  "Geradores de Energia": ["Geradores 4 Tempos", "Geradores 2 Tempos", "Geradores de Energia"],
-  "Equipamentos Agrícolas e Jardinagem": ["Bombas de Pulverização", "Equipamentos Agrícolas e Jardinagem", "Equipamentos Agrícolas"],
-};
-
+// Inferir TIPO DE PEÇA a partir do nome_peca
 function inferTipo(nome) {
   const n = nome.toLowerCase();
   if (n.includes("carburador") || n.includes("agulha carburador") || n.includes("borboleta")) return "Carburação";
@@ -35,19 +27,24 @@ function inferTipo(nome) {
   return "Outras Peças";
 }
 
+// Inferir LINHA de equipamento a partir do relacionamento_categoria
 function inferLinha(produto) {
   const cat = (produto.relacionamento_categoria || "").toLowerCase();
   const nome = (produto.nome_peca || "").toLowerCase();
-  if (cat.includes("gasolina")) return "Motores a Gasolina";
-  if (cat.includes("diesel")) return "Motores a Diesel";
+
+  if (cat.includes("gasolina") || cat.includes("motor a gasolina")) return "Motores a Gasolina";
+  if (cat.includes("diesel") || cat.includes("motor a diesel")) return "Motores a Diesel";
   if (cat.includes("motobomba")) return "Motobombas 4 Tempos";
   if (cat.includes("gerador 4") || cat.includes("geradores 4")) return "Geradores 4 Tempos";
   if (cat.includes("gerador 2") || cat.includes("geradores 2")) return "Geradores 2 Tempos";
-  if (cat.includes("pulveriza")) return "Bombas de Pulverização";
+  if (cat.includes("pulveriza") || cat.includes("bomba de pulveriza")) return "Bombas de Pulverização";
+
+  // fallback por keywords no nome
   if (nome.includes("gerador") || nome.includes("estator") || nome.includes("circuito protetor")) return "Geradores 4 Tempos";
   if (nome.includes("motobomba")) return "Motobombas 4 Tempos";
   if (nome.includes("pulverizad")) return "Bombas de Pulverização";
-  return null;
+
+  return null; // sem linha definida
 }
 
 function addToCart(produto, quantidade) {
@@ -81,8 +78,7 @@ export default function Catalogo() {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const urlParams = new URLSearchParams(window.location.search);
-  const [categoriaAtiva, setCategoriaAtiva] = useState(urlParams.get("cat") || "");
-  const [selectedLinha, setSelectedLinha] = useState("");
+  const [selectedLinha, setSelectedLinha] = useState(urlParams.get("categoria") || "");
   const [selectedTipo, setSelectedTipo] = useState("");
   const [selectedMarcas, setSelectedMarcas] = useState([]);
   const [searchText, setSearchText] = useState(urlParams.get("q") || "");
@@ -102,17 +98,9 @@ export default function Catalogo() {
     [searchText]
   );
 
-  const catLinhas = useMemo(
-    () => categoriaAtiva ? (CATEGORIA_LINHAS_MAP[categoriaAtiva] || [categoriaAtiva]) : [],
-    [categoriaAtiva]
-  );
-
   const filtered = useMemo(() => {
     const base = produtos.filter((p) => {
       if (p.ativo === false) return false;
-      const catMatch = !categoriaAtiva || catLinhas.some(l =>
-        (p.relacionamento_categoria || "").toLowerCase().includes(l.toLowerCase())
-      );
       const linhaMatch = !selectedLinha || inferLinha(p) === selectedLinha;
       const tipoMatch = !selectedTipo || inferTipo(p.nome_peca) === selectedTipo;
       const marcaMatch = selectedMarcas.length === 0 || selectedMarcas.includes(p.relacionamento_marca);
@@ -121,10 +109,10 @@ export default function Catalogo() {
         priceFilter === "all" ||
         (priceFilter === "sob_consulta" && (!p.preco_base_atacado || p.preco_base_atacado === 0)) ||
         (priceFilter === "com_preco" && p.preco_base_atacado > 0);
-      return catMatch && linhaMatch && tipoMatch && marcaMatch && textMatch && priceMatch;
+      return linhaMatch && tipoMatch && marcaMatch && textMatch && priceMatch;
     });
     return sortProdutos(base, sortOrder);
-  }, [produtos, categoriaAtiva, catLinhas, selectedLinha, selectedTipo, selectedMarcas, searchTerms, priceFilter, sortOrder]);
+  }, [produtos, selectedLinha, selectedTipo, selectedMarcas, searchTerms, priceFilter, sortOrder]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -147,20 +135,9 @@ export default function Catalogo() {
   const handleSetTipo = useCallback((v) => { setSelectedTipo(v); setPage(1); setMobileDrawerOpen(false); }, []);
   const handleSetPrice = useCallback((v) => { setPriceFilter(v); setPage(1); }, []);
 
-  const handleSelectCategoria = useCallback((nome) => {
-    setCategoriaAtiva(nome);
-    setSelectedLinha(""); setSelectedTipo(""); setSelectedMarcas([]);
-    setSearchText(""); setPriceFilter("all"); setPage(1);
-  }, []);
-
-  const handleBackToCategories = useCallback(() => {
-    setCategoriaAtiva("");
-    setSelectedLinha(""); setSelectedTipo(""); setSelectedMarcas([]);
-    setSearchText(""); setPriceFilter("all"); setPage(1);
-  }, []);
-
+  // Filter pills
   const pills = [
-    selectedLinha && { key: "linha", label: selectedLinha, color: "#E53935", bg: "rgba(229,57,53,0.1)", border: "rgba(229,57,53,0.3)", clear: () => handleSetLinha("") },
+    selectedLinha && { key: "linha", label: selectedLinha, color: "#FB923C", bg: "rgba(251,146,60,0.1)", border: "rgba(251,146,60,0.3)", clear: () => handleSetLinha("") },
     selectedTipo && { key: "tipo", label: selectedTipo, color: "#60A5FA", bg: "rgba(29,78,216,0.1)", border: "rgba(29,78,216,0.3)", clear: () => handleSetTipo("") },
     priceFilter !== "all" && { key: "price", label: priceFilter === "sob_consulta" ? "Sob Consulta" : "Com Preço", color: "#4ADE80", bg: "rgba(74,222,128,0.08)", border: "rgba(74,222,128,0.3)", clear: () => handleSetPrice("all") },
     ...selectedMarcas.map((m) => ({ key: m, label: m, color: "#93C5FD", bg: "rgba(29,78,216,0.08)", border: "rgba(29,78,216,0.25)", clear: () => toggleMarca(m) })),
@@ -175,18 +152,7 @@ export default function Catalogo() {
     clearFilters, hasFilters,
   };
 
-  // ── LANDING: Grid de Categorias ──────────────────────────────────────
-  if (!categoriaAtiva && !searchText) {
-    return (
-      <div className="mm-bg min-h-screen">
-        <div className="max-w-[1440px] mx-auto px-4 py-10 md:py-16">
-          <CategoriasGrid onSelectCategoria={handleSelectCategoria} />
-        </div>
-      </div>
-    );
-  }
-
-  const pageTitle = categoriaAtiva || selectedLinha || selectedTipo || "Pesquisa de Peças";
+  const pageTitle = selectedLinha || selectedTipo || "Todas as Peças de Reposição";
 
   return (
     <div className="mm-bg min-h-screen">
@@ -195,22 +161,13 @@ export default function Catalogo() {
         {/* Page header */}
         <div className="mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            {categoriaAtiva && (
-              <button
-                onClick={handleBackToCategories}
-                className="flex items-center gap-1 text-xs font-mono-tech mb-2 hover:text-white transition-colors"
-                style={{ color: "#4B5563" }}
-              >
-                <ChevronLeft className="w-3.5 h-3.5" /> TODAS AS CATEGORIAS
-              </button>
-            )}
             <div className="flex items-center gap-2 mb-1">
-              <div className="w-4 h-[2px]" style={{ background: "#E53935" }} />
-              <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>CATÁLOGO TÉCNICO B2B</span>
+              <div className="w-4 h-[2px]" style={{ background: "#FB923C" }} />
+              <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>CATÁLOGO TÉCNICO B2B</span>
             </div>
             <h1 className="text-xl md:text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>{pageTitle}</h1>
           </div>
-          <a href="https://api.whatsapp.com/send?phone=5585986894081&text=Olá%2C%20preciso%20de%20ajuda%20para%20encontrar%20uma%20peça!" target="_blank" rel="noopener noreferrer">
+          <a href="https://api.whatsapp.com/send?phone=5511999999999&text=Olá%2C%20preciso%20de%20ajuda%20para%20encontrar%20uma%20peça!" target="_blank" rel="noopener noreferrer">
             <button className="mm-btn-tactile flex items-center gap-2 px-4 h-9 text-xs font-mono-tech flex-shrink-0" style={{
               background: "rgba(22,163,74,0.12)", border: "1px solid rgba(22,163,74,0.35)", color: "#4ADE80", borderRadius: "2px"
             }}>
@@ -249,6 +206,7 @@ export default function Catalogo() {
 
             {/* Toolbar */}
             <div className="flex flex-wrap items-center gap-2 mb-3">
+              {/* Search */}
               <div className="relative flex-1 min-w-[160px]">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#1D4ED8" }} />
                 <input
@@ -265,6 +223,7 @@ export default function Catalogo() {
                 )}
               </div>
 
+              {/* Sort */}
               <div className="flex items-center gap-1.5">
                 <ArrowUpDown className="w-3.5 h-3.5 hidden sm:block flex-shrink-0" style={{ color: "#4B5563" }} />
                 <select
@@ -280,16 +239,18 @@ export default function Catalogo() {
                 </select>
               </div>
 
+              {/* Mobile filter btn */}
               <button
                 className="md:hidden flex items-center gap-1.5 px-3 h-9 text-xs font-mono-tech flex-shrink-0"
-                style={{ background: hasFilters ? "rgba(229,57,53,0.1)" : "rgba(255,255,255,0.04)", border: hasFilters ? "1px solid rgba(229,57,53,0.3)" : "1px solid rgba(255,255,255,0.1)", color: hasFilters ? "#E53935" : "#6B7280", borderRadius: "2px" }}
+                style={{ background: hasFilters ? "rgba(251,146,60,0.1)" : "rgba(255,255,255,0.04)", border: hasFilters ? "1px solid rgba(251,146,60,0.3)" : "1px solid rgba(255,255,255,0.1)", color: hasFilters ? "#FB923C" : "#6B7280", borderRadius: "2px" }}
                 onClick={() => setMobileDrawerOpen(true)}
               >
                 <SlidersHorizontal className="w-3.5 h-3.5" />
                 FILTROS
-                {hasFilters && <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#E53935" }} />}
+                {hasFilters && <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />}
               </button>
 
+              {/* Count */}
               <span className="text-xs font-mono-tech ml-auto flex-shrink-0" style={{ color: "#4B5563" }}>
                 {loading ? "CARREGANDO..." : `${filtered.length} itens · p.${page}/${Math.max(1, totalPages)}`}
               </span>
@@ -331,6 +292,7 @@ export default function Catalogo() {
                   ))}
                 </div>
 
+                {/* Pagination */}
                 {totalPages > 1 && (
                   <div className="flex items-center justify-center gap-2 mt-8 flex-wrap">
                     <button
@@ -354,9 +316,9 @@ export default function Catalogo() {
                           onClick={() => goPage(p)}
                           className="w-8 h-8 text-xs font-mono-tech"
                           style={{
-                            background: page === p ? "rgba(229,57,53,0.15)" : "rgba(255,255,255,0.04)",
-                            border: page === p ? "1px solid rgba(229,57,53,0.4)" : "1px solid rgba(255,255,255,0.08)",
-                            color: page === p ? "#E53935" : "#6B7280", borderRadius: "2px",
+                            background: page === p ? "rgba(251,146,60,0.15)" : "rgba(255,255,255,0.04)",
+                            border: page === p ? "1px solid rgba(251,146,60,0.4)" : "1px solid rgba(255,255,255,0.08)",
+                            color: page === p ? "#FB923C" : "#6B7280", borderRadius: "2px",
                           }}
                         >
                           {p}

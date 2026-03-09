@@ -296,15 +296,9 @@ export default function Layout({ children, currentPageName }) {
           <div>
             <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>CATÁLOGO RÁPIDO</h4>
             <ul className="space-y-2.5">
-              {[
-                "Peças de Giro Rápido e Reposição",
-                "Motores Estacionários",
-                "Motobombas",
-                "Geradores de Energia",
-                "Equipamentos Agrícolas e Jardinagem"
-              ].map(cat => (
+              {["Motores a Gasolina","Motores a Diesel","Motobombas 4 Tempos","Geradores 4 Tempos","Geradores 2 Tempos","Bombas de Pulverização"].map(cat => (
                 <li key={cat}>
-                  <Link to={createPageUrl("Catalogo") + "?cat=" + encodeURIComponent(cat)} className="transition-colors hover:text-[#E53935]" style={{ color: "#6B7280", fontSize: "15px" }}>
+                  <Link to={createPageUrl("Catalogo") + "?categoria=" + encodeURIComponent(cat)} className="transition-colors hover:text-[#E53935]" style={{ color: "#6B7280", fontSize: "15px" }}>
                     {cat}
                   </Link>
                 </li>
@@ -316,7 +310,7 @@ export default function Layout({ children, currentPageName }) {
           <div>
             <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>ATENDIMENTO B2B</h4>
             <div className="space-y-4">
-              <a href="https://api.whatsapp.com/send?phone=5511999999999&text=Olá,%20MotorMoura!" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
+              <a href="https://api.whatsapp.com/send?phone=5585986894081&text=Olá,%20MotorMoura!" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
                 <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(22,163,74,0.15)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: "2px" }}>
                   <MessageCircle className="w-4 h-4" style={{ color: "#4ADE80" }} />
                 </div>
