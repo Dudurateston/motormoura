@@ -71,7 +71,7 @@ export default function Sobre() {
                 VER CATÁLOGO COMPLETO <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
-            <a href="https://api.whatsapp.com/send?phone=5511999999999" target="_blank" rel="noopener noreferrer">
+            <a href="https://api.whatsapp.com/send?phone=5585986894081" target="_blank" rel="noopener noreferrer">
               <button className="mm-btn-tactile flex items-center gap-2 px-5 h-10 text-xs font-mono-tech" style={{
                 background: "transparent", border: "1px solid rgba(74,222,128,0.4)", color: "#4ADE80", borderRadius: "2px"
               }}>

@@ -63,7 +63,11 @@ export default function Orcamento() {
     return msg;
   };
 
+  const totalQuantidade = cart.reduce((s, i) => s + i.quantidade, 0);
+  const MINIMO_UNIDADES = 50;
+
   const handleEnviarWhatsApp = async () => {
+    if (totalQuantidade < MINIMO_UNIDADES) return;
     setEnviando(true);
 
     // Passo 1: Salvar orçamento na base de dados
@@ -207,10 +211,18 @@ export default function Orcamento() {
           </div>
         )}
 
+        {totalQuantidade < MINIMO_UNIDADES && (
+          <div className="bg-yellow-500/10 border border-yellow-400/30 rounded-lg p-3 mb-3 text-sm text-yellow-200 text-center">
+            ⚠️ Mínimo de {MINIMO_UNIDADES} unidades para enviar cotação.<br />
+            <span className="text-yellow-400 font-mono-tech text-xs">
+              {totalQuantidade}/{MINIMO_UNIDADES} unidades adicionadas.
+            </span>
+          </div>
+        )}
         <Button
           onClick={handleEnviarWhatsApp}
-          disabled={enviando}
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold gap-2 h-12 text-base"
+          disabled={enviando || totalQuantidade < MINIMO_UNIDADES}
+          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold gap-2 h-12 text-base disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <MessageCircle className="w-5 h-5" />
           {enviando ? "A enviar..." : "Enviar Cotação pelo WhatsApp"}
