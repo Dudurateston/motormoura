@@ -13,10 +13,7 @@ export default function KitsCarousel() {
   const [added, setAdded] = useState({});
 
   useEffect(() => {
-    base44.entities.Produtos.list("-created_date", 20).then(p => {
-      const giro = p.filter(x => x.relacionamento_categoria === "Peças de Giro Rápido e Reposição");
-      setProdutos(giro.length > 0 ? giro : p.slice(0, 12));
-    });
+    base44.entities.Produtos.filter({ relacionamento_categoria: "Peças de Giro Rápido e Reposição" }, "nome_peca", 20).then(setProdutos);
   }, []);
 
   const displayItems = produtos.length > 0 ? produtos.slice(0, 8) : [];

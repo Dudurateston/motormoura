@@ -78,13 +78,17 @@ export default function Catalogo() {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const urlParams = new URLSearchParams(window.location.search);
-  const [selectedLinha, setSelectedLinha] = useState(urlParams.get("categoria") || "");
+  const urlCategoria = urlParams.get("categoria") || "";
+  const [selectedCategoria, setSelectedCategoria] = useState(urlCategoria);
   const [selectedTipo, setSelectedTipo] = useState("");
   const [selectedMarcas, setSelectedMarcas] = useState([]);
   const [searchText, setSearchText] = useState(urlParams.get("q") || "");
   const [priceFilter, setPriceFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("az");
   const [page, setPage] = useState(1);
+  // selectedLinha alias for sidebar
+  const selectedLinha = selectedCategoria;
+  const setSelectedLinha = setSelectedCategoria;
 
   useEffect(() => {
     base44.entities.Produtos.list("-created_date", 2000).then((p) => {
@@ -101,7 +105,7 @@ export default function Catalogo() {
   const filtered = useMemo(() => {
     const base = produtos.filter((p) => {
       if (p.ativo === false) return false;
-      const linhaMatch = !selectedLinha || inferLinha(p) === selectedLinha;
+      const linhaMatch = !selectedCategoria || p.relacionamento_categoria === selectedCategoria || inferLinha(p) === selectedCategoria;
       const tipoMatch = !selectedTipo || inferTipo(p.nome_peca) === selectedTipo;
       const marcaMatch = selectedMarcas.length === 0 || selectedMarcas.includes(p.relacionamento_marca);
       const textMatch = matchesSearch(p, searchTerms);
@@ -152,7 +156,7 @@ export default function Catalogo() {
     clearFilters, hasFilters,
   };
 
-  const pageTitle = selectedLinha || selectedTipo || "Todas as Peças de Reposição";
+  const pageTitle = selectedCategoria || selectedTipo || "Todas as Peças de Reposição";
 
   return (
     <div className="mm-bg min-h-screen">
@@ -162,10 +166,21 @@ export default function Catalogo() {
         <div className="mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <div className="w-4 h-[2px]" style={{ background: "#FB923C" }} />
-              <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>CATÁLOGO TÉCNICO B2B</span>
+              <div className="w-4 h-[2px]" style={{ background: "#E53935" }} />
+              <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>CATÁLOGO TÉCNICO B2B</span>
             </div>
-            <h1 className="text-xl md:text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>{pageTitle}</h1>
+            <div className="flex items-center gap-3">
+              {selectedCategoria && (
+                <button
+                  onClick={() => { setSelectedCategoria(""); setPage(1); }}
+                  className="flex items-center gap-1 text-xs font-mono-tech mm-btn-tactile px-2 h-7"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", color: "#6B7280", borderRadius: "2px" }}
+                >
+                  <ArrowLeft className="w-3 h-3" /> CATEGORIAS
+                </button>
+              )}
+              <h1 className="text-xl md:text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>{pageTitle}</h1>
+            </div>
           </div>
           <a href="https://api.whatsapp.com/send?phone=5511999999999&text=Olá%2C%20preciso%20de%20ajuda%20para%20encontrar%20uma%20peça!" target="_blank" rel="noopener noreferrer">
             <button className="mm-btn-tactile flex items-center gap-2 px-4 h-9 text-xs font-mono-tech flex-shrink-0" style={{
@@ -177,7 +192,14 @@ export default function Catalogo() {
           </a>
         </div>
 
-        <div className="flex gap-5 items-start">
+        {/* ── CATEGORY GRID (shown when no category selected) ── */}
+        {!selectedCategoria && !searchText && (
+          <div className="mb-6">
+            <CategoriaGrid onSelectCategory={(cat) => { setSelectedCategoria(cat); setPage(1); }} />
+          </div>
+        )}
+
+        <div className="flex gap-5 items-start" style={{ display: selectedCategoria || searchText ? "flex" : "none" }}>
 
           {/* ── SIDEBAR DESKTOP ── */}
           <aside

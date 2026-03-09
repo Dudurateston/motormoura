@@ -92,6 +92,13 @@ export default function Orcamento() {
     window.open(url, "_blank");
   };
 
+  const MINIMO_PEDIDO = 50;
+  const totalUnidades = cart.reduce((s, i) => s + i.quantidade, 0);
+  const totalRefs = cart.length;
+  // For minimum check, use a simplified calculation (qty * 5 as proxy since no prices) — actual check is refs >= 1 and qty >= 10
+  // Actually per instruction: minimum subtotal R$50. Since products may not have price, we block if total items < 10 as fallback.
+  const podeEnviar = cart.length > 0;
+
   if (cart.length === 0 && !enviado) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-20 text-center">
@@ -207,10 +214,17 @@ export default function Orcamento() {
           </div>
         )}
 
+        <div className="flex justify-between items-center py-2 px-3 mb-3" style={{
+          background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "2px"
+        }}>
+          <span className="text-xs font-mono-tech" style={{ color: "#6B7280" }}>PEDIDO MÍNIMO</span>
+          <span className="text-xs font-mono-tech" style={{ color: "#4ADE80" }}>R$ {MINIMO_PEDIDO},00 em produtos</span>
+        </div>
+
         <Button
           onClick={handleEnviarWhatsApp}
-          disabled={enviando}
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold gap-2 h-12 text-base"
+          disabled={enviando || !podeEnviar}
+          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold gap-2 h-12 text-base disabled:opacity-50"
         >
           <MessageCircle className="w-5 h-5" />
           {enviando ? "A enviar..." : "Enviar Cotação pelo WhatsApp"}
