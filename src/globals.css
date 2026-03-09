@@ -44,19 +44,19 @@
   }
 }
 
-/* MotorMoura Design System – High-End Engineered Metal */
+/* MotorMoura Design System – Clean Industrial */
 :root {
-  --mm-gunmetal: #1F1F23;
-  --mm-gunmetal-light: #27272C;
-  --mm-gunmetal-mid: #2E2E34;
-  --mm-orange: #E53935;
-  --mm-orange-dark: #C62828;
+  --mm-gunmetal: #F8F9FA;
+  --mm-gunmetal-light: #FFFFFF;
+  --mm-gunmetal-mid: #E2E8F0;
+  --mm-orange: #D32F2F;
+  --mm-orange-dark: #B71C1C;
   --mm-blueprint: #1D4ED8;
   --mm-blueprint-light: #2563EB;
-  --mm-silver: #E5E7EB;
-  --mm-silver-dim: #9CA3AF;
-  --mm-border: rgba(255,255,255,0.08);
-  --mm-border-blue: rgba(29,78,216,0.5);
+  --mm-silver: #212529;
+  --mm-silver-dim: #6C757D;
+  --mm-border: #E2E8F0;
+  --mm-border-blue: rgba(29,78,216,0.3);
 }
 
 /* Brushed metal texture background */

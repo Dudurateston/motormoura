@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ShoppingCart, Package, Zap, AlertTriangle, Plus, Minus, ExternalLink } from "lucide-react";
+import { ShoppingCart, Zap, AlertTriangle, Plus, Minus, ExternalLink } from "lucide-react";
 
 export default function ProdutoCard({ produto, onAddToCart }) {
   const [quantidade, setQuantidade] = useState(1);
@@ -20,13 +20,10 @@ export default function ProdutoCard({ produto, onAddToCart }) {
     const cy = rect.top + rect.height / 2;
     const dx = (e.clientX - cx) / (rect.width / 2);
     const dy = (e.clientY - cy) / (rect.height / 2);
-    setTilt({ x: dy * -10, y: dx * 10 });
+    setTilt({ x: dy * -6, y: dx * 6 });
   };
 
-  const handleMouseLeave = () => {
-    setTilt({ x: 0, y: 0 });
-    setHovered(false);
-  };
+  const handleMouseLeave = () => { setTilt({ x: 0, y: 0 }); setHovered(false); };
 
   const handleAdd = () => {
     setPressed(true);
@@ -40,9 +37,10 @@ export default function ProdutoCard({ produto, onAddToCart }) {
       ref={cardRef}
       className="mm-card relative flex flex-col overflow-hidden cursor-default"
       style={{
-        background: "linear-gradient(145deg, #27272C, #1F1F23)",
-        border: "1px solid rgba(255,255,255,0.07)",
+        background: "#FFFFFF",
+        border: "1px solid #E2E8F0",
         borderRadius: "4px",
+        boxShadow: hovered ? "0 8px 24px rgba(0,0,0,0.10)" : "0 2px 8px rgba(226,232,240,0.9)",
         transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
         transition: hovered ? "transform 0.1s ease-out, box-shadow 0.3s ease" : "transform 0.4s ease, box-shadow 0.3s ease",
       }}
@@ -51,96 +49,76 @@ export default function ProdutoCard({ produto, onAddToCart }) {
       onMouseLeave={handleMouseLeave}
     >
       {/* Top accent line */}
-      <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, #1D4ED8, #FB923C, #1D4ED8)" }} />
+      <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, #1D4ED8, #D32F2F, #1D4ED8)" }} />
 
-      {/* Corner chamfer marks */}
-      <div className="absolute top-2 left-2 w-3 h-3 border-t border-l opacity-40" style={{ borderColor: "#FB923C" }} />
-      <div className="absolute top-2 right-2 w-3 h-3 border-t border-r opacity-40" style={{ borderColor: "#FB923C" }} />
-      <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l opacity-40" style={{ borderColor: "#FB923C" }} />
-      <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r opacity-40" style={{ borderColor: "#FB923C" }} />
+      {/* Corner marks */}
+      <div className="absolute top-2 left-2 w-3 h-3 border-t border-l opacity-20" style={{ borderColor: "#D32F2F" }} />
+      <div className="absolute top-2 right-2 w-3 h-3 border-t border-r opacity-20" style={{ borderColor: "#D32F2F" }} />
+      <div className="absolute bottom-2 left-2 w-3 h-3 border-b border-l opacity-20" style={{ borderColor: "#D32F2F" }} />
+      <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r opacity-20" style={{ borderColor: "#D32F2F" }} />
 
       <div className="p-4 flex flex-col flex-1">
         {/* Category + Brand */}
         <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
-          <span
-            className="text-xs px-2 py-0.5 font-mono-tech"
-            style={{
-              background: "rgba(29,78,216,0.15)",
-              border: "1px solid rgba(29,78,216,0.3)",
-              color: "#60A5FA",
-              borderRadius: "2px",
-            }}
-          >
+          <span className="text-xs px-2 py-0.5 font-mono-tech" style={{
+            background: "rgba(29,78,216,0.08)", border: "1px solid rgba(29,78,216,0.2)",
+            color: "#1D4ED8", borderRadius: "2px",
+          }}>
             {produto.relacionamento_categoria?.split(" ")[0]}
           </span>
-          <span
-            className="text-xs font-semibold font-mono-tech"
-            style={{ color: "#FB923C" }}
-          >
+          <span className="text-xs font-semibold font-mono-tech" style={{ color: "#D32F2F" }}>
             {produto.relacionamento_marca}
           </span>
         </div>
 
         {/* Name */}
         <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`} className="group">
-          <h3
-            className="font-semibold text-sm leading-snug mb-2 flex-1 group-hover:text-orange-400 transition-colors"
-            style={{ color: "#E5E7EB", fontFamily: "'Space Grotesk', sans-serif" }}
-          >
+          <h3 className="font-semibold text-sm leading-snug mb-2 flex-1 group-hover:text-red-700 transition-colors"
+            style={{ color: "#212529", fontFamily: "'Space Grotesk', sans-serif" }}>
             {produto.nome_peca}
           </h3>
         </Link>
 
-        {/* SKU badge — pulses on hover */}
+        {/* SKU badge */}
         <div className="mb-3">
-          <span
-            className="mm-sku-badge font-mono-tech text-xs px-2 py-1 inline-block"
-            style={{
-              background: "rgba(29,78,216,0.2)",
-              border: "1px solid rgba(29,78,216,0.5)",
-              color: "#93C5FD",
-              borderRadius: "2px",
-              letterSpacing: "0.08em",
-            }}
-          >
+          <span className="mm-sku-badge font-mono-tech text-xs px-2 py-1 inline-block" style={{
+            background: "rgba(29,78,216,0.06)", border: "1px solid rgba(29,78,216,0.2)",
+            color: "#1D4ED8", borderRadius: "2px", letterSpacing: "0.08em",
+          }}>
             SKU: {produto.sku_codigo}
           </span>
         </div>
 
         {/* Electric specs */}
         {hasEletric && (
-          <div
-            className="mm-spec-panel rounded-sm p-2.5 mb-3"
-          >
+          <div className="mm-spec-panel rounded-sm p-2.5 mb-3">
             <div className="flex items-center gap-1.5 mb-2">
-              <AlertTriangle className="w-3 h-3" style={{ color: "#FB923C" }} />
-              <span className="text-xs font-semibold font-mono-tech" style={{ color: "#FB923C" }}>
-                SPECS ELÉTRICAS
-              </span>
+              <AlertTriangle className="w-3 h-3" style={{ color: "#D32F2F" }} />
+              <span className="text-xs font-semibold font-mono-tech" style={{ color: "#D32F2F" }}>SPECS ELÉTRICAS</span>
             </div>
             <div className="grid grid-cols-2 gap-1">
               {produto.especificacoes_eletricas.amperes && (
                 <div className="flex items-center gap-1">
-                  <Zap className="w-3 h-3" style={{ color: "#60A5FA" }} />
-                  <span className="text-xs font-mono-tech" style={{ color: "#93C5FD" }}>{produto.especificacoes_eletricas.amperes}</span>
+                  <Zap className="w-3 h-3" style={{ color: "#1D4ED8" }} />
+                  <span className="text-xs font-mono-tech" style={{ color: "#1D4ED8" }}>{produto.especificacoes_eletricas.amperes}</span>
                 </div>
               )}
               {produto.especificacoes_eletricas.voltagem && (
                 <div className="flex items-center gap-1">
-                  <span className="text-xs" style={{ color: "#60A5FA" }}>V</span>
-                  <span className="text-xs font-mono-tech" style={{ color: "#93C5FD" }}>{produto.especificacoes_eletricas.voltagem}</span>
+                  <span className="text-xs" style={{ color: "#1D4ED8" }}>V</span>
+                  <span className="text-xs font-mono-tech" style={{ color: "#1D4ED8" }}>{produto.especificacoes_eletricas.voltagem}</span>
                 </div>
               )}
               {produto.especificacoes_eletricas.potencia_watts && (
                 <div className="flex items-center gap-1 col-span-2">
-                  <span className="text-xs" style={{ color: "#60A5FA" }}>W</span>
-                  <span className="text-xs font-mono-tech" style={{ color: "#93C5FD" }}>{produto.especificacoes_eletricas.potencia_watts}</span>
+                  <span className="text-xs" style={{ color: "#1D4ED8" }}>W</span>
+                  <span className="text-xs font-mono-tech" style={{ color: "#1D4ED8" }}>{produto.especificacoes_eletricas.potencia_watts}</span>
                 </div>
               )}
               {produto.especificacoes_eletricas.potencia_hp && (
                 <div className="flex items-center gap-1">
-                  <span className="text-xs" style={{ color: "#60A5FA" }}>HP</span>
-                  <span className="text-xs font-mono-tech" style={{ color: "#93C5FD" }}>{produto.especificacoes_eletricas.potencia_hp}</span>
+                  <span className="text-xs" style={{ color: "#1D4ED8" }}>HP</span>
+                  <span className="text-xs font-mono-tech" style={{ color: "#1D4ED8" }}>{produto.especificacoes_eletricas.potencia_hp}</span>
                 </div>
               )}
             </div>
@@ -150,74 +128,54 @@ export default function ProdutoCard({ produto, onAddToCart }) {
         {/* Stock */}
         {produto.disponibilidade === "sem_estoque" ? (
           <div className="flex items-center gap-1.5 mb-4">
-            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#F59E0B" }} />
-            <span className="text-xs font-mono-tech" style={{ color: "#FCD34D" }}>
-              CONSULTAR DISPONIBILIDADE
-            </span>
+            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#D97706" }} />
+            <span className="text-xs font-mono-tech" style={{ color: "#D97706" }}>CONSULTAR DISPONIBILIDADE</span>
           </div>
         ) : (
           <div className="flex items-center gap-1.5 mb-4">
-            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#4ADE80" }} />
-            <span className="text-xs font-mono-tech" style={{ color: "#6EE7B7" }}>
+            <div className="w-1.5 h-1.5 rounded-full" style={{ background: "#16A34A" }} />
+            <span className="text-xs font-mono-tech" style={{ color: "#15803D" }}>
               {produto.estoque_disponivel > 0 ? `${produto.estoque_disponivel} UNID.` : "ESTOQUE A CONSULTAR"}
             </span>
           </div>
         )}
 
-        {/* Ver detalhes link */}
-        <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`} className="flex items-center gap-1 text-xs font-mono-tech mb-3 hover:text-blue-400 transition-colors" style={{ color: "#374151" }}>
+        {/* Ver detalhes */}
+        <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`}
+          className="flex items-center gap-1 text-xs font-mono-tech mb-3 hover:text-blue-700 transition-colors"
+          style={{ color: "#9CA3AF" }}>
           <ExternalLink className="w-3 h-3" /> VER DETALHES
         </Link>
 
         {/* Quantity + Add */}
         <div className="flex items-center gap-2 mt-auto">
-          <div
-            className="flex items-center"
-            style={{
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              borderRadius: "2px",
-            }}
-          >
-            <button
-              onClick={() => setQuantidade(Math.max(1, quantidade - 1))}
-              className="w-7 h-8 flex items-center justify-center transition-colors hover:bg-white/10"
-              style={{ color: "#9CA3AF" }}
-            >
+          <div className="flex items-center" style={{
+            background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px",
+          }}>
+            <button onClick={() => setQuantidade(Math.max(1, quantidade - 1))}
+              className="w-7 h-8 flex items-center justify-center transition-colors hover:bg-gray-100"
+              style={{ color: "#6C757D" }}>
               <Minus className="w-3 h-3" />
             </button>
-            <span
-              className="w-8 text-center text-sm font-mono-tech"
-              style={{ color: "#E5E7EB" }}
-            >
+            <span className="w-8 text-center text-sm font-mono-tech" style={{ color: "#212529" }}>
               {quantidade}
             </span>
-            <button
-              onClick={() => setQuantidade(quantidade + 1)}
-              className="w-7 h-8 flex items-center justify-center transition-colors hover:bg-white/10"
-              style={{ color: "#9CA3AF" }}
-            >
+            <button onClick={() => setQuantidade(quantidade + 1)}
+              className="w-7 h-8 flex items-center justify-center transition-colors hover:bg-gray-100"
+              style={{ color: "#6C757D" }}>
               <Plus className="w-3 h-3" />
             </button>
           </div>
 
-          <button
-            onClick={handleAdd}
+          <button onClick={handleAdd}
             className="mm-btn-tactile flex-1 flex items-center justify-center gap-1.5 h-8 text-sm font-semibold"
             style={{
-              background: pressed
-                ? "linear-gradient(135deg, #EA7C28, #C05621)"
-                : "linear-gradient(135deg, #FB923C, #EA7C28)",
-              color: "#fff",
-              borderRadius: "2px",
-              border: "none",
-              boxShadow: pressed
-                ? "none"
-                : "0 4px 12px rgba(251,146,60,0.3)",
+              background: pressed ? "linear-gradient(135deg, #B71C1C, #9C1919)" : "linear-gradient(135deg, #D32F2F, #B71C1C)",
+              color: "#fff", borderRadius: "2px", border: "none",
+              boxShadow: pressed ? "none" : "0 4px 12px rgba(211,47,47,0.25)",
               transform: pressed ? "translateY(2px)" : "translateY(0)",
               transition: "all 0.1s ease",
-            }}
-          >
+            }}>
             <ShoppingCart className="w-3.5 h-3.5" />
             {produto.disponibilidade === "sem_estoque" ? "SOLICITAR" : "COTAR"}
           </button>
