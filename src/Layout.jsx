@@ -110,13 +110,13 @@ export default function Layout({ children, currentPageName }) {
               <div>
                 <span
                   className="font-bold text-lg leading-none tracking-tight"
-                  style={{ fontFamily: "'Space Mono', monospace", color: "#E5E7EB" }}
+                  style={{ fontFamily: "'Space Mono', monospace", color: "#212529" }}
                 >
                   Motor
                 </span>
                 <span
                   className="font-bold text-lg leading-none tracking-tight"
-                  style={{ fontFamily: "'Space Mono', monospace", color: "#E53935" }}
+                  style={{ fontFamily: "'Space Mono', monospace", color: "#D32F2F" }}
                 >
                   Moura
                 </span>
@@ -131,7 +131,7 @@ export default function Layout({ children, currentPageName }) {
                   to={createPageUrl(link.page)}
                   className="text-xs font-mono-tech transition-colors relative"
                   style={{
-                    color: currentPageName === link.page ? "#E53935" : "#6B7280",
+                    color: currentPageName === link.page ? "#D32F2F" : "#6C757D",
                     letterSpacing: "0.1em",
                   }}
                 >
@@ -139,7 +139,7 @@ export default function Layout({ children, currentPageName }) {
                   {currentPageName === link.page && (
                     <span
                       className="absolute -bottom-1 left-0 right-0 h-[1px]"
-                      style={{ background: "#E53935" }}
+                      style={{ background: "#D32F2F" }}
                     />
                   )}
                 </Link>
@@ -158,10 +158,10 @@ export default function Layout({ children, currentPageName }) {
                 onClick={() => setCartOpen(true)}
                 className="relative flex items-center gap-2 px-3 h-9 mm-btn-tactile"
                 style={{
-                  background: totalItems > 0 ? "rgba(251,146,60,0.1)" : "rgba(255,255,255,0.04)",
-                  border: totalItems > 0 ? "1px solid rgba(251,146,60,0.3)" : "1px solid rgba(255,255,255,0.08)",
+                  background: totalItems > 0 ? "rgba(211,47,47,0.08)" : "#F8F9FA",
+                  border: totalItems > 0 ? "1px solid rgba(211,47,47,0.3)" : "1px solid #E2E8F0",
                   borderRadius: "2px",
-                  color: totalItems > 0 ? "#E53935" : "#6B7280",
+                  color: totalItems > 0 ? "#D32F2F" : "#6C757D",
                 }}
               >
                 <ShoppingCart className="w-4 h-4" />
@@ -173,16 +173,16 @@ export default function Layout({ children, currentPageName }) {
               {/* Auth */}
               {user ? (
                 <div className="hidden md:flex items-center gap-2">
-                  <span className="text-xs font-mono-tech" style={{ color: "#6B7280" }}>
+                  <span className="text-xs font-mono-tech" style={{ color: "#6C757D" }}>
                     {user.full_name?.split(" ")[0].toUpperCase()}
                   </span>
                   <button
                     onClick={() => base44.auth.logout()}
                     className="text-xs font-mono-tech mm-btn-tactile px-3 h-9"
                     style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      color: "#4B5563",
+                      background: "#F8F9FA",
+                      border: "1px solid #E2E8F0",
+                      color: "#6C757D",
                       borderRadius: "2px",
                     }}
                   >
