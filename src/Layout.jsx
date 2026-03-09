@@ -420,20 +420,20 @@ export default function Layout({ children, currentPageName }) {
         {/* Panel header */}
         <div
           className="flex items-center justify-between px-5 py-4"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ borderBottom: "1px solid #E2E8F0" }}
         >
           <div className="flex items-center gap-2">
-            <ShoppingCart className="w-4 h-4" style={{ color: "#E53935" }} />
-            <span className="text-sm font-bold font-mono-tech" style={{ color: "#E5E7EB" }}>
+            <ShoppingCart className="w-4 h-4" style={{ color: "#D32F2F" }} />
+            <span className="text-sm font-bold font-mono-tech" style={{ color: "#212529" }}>
               LISTA DE COTAÇÃO
             </span>
             {totalItems > 0 && (
               <span
                 className="text-xs px-2 py-0.5 font-mono-tech"
                 style={{
-                  background: "rgba(251,146,60,0.15)",
-                  border: "1px solid rgba(251,146,60,0.3)",
-                  color: "#E53935",
+                  background: "rgba(211,47,47,0.1)",
+                  border: "1px solid rgba(211,47,47,0.25)",
+                  color: "#D32F2F",
                   borderRadius: "2px",
                 }}
               >
@@ -443,8 +443,8 @@ export default function Layout({ children, currentPageName }) {
           </div>
           <button
             onClick={() => setCartOpen(false)}
-            className="w-8 h-8 flex items-center justify-center transition-colors hover:bg-white/10"
-            style={{ color: "#6B7280", borderRadius: "2px" }}
+            className="w-8 h-8 flex items-center justify-center transition-colors hover:bg-gray-100"
+            style={{ color: "#6C757D", borderRadius: "2px" }}
           >
             <X className="w-4 h-4" />
           </button>
