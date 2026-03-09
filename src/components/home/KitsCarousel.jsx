@@ -41,14 +41,14 @@ export default function KitsCarousel() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <div className="w-4 h-[2px]" style={{ background: "#FB923C" }} />
-              <span className="text-xs font-mono-tech" style={{ color: "#FB923C", letterSpacing: "0.15em" }}>ALTO GIRO B2B</span>
+              <div className="w-4 h-[2px]" style={{ background: "#E53935" }} />
+              <span className="text-xs font-mono-tech" style={{ color: "#E53935", letterSpacing: "0.15em" }}>PEÇAS DE GIRO RÁPIDO · CARRO-CHEFE</span>
             </div>
             <h2 className="text-2xl font-bold font-mono-tech" style={{ color: "#F3F4F6" }}>
-              Kits de Alto Giro B2B
+              Produtos Carro-Chefe
             </h2>
             <p className="mt-1" style={{ color: "#9CA3AF", fontSize: "16px", fontWeight: 400 }}>
-              Peças de grande saída — adicione 50 unidades com 1 clique.
+              Itens de maior saída — adicione à cotação com 1 clique.
             </p>
           </div>
           <div className="flex gap-2">
