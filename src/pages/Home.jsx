@@ -48,7 +48,7 @@ export default function Home() {
   };
 
   return (
-    <div className="mm-bg min-h-screen">
+    <div style={{ background: "#F8F9FA", minHeight: "100vh" }}>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ minHeight: "88vh" }}>
@@ -202,22 +202,23 @@ export default function Home() {
       </section>
 
       {/* ── NÚMEROS DE AUTORIDADE ───────────────────────────────── */}
-      <section style={{ background: "#17171A", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <section style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}>
         <div className="max-w-5xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-4">
           {NUMEROS.map((n) =>
           <div key={n.label} className="text-center p-5 relative overflow-hidden" style={{
-            background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "4px"
+            background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "4px",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.04)"
           }}>
               <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${n.color}, transparent)` }} />
               <p className="font-bold font-mono-tech mb-1" style={{ color: n.color, fontSize: "30px", lineHeight: 1 }}>{n.valor}</p>
-              <p className="text-xs font-mono-tech" style={{ color: "#4B5563", letterSpacing: "0.08em" }}>{n.label}</p>
+              <p className="text-xs font-mono-tech" style={{ color: "#6C757D", letterSpacing: "0.08em" }}>{n.label}</p>
             </div>
           )}
         </div>
       </section>
 
       {/* ── STORYTELLING / SOBRE ───────────────────────────────── */}
-      <section className="py-20 px-4" style={{ background: "#1F1F23" }}>
+      <section className="py-20 px-4" style={{ background: "#F8F9FA" }}>
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
           {/* Image */}
           <div className="relative overflow-hidden order-2 lg:order-1" style={{ borderRadius: "4px", minHeight: 360 }}>
