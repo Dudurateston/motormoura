@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
-import { ShoppingCart, Menu, X, Zap, Trash2, Plus, Minus, MessageCircle, Mail, Instagram, ExternalLink } from "lucide-react";
+import { ShoppingCart, Menu, X, Zap, Trash2, Plus, Minus, MessageCircle, Mail, Instagram, ExternalLink, Search } from "lucide-react";
+import HeaderSearch from "@/components/layout/HeaderSearch";
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
