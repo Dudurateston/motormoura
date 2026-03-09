@@ -88,10 +88,10 @@ export default function Layout({ children, currentPageName }) {
       <header
         className="sticky top-0 z-50"
         style={{
-          background: "rgba(15,15,17,0.95)",
+          background: "#FFFFFF",
           backdropFilter: "blur(12px)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
+          borderBottom: "1px solid #E2E8F0",
+          boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
         }}
       >
         <div className="max-w-7xl mx-auto px-4">
