@@ -122,10 +122,10 @@ export default function HeaderSearch({ mobile = false, onClose }) {
             autoComplete="off"
             className="w-full h-9 pl-9 pr-8 text-xs font-mono-tech focus:outline-none transition-all"
             style={{
-              background: "rgba(255,255,255,0.04)",
-              border: open ? "1px solid rgba(229,57,53,0.45)" : "1px solid rgba(255,255,255,0.1)",
+              background: "#F8F9FA",
+              border: open ? "1px solid rgba(211,47,47,0.45)" : "1px solid #E2E8F0",
               borderRadius: "2px",
-              color: "#F3F4F6",
+              color: "#212529",
             }}
           />
           {query && (
@@ -145,9 +145,9 @@ export default function HeaderSearch({ mobile = false, onClose }) {
         <div
           className="absolute left-0 right-0 top-full mt-1"
           style={{
-            background: "#17171A",
-            border: "1px solid rgba(255,255,255,0.08)",
-            borderTop: "2px solid #E53935",
+            background: "#FFFFFF",
+            border: "1px solid #E2E8F0",
+            borderTop: "2px solid #D32F2F",
             borderRadius: "0 0 4px 4px",
             boxShadow: "0 16px 48px rgba(0,0,0,0.65)",
             zIndex: 300,
@@ -173,7 +173,7 @@ export default function HeaderSearch({ mobile = false, onClose }) {
                   <div className="w-6 h-6 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(29,78,216,0.15)", border: "1px solid rgba(29,78,216,0.3)", borderRadius: "2px" }}>
                     <Layers className="w-3.5 h-3.5" style={{ color: "#60A5FA" }} />
                   </div>
-                  <span className="text-sm" style={{ color: "#E5E7EB" }}>{highlight(cat.nome, firstTerm)}</span>
+                  <span className="text-sm" style={{ color: "#212529" }}>{highlight(cat.nome, firstTerm)}</span>
                   <ArrowRight className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "#E53935" }} />
                 </button>
               ))}
@@ -199,7 +199,7 @@ export default function HeaderSearch({ mobile = false, onClose }) {
                     <Package className="w-3.5 h-3.5" style={{ color: "#E53935" }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm truncate" style={{ color: "#E5E7EB" }}>{highlight(produto.nome_peca, firstTerm)}</p>
+                    <p className="text-sm truncate" style={{ color: "#212529" }}>{highlight(produto.nome_peca, firstTerm)}</p>
                     <p className="text-xs font-mono-tech" style={{ color: "#1D4ED8" }}>{produto.sku_codigo}</p>
                   </div>
                   {produto.relacionamento_marca && (
@@ -215,8 +215,8 @@ export default function HeaderSearch({ mobile = false, onClose }) {
           <button
             onClick={goToSearch}
             className="w-full px-3 py-2.5 flex items-center justify-center gap-2 text-xs font-mono-tech transition-colors"
-            style={{ color: "#E53935", borderTop: "1px solid rgba(255,255,255,0.06)" }}
-            onMouseEnter={e => e.currentTarget.style.background = "rgba(229,57,53,0.06)"}
+            style={{ color: "#D32F2F", borderTop: "1px solid #E2E8F0" }}
+            onMouseEnter={e => e.currentTarget.style.background = "#FEF2F2"}
             onMouseLeave={e => e.currentTarget.style.background = "transparent"}
           >
             <Search className="w-3 h-3" />
