@@ -37,7 +37,7 @@ export default function KitsCarousel() {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <div className="w-4 h-[2px]" style={{ background: "#D32F2F" }} />
-              <span className="text-xs font-mono-tech" style={{ color: "#D32F2F", letterSpacing: "0.15em" }}>PEÇAS DE GIRO RÁPIDO · CARRO-CHEFE</span>
+              <span className="text-xs font-mono-tech" style={{ color: "#D32F2F", letterSpacing: "0.15em" }}>PRODUTOS CARRO-CHEFE · ALTA ROTAÇÃO</span>
             </div>
             <h2 className="text-2xl font-bold font-mono-tech" style={{ color: "#212529" }}>Produtos Carro-Chefe</h2>
             <p className="mt-1" style={{ color: "#6C757D", fontSize: "16px", fontWeight: 400 }}>
@@ -87,6 +87,7 @@ export default function KitsCarousel() {
                   boxShadow: "0 2px 8px rgba(226,232,240,0.9)",
                 }}>
                   <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, transparent, #D32F2F, transparent)" }} />
+                  <div className="absolute top-3 right-3 px-1.5 py-0.5 text-[10px] font-mono-tech font-bold" style={{ background: "#D32F2F", color: "#fff", borderRadius: "2px" }}>⭐ TOP</div>
 
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div>
