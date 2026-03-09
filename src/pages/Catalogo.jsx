@@ -265,7 +265,7 @@ export default function Catalogo() {
               {/* Mobile filter btn */}
               <button
                 className="md:hidden flex items-center gap-1.5 px-3 h-9 text-xs font-mono-tech flex-shrink-0"
-                style={{ background: hasFilters ? "rgba(251,146,60,0.1)" : "rgba(255,255,255,0.04)", border: hasFilters ? "1px solid rgba(251,146,60,0.3)" : "1px solid rgba(255,255,255,0.1)", color: hasFilters ? "#FB923C" : "#6B7280", borderRadius: "2px" }}
+                style={{ background: hasFilters ? "rgba(211,47,47,0.08)" : "#FFFFFF", border: hasFilters ? "1px solid rgba(211,47,47,0.3)" : "1px solid #E2E8F0", color: hasFilters ? "#D32F2F" : "#6C757D", borderRadius: "2px" }}
                 onClick={() => setMobileDrawerOpen(true)}
               >
                 <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -274,7 +274,7 @@ export default function Catalogo() {
               </button>
 
               {/* Count */}
-              <span className="text-xs font-mono-tech ml-auto flex-shrink-0" style={{ color: "#4B5563" }}>
+              <span className="text-xs font-mono-tech ml-auto flex-shrink-0" style={{ color: "#9CA3AF" }}>
                 {loading ? "CARREGANDO..." : `${filtered.length} itens · p.${page}/${Math.max(1, totalPages)}`}
               </span>
             </div>
@@ -296,7 +296,7 @@ export default function Catalogo() {
             {loading ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                 {Array.from({ length: 9 }).map((_, i) => (
-                  <div key={i} className="h-56 animate-pulse" style={{ background: "#27272C", borderRadius: "4px" }} />
+                  <div key={i} className="h-56 animate-pulse" style={{ background: "#E2E8F0", borderRadius: "4px" }} />
                 ))}
               </div>
             ) : filtered.length === 0 ? (
