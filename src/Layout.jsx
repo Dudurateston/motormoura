@@ -526,7 +526,7 @@ export default function Layout({ children, currentPageName }) {
         {cart.length > 0 && (
           <div
             className="px-5 py-4 space-y-3"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ borderTop: "1px solid #E2E8F0" }}
           >
             <div
               className="flex justify-between items-center py-2 px-3"
@@ -546,7 +546,7 @@ export default function Layout({ children, currentPageName }) {
               onClick={handleSendWhatsApp}
               className="w-full h-11 flex items-center justify-center gap-2 text-sm font-bold font-mono-tech mm-btn-tactile"
               style={{
-                background: "linear-gradient(135deg, #16A34A, #15803D)",
+                background: "linear-gradient(135deg, #25D366, #1DA851)",
                 color: "#fff",
                 borderRadius: "2px",
                 border: "none",
@@ -562,9 +562,9 @@ export default function Layout({ children, currentPageName }) {
               onClick={() => setCartOpen(false)}
               className="block w-full h-9 flex items-center justify-center text-xs font-mono-tech"
               style={{
-                background: "transparent",
-                border: "1px solid rgba(255,255,255,0.08)",
-                color: "#6B7280",
+                background: "#F8F9FA",
+                border: "1px solid #E2E8F0",
+                color: "#6C757D",
                 borderRadius: "2px",
               }}
             >
