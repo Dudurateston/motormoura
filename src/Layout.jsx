@@ -229,14 +229,14 @@ export default function Layout({ children, currentPageName }) {
         {mobileMenuOpen && (
           <div
             className="md:hidden px-4 py-3 space-y-1"
-            style={{ background: "rgba(10,10,12,0.98)", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}
           >
             {navLinks.map((link) => (
               <Link
                 key={link.page}
                 to={createPageUrl(link.page)}
                 className="block py-2 text-xs font-mono-tech"
-                style={{ color: currentPageName === link.page ? "#E53935" : "#6B7280", letterSpacing: "0.1em" }}
+                style={{ color: currentPageName === link.page ? "#D32F2F" : "#6C757D", letterSpacing: "0.1em" }}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
@@ -247,7 +247,7 @@ export default function Layout({ children, currentPageName }) {
                 onClick={() => base44.auth.redirectToLogin()}
                 className="w-full h-9 mt-2 text-xs font-mono-tech font-bold mm-btn-tactile"
                 style={{
-                  background: "linear-gradient(135deg, #E53935, #C62828)",
+                  background: "linear-gradient(135deg, #D32F2F, #B71C1C)",
                   color: "#fff",
                   borderRadius: "2px",
                   border: "none",
@@ -264,7 +264,7 @@ export default function Layout({ children, currentPageName }) {
       {mobileSearchOpen && (
         <div
           className="fixed inset-0 z-[80] flex flex-col"
-          style={{ background: "rgba(10,10,12,0.98)", backdropFilter: "blur(8px)" }}
+          style={{ background: "rgba(248,249,250,0.98)", backdropFilter: "blur(8px)" }}
         >
           <div className="flex items-center gap-3 px-4 py-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
             <div className="flex-1">
