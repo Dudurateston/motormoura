@@ -8,10 +8,10 @@ export default function KitsCarousel() {
   const [added, setAdded] = useState({});
 
   useEffect(() => {
-    base44.entities.Produtos.filter({ relacionamento_categoria: "Peças de Giro Rápido e Reposição" }, "nome_peca", 20).then(setProdutos);
+    base44.entities.Produtos.filter({ destaque: true, ativo: true }, "nome_peca", 20).then(setProdutos);
   }, []);
 
-  const displayItems = produtos.slice(0, 8);
+  const displayItems = produtos;
   const visible = 3;
   const maxOffset = Math.max(0, displayItems.length - visible);
 
