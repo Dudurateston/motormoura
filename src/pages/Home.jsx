@@ -52,16 +52,22 @@ export default function Home() {
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ minHeight: "88vh" }}>
-        {/* Background image — motor/gerador real */}
+        {/* Background image — mobile */}
         <img
-          src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1600&q=80"
-          alt="Motor industrial de combustão"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "center 60%" }} />
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/5e7ca15e4_HeroHomeMobile-MOTORMOURA.png"
+          alt="MotorMoura — Motor Honda GX com peças"
+          className="absolute inset-0 w-full h-full object-cover md:hidden"
+          style={{ objectPosition: "center center" }} />
+        {/* Background image — desktop */}
+        <img
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/7c5d7ee3b_HeroHomeDesktop-MOTORMOURA.png"
+          alt="MotorMoura — Motor Honda GX com peças"
+          className="absolute inset-0 w-full h-full object-cover hidden md:block"
+          style={{ objectPosition: "center 45%" }} />
 
-        {/* Dark overlay */}
+        {/* Overlay — mais leve à direita para mostrar o motor */}
         <div className="absolute inset-0" style={{
-          background: "linear-gradient(105deg, rgba(10,10,12,0.96) 0%, rgba(10,10,12,0.80) 45%, rgba(10,10,12,0.55) 100%)"
+          background: "linear-gradient(105deg, rgba(10,10,12,0.88) 0%, rgba(10,10,12,0.65) 40%, rgba(10,10,12,0.10) 70%, rgba(10,10,12,0.05) 100%)"
         }} />
         {/* Blueprint grid overlay */}
         <div className="absolute inset-0 opacity-[0.04]" style={{
@@ -223,9 +229,10 @@ export default function Home() {
           {/* Image */}
           <div className="relative overflow-hidden order-2 lg:order-1" style={{ borderRadius: "4px", minHeight: 360 }}>
             <img
-              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80"
-              alt="Motor de combustão interna"
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/c0e01f4c6_InstitucionalEstoqueFortaleza-MOTORMOURA.png"
+              alt="Centro de distribuição MotorMoura em Fortaleza"
               className="w-full h-full object-cover"
+              loading="lazy"
               style={{ minHeight: 360 }} />
 
             {/* Overlay gradient */}
@@ -269,21 +276,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── MARCAS ─────────────────────────────────────────────── */}
+      {/* ── COMPATIBILIDADE MULTIMARCAS ──────────────────────────── */}
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}>
-        <div className="max-w-5xl mx-auto px-4 py-8">
+        <div className="max-w-5xl mx-auto px-4 py-10">
           <p className="text-center text-xs font-mono-tech mb-6" style={{ color: "#9CA3AF", letterSpacing: "0.2em" }}>
             PORTFÓLIO MULTIMARCAS — COMPATIBILIDADE GARANTIDA
           </p>
-          <div className="flex items-center justify-center flex-wrap gap-3">
-            {MARCAS.map((marca) =>
-            <div key={marca} className="px-4 py-2 font-bold font-mono-tech text-xs" style={{
-              background: "#F8F9FA", border: "1px solid #E2E8F0",
-              color: "#6C757D", borderRadius: "2px", letterSpacing: "0.12em", cursor: "default"
-            }}>
-                {marca}
-              </div>
-            )}
+          <div className="relative overflow-hidden" style={{ borderRadius: "4px", maxHeight: 380 }}>
+            <img
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/338c2023f_InstitucionalCompatibilidadeMultimarcas-MOTORMOURA.png"
+              alt="Compatibilidade multimarcas MotorMoura — Honda, Toyama, Makita"
+              className="w-full object-cover"
+              loading="lazy"
+              style={{ maxHeight: 380, objectPosition: "center" }}
+            />
           </div>
         </div>
       </section>
@@ -320,19 +326,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── IMAGE BREAK — PEÇAS CLOSE-UP ───────────────────────── */}
+      {/* ── IMAGE BREAK — LOGÍSTICA REGIONAL ───────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 280 }}>
         <img
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80"
-          alt="Peças mecânicas de precisão"
-          className="w-full h-full object-cover" />
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/19310ff54_InstitucionalLogsticaRegional-MOTORMOURA.png"
+          alt="Logística regional MotorMoura — entrega para todo o Nordeste"
+          className="w-full h-full object-cover"
+          loading="lazy"
+          style={{ objectPosition: "center 30%" }} />
 
         <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(10,10,12,0.85) 0%, rgba(10,10,12,0.3) 50%, rgba(10,10,12,0.85) 100%)" }} />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-4">
-            <p className="text-xs font-mono-tech mb-2" style={{ color: "#E53935", letterSpacing: "0.2em" }}>CURADORIA TÉCNICA RIGOROSA</p>
+            <p className="text-xs font-mono-tech mb-2" style={{ color: "#E53935", letterSpacing: "0.2em" }}>LOGÍSTICA REGIONAL ESPECIALIZADA</p>
             <h3 className="text-2xl md:text-3xl font-bold font-mono-tech mm-text-metal">
-              Cada peça, um compromisso<br />com a performance.
+              De Fortaleza para todo<br />o Nordeste e Brasil.
             </h3>
           </div>
         </div>
@@ -384,9 +392,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch">
           <div className="relative overflow-hidden" style={{ minHeight: 320, borderRadius: "4px 0 0 4px" }}>
             <img
-              src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80"
-              alt="Gerador industrial"
-              className="w-full h-full object-cover" />
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/89677d3bd_InstitucionalParceriaB2B-MOTORMOURA.png"
+              alt="Parceria B2B MotorMoura"
+              className="w-full h-full object-cover"
+              loading="lazy"
+              style={{ objectPosition: "center" }} />
           </div>
           <div className="flex flex-col justify-center p-8 md:p-12" style={{
             background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "0 4px 4px 0",
