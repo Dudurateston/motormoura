@@ -191,7 +191,6 @@ export default function Catalogo() {
               TUDO
             </button>
             {CATEGORIES.map((cat) => {
-              const Icon = cat.icon;
               const active = selectedCategoria === cat.name;
               return (
                 <button
@@ -205,7 +204,6 @@ export default function Catalogo() {
                     borderRadius: "2px",
                   }}
                 >
-                  <Icon className="w-3 h-3" />
                   {cat.name.split(" ").slice(0, 2).join(" ")}
                 </button>
               );
