@@ -182,45 +182,24 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Right: 3D Product Showcase */}
-          <div className="hidden md:flex flex-col gap-3">
-            {/* Top row: Motor + Gerador */}
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                {
-                  img: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/dfc94b073_Elemento3DMotorGasolina-MOTORMOURA.png",
-                  label: "MOTORES A GASOLINA", color: "#D32F2F"
-                },
-                {
-                  img: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/9e70c6073_Elemento3DGerador-MOTORMOURA.png",
-                  label: "GERADORES", color: "#1D4ED8"
-                }
-              ].map((item) => (
-                <div key={item.label} className="relative overflow-hidden flex flex-col items-center justify-center p-4"
-                  style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(8px)", border: `1px solid ${item.color}25`, borderRadius: "4px", minHeight: 160 }}>
-                  <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: `linear-gradient(90deg, transparent, ${item.color}60, transparent)` }} />
-                  <img src={item.img} alt={item.label} className="w-full object-contain" style={{ maxHeight: 110, filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.5))" }} loading="lazy" />
-                  <span className="text-[10px] font-mono-tech mt-2" style={{ color: item.color, letterSpacing: "0.1em" }}>{item.label}</span>
-                </div>
-              ))}
-            </div>
-            {/* Bottom: Motobomba wide */}
-            <div className="relative overflow-hidden flex items-center justify-between px-6 py-4"
-              style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(8px)", border: "1px solid rgba(2,132,199,0.25)", borderRadius: "4px", minHeight: 140 }}>
-              <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, transparent, rgba(2,132,199,0.6), transparent)" }} />
-              <div>
-                <span className="text-[10px] font-mono-tech block mb-1" style={{ color: "#0EA5E9", letterSpacing: "0.1em" }}>MOTOBOMBAS</span>
-                <p className="text-xs font-mono-tech" style={{ color: "#6B7280" }}>Irrigação · Industrial</p>
+          {/* Right: Tech spec panel */}
+          <div className="hidden md:flex flex-col gap-4">
+            {[
+            { label: "SEGMENTOS ATENDIDOS", value: "Motores · Geradores · Motobombas", color: "#E53935" },
+            { label: "COMPATIBILIDADE", value: "Honda · Toyama · Tekna · Branco · Buffalo", color: "#1D4ED8" },
+            { label: "ITENS EM CATÁLOGO", value: "+ 1.000 SKUs catalogados", color: "#4ADE80" },
+            { label: "MODELO DE NEGÓCIO", value: "Exclusivo B2B — Lojistas Homologados", color: "#E53935" }].
+            map((item) =>
+            <div key={item.label} className="p-4 relative overflow-hidden" style={{
+              background: "rgba(0,0,0,0.55)", backdropFilter: "blur(8px)",
+              border: `1px solid ${item.color}30`, borderRadius: "2px",
+              borderLeft: `3px solid ${item.color}`
+            }}>
+                <p className="text-xs font-mono-tech mb-1" style={{ color: item.color, letterSpacing: "0.12em", opacity: 0.7 }}>{item.label}</p>
+                <p className="text-sm font-semibold" style={{ color: "#F3F4F6" }}>{item.value}</p>
               </div>
-              <img
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/264db1544_Elemento3DMotobomba-MOTORMOURA.png"
-                alt="Motobomba"
-                className="object-contain"
-                style={{ maxHeight: 110, filter: "drop-shadow(0 8px 20px rgba(0,0,0,0.5))" }}
-                loading="lazy"
-              />
-            </div>
-            <div className="flex items-center gap-2 px-2">
+            )}
+            <div className="flex items-center gap-2 mt-2 px-2">
               <div className="w-1.5 h-1.5 rounded-full bg-[#4ADE80] mm-data-blink" />
               <span className="text-xs font-mono-tech" style={{ color: "#374151" }}>PLATAFORMA ONLINE · PRONTA ENTREGA</span>
             </div>
@@ -386,26 +365,19 @@ export default function Home() {
 
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
-            { Icon: Shield, title: "QUALIDADE CERTIFICADA", desc: "Peças importadas com especificações técnicas rigorosas. Alternativa de alto desempenho que equilibra custo e longevidade.", color: "#1D4ED8",
-              img: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/dfc94b073_Elemento3DMotorGasolina-MOTORMOURA.png" },
-            { Icon: Truck, title: "LOGÍSTICA DE ESCALA", desc: "Estruturados para operações B2B de grande volume. Sua loja sempre com o estoque necessário para nunca perder uma venda.", color: "#D32F2F",
-              img: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/9e70c6073_Elemento3DGerador-MOTORMOURA.png" },
-            { Icon: Cpu, title: "SUPORTE TÉCNICO", desc: "Nossa equipe especializada identifica a peça exata. Do motor ao gerador, da motobomba à bomba de pulverização.", color: "#15803D",
-              img: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/f54f36126_Elemento3DPeasFlutuantes-MOTORMOURA.png" }].
+            { Icon: Shield, title: "QUALIDADE CERTIFICADA", desc: "Peças importadas com especificações técnicas rigorosas. Alternativa de alto desempenho que equilibra custo e longevidade.", color: "#1D4ED8" },
+            { Icon: Truck, title: "LOGÍSTICA DE ESCALA", desc: "Estruturados para operações B2B de grande volume. Sua loja sempre com o estoque necessário para nunca perder uma venda.", color: "#D32F2F" },
+            { Icon: Cpu, title: "SUPORTE TÉCNICO", desc: "Nossa equipe especializada identifica a peça exata. Do motor ao gerador, da motobomba à bomba de pulverização.", color: "#15803D" }].
             map((f) =>
-            <div key={f.title} className="p-5 relative overflow-hidden" style={{
+            <div key={f.title} className="p-5 relative" style={{
               background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "4px",
               boxShadow: "0 2px 8px rgba(0,0,0,0.04)"
             }}>
                 <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${f.color}60, transparent)` }} />
-                <div className="flex items-start justify-between gap-2 mb-3">
-                  <div className="w-10 h-10 flex items-center justify-center flex-shrink-0" style={{
-                    background: `${f.color}12`, border: `1px solid ${f.color}30`, borderRadius: "2px"
-                  }}>
-                    <f.Icon className="w-5 h-5" style={{ color: f.color }} />
-                  </div>
-                  <img src={f.img} alt={f.title} className="w-16 h-16 object-contain opacity-80"
-                    loading="lazy" style={{ filter: `drop-shadow(0 2px 8px ${f.color}25)` }} />
+                <div className="w-10 h-10 flex items-center justify-center mb-4" style={{
+                background: `${f.color}12`, border: `1px solid ${f.color}30`, borderRadius: "2px"
+              }}>
+                  <f.Icon className="w-5 h-5" style={{ color: f.color }} />
                 </div>
                 <h3 className="font-bold text-sm mb-2 font-mono-tech" style={{ color: "#212529" }}>{f.title}</h3>
                 <p style={{ color: "#6C757D", fontSize: "15px", fontWeight: 400, lineHeight: 1.7 }}>{f.desc}</p>

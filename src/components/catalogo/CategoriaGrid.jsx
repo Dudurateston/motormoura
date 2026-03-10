@@ -2,15 +2,10 @@ import React from "react";
 import { Cpu, Droplets, Activity, Leaf, Zap, Settings, ChevronRight } from "lucide-react";
 
 // IMPORTANT: These names MUST match exactly the LINHAS used in CatalogoSidebar and Catalogo filter logic
-const IMG_MOTOR   = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/dfc94b073_Elemento3DMotorGasolina-MOTORMOURA.png";
-const IMG_GERADOR = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/9e70c6073_Elemento3DGerador-MOTORMOURA.png";
-const IMG_BOMBA   = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/264db1544_Elemento3DMotobomba-MOTORMOURA.png";
-
 export const CATEGORIES = [
   {
     name: "Motores a Gasolina",
     icon: Cpu,
-    image: IMG_MOTOR,
     desc: "Pistões, anéis, carburadores, velas e kits de revisão completos.",
     color: "#D32F2F",
     badge: "HONDA · TOYAMA · BRANCO",
@@ -25,7 +20,6 @@ export const CATEGORIES = [
   {
     name: "Motobombas 4 Tempos",
     icon: Droplets,
-    image: IMG_BOMBA,
     desc: "Diafragmas, impeladores e vedações para motobombas de irrigação.",
     color: "#0284C7",
     badge: "HONDA · TOYAMA · NAGANO",
@@ -33,7 +27,6 @@ export const CATEGORIES = [
   {
     name: "Geradores 4 Tempos",
     icon: Activity,
-    image: IMG_GERADOR,
     desc: "Alternadores, bobinas, escovas e componentes elétricos para geradores.",
     color: "#B45309",
     badge: "HONDA · TEKNA · BUFFALO",
@@ -41,7 +34,6 @@ export const CATEGORIES = [
   {
     name: "Geradores 2 Tempos",
     icon: Zap,
-    image: IMG_GERADOR,
     desc: "Carburadores, pistões e filtros para geradores de 2 tempos.",
     color: "#7C3AED",
     badge: "TEKNA · SCHULZ · SAVANA",
@@ -49,7 +41,6 @@ export const CATEGORIES = [
   {
     name: "Bombas de Pulverização",
     icon: Leaf,
-    image: IMG_BOMBA,
     desc: "Diafragmas, válvulas e componentes para pulverizadores agrícolas.",
     color: "#15803D",
     badge: "KAWASHIMA · MATSUYAMA",
@@ -89,25 +80,13 @@ export default function CategoriaGrid({ onSelectCategory }) {
               <div className="absolute top-0 left-0 right-0 h-[2px]"
                 style={{ background: `linear-gradient(90deg, transparent, ${cat.color}, transparent)` }}
               />
-              {cat.image ? (
-                <div className="h-20 flex items-center justify-center mb-4">
-                  <img
-                    src={cat.image}
-                    alt={cat.name}
-                    className="h-full w-auto object-contain"
-                    loading="lazy"
-                    style={{ filter: `drop-shadow(0 4px 12px ${cat.color}30)` }}
-                  />
-                </div>
-              ) : (
-                <div className="w-12 h-12 flex items-center justify-center mb-4" style={{
-                  background: `${cat.color}12`,
-                  border: `1px solid ${cat.color}30`,
-                  borderRadius: "2px",
-                }}>
-                  <Icon className="w-6 h-6" style={{ color: cat.color }} />
-                </div>
-              )}
+              <div className="w-12 h-12 flex items-center justify-center mb-4" style={{
+                background: `${cat.color}12`,
+                border: `1px solid ${cat.color}30`,
+                borderRadius: "2px",
+              }}>
+                <Icon className="w-6 h-6" style={{ color: cat.color }} />
+              </div>
               <h3 className="font-bold font-mono-tech text-sm mb-2 pr-4" style={{ color: "#212529", lineHeight: 1.4 }}>
                 {cat.name}
               </h3>
