@@ -98,29 +98,12 @@ export default function Layout({ children, currentPageName }) {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center gap-2.5">
-              <div
-                className="w-8 h-8 flex items-center justify-center"
-                style={{
-                  background: "linear-gradient(135deg, #E53935, #C62828)",
-                  clipPath: "polygon(4px 0%, 100% 0%, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0% 100%, 0% 4px)",
-                }}
-              >
-                <Zap className="w-4 h-4 text-white" />
-              </div>
-              <div>
-                <span
-                  className="font-bold text-lg leading-none tracking-tight"
-                  style={{ fontFamily: "'Space Mono', monospace", color: "#212529" }}
-                >
-                  Motor
-                </span>
-                <span
-                  className="font-bold text-lg leading-none tracking-tight"
-                  style={{ fontFamily: "'Space Mono', monospace", color: "#D32F2F" }}
-                >
-                  Moura
-                </span>
-              </div>
+              <img 
+                src="https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/a9d157fda_LogoMOTORMOURASimplificada-cone.png"
+                alt="MotorMoura"
+                className="h-10 w-auto"
+                style={{ objectFit: "contain" }}
+              />
             </Link>
 
             {/* Desktop nav */}
@@ -296,16 +279,12 @@ export default function Layout({ children, currentPageName }) {
           {/* Col 1: Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{
-                background: "linear-gradient(135deg, #E53935, #C62828)",
-                clipPath: "polygon(4px 0%, 100% 0%, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0% 100%, 0% 4px)",
-              }}>
-                <Zap className="w-4 h-4 text-white" />
-              </div>
-              <div>
-                <span className="font-bold text-base font-mono-tech" style={{ color: "#F3F4F6" }}>Motor</span>
-                <span className="font-bold text-base font-mono-tech" style={{ color: "#E53935" }}>Moura</span>
-              </div>
+              <img 
+                src="https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/a9d157fda_LogoMOTORMOURASimplificada-cone.png"
+                alt="MotorMoura"
+                className="h-10 w-auto"
+                style={{ objectFit: "contain" }}
+              />
             </div>
             <p style={{ color: "#6B7280", fontSize: "15px", lineHeight: 1.7, marginBottom: "12px" }}>
               Distribuidora técnica especializada em peças de reposição para motores, geradores e motobombas.
