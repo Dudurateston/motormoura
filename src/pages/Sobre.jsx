@@ -57,7 +57,7 @@ export default function Sobre() {
             <span className="block" style={{ color: "#212529" }}>FAZENDO O TRABALHO</span>
             <span className="block" style={{ color: "#D32F2F" }}>NÃO PARAR.</span>
           </h1>
-          <p style={{ color: "#6C757D", fontSize: "17px", lineHeight: 1.8, maxWidth: 500, marginBottom: "32px" }}>
+          <p style={{ color: "#000000ff", fontSize: "17px", lineHeight: 1.8, maxWidth: 500, marginBottom: "32px" }}>
             Distribuidora importadora especializada em peças de reposição para motores, geradores e motobombas. Sua parceira técnica no Brasil.
           </p>
           <div className="flex flex-wrap gap-3">
