@@ -7,6 +7,7 @@ import {
   AlertCircle, ShoppingCart, Package, MessageCircle, ArrowRight,
   Zap, Star, LogOut, ChevronRight, Edit3, Save
 } from "lucide-react";
+import SEOHead from "../components/SEOHead";
 
 const WHATSAPP_B2B = "https://api.whatsapp.com/send?phone=5585986894081";
 
@@ -163,7 +164,13 @@ export default function MinhaConta() {
   const initials = user.full_name?.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase() || "MM";
 
   return (
-    <div style={{ background: "#F8F9FA", minHeight: "100vh" }}>
+    <>
+      <SEOHead
+        title="Minha Conta - Área do Lojista | MotorMoura"
+        description="Gerencie sua conta de lojista MotorMoura. Acesse preços de atacado, faça cotações e acompanhe seus pedidos."
+        keywords="conta lojista, área cliente, cadastro lojista, B2B motormoura"
+      />
+      <div style={{ background: "#F8F9FA", minHeight: "100vh" }}>
       <div className="max-w-4xl mx-auto px-4 py-8">
 
         {/* Page header */}
@@ -379,6 +386,6 @@ export default function MinhaConta() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

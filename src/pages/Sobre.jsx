@@ -6,6 +6,7 @@ import {
   Globe, Target, ArrowRight, MapPin, Users, Clock, Star,
   CheckCircle, Wrench, Layers, MessageCircle } from
 "lucide-react";
+import SEOHead from "../components/SEOHead";
 
 const MARCAS = ["Honda", "Toyama", "Tekna", "Branco", "Buffalo", "Husqvarna"];
 
@@ -29,7 +30,13 @@ export default function Sobre() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="mm-bg min-h-screen">
+    <>
+      <SEOHead
+        title="Sobre a MotorMoura - Distribuidora de Peças para Motores | Fortaleza-CE"
+        description="Conheça a história da MotorMoura, distribuidora técnica B2B especializada em peças de reposição para motores, geradores e motobombas. Importação direta desde 2015. Fortaleza-CE."
+        keywords="sobre motormoura, distribuidora peças motor, importadora Fortaleza, história empresa, B2B peças motor"
+      />
+      <div className="mm-bg min-h-screen">
 
       {/* ── HERO com imagem de armazém / logística ─── */}
       <section className="relative overflow-hidden" style={{ minHeight: 520, background: "#F8F9FA" }}>
@@ -409,6 +416,8 @@ export default function Sobre() {
         </div>
       </section>
 
-    </div>);
+      </div>
+    </>
+  );
 
 }
