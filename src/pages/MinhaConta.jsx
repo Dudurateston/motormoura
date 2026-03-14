@@ -386,6 +386,7 @@ export default function MinhaConta() {
           </div>
         </div>
       </div>
+      </div>
     </>
   );
 }
