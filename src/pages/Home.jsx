@@ -8,6 +8,7 @@ import HeroPiston from "../components/home/HeroPiston";
 import CategoryCard from "../components/home/CategoryCard";
 import KitsCarousel from "../components/home/KitsCarousel";
 import ComoSerLojista from "../components/home/ComoSerLojista";
+import SEOHead from "../components/SEOHead";
 
 const LINHAS = [
 "Motores a Gasolina",
@@ -48,7 +49,13 @@ export default function Home() {
   };
 
   return (
-    <div style={{ background: "#F8F9FA", minHeight: "100vh" }}>
+    <>
+      <SEOHead
+        title="MotorMoura - Distribuidora de Peças para Motores, Geradores e Motobombas | Fortaleza-CE"
+        description="Distribuidora técnica B2B especializada em peças de reposição para motores, geradores e motobombas. Mais de 1.000 SKUs em estoque. Importação direta. Honda, Toyama, Tekna, Branco, Buffalo, Husqvarna. Fortaleza-CE."
+        keywords="peças motor, peças gerador, peças motobomba, distribuidor peças motor, importadora peças motor, Honda, Toyama, Tekna, Branco, Buffalo, Husqvarna, Fortaleza, B2B, atacado"
+      />
+      <div style={{ background: "#F8F9FA", minHeight: "100vh" }}>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ minHeight: "88vh" }}>
@@ -436,6 +443,8 @@ export default function Home() {
         </div>
       </section>
 
-    </div>);
+      </div>
+    </>
+  );
 
 }
