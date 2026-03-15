@@ -5,7 +5,7 @@ import ProdutoCard from "../components/catalogo/ProdutoCard";
 import CatalogoSidebar from "../components/catalogo/CatalogoSidebar";
 import CategoriaGrid from "../components/catalogo/CategoriaGrid";
 import SEOHead from "../components/SEOHead";
-import { analytics } from "@/lib/analytics";
+import { analytics } from "@/components/analytics/analytics";
 
 const PAGE_SIZE = 36;
 
