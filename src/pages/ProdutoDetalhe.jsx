@@ -6,6 +6,7 @@ import {
   ArrowLeft, ShoppingCart, MessageCircle, Package, Zap, Tag,
   CheckCircle, Info, Plus, Minus, ChevronRight, AlertTriangle
 } from "lucide-react";
+import { analytics } from "@/components/analytics/analytics";
 
 function addToCart(produto, quantidade) {
   const stored = localStorage.getItem("motormoura_cart");
@@ -29,7 +30,9 @@ export default function ProdutoDetalhe() {
   useEffect(() => {
     if (!produtoId) { setLoading(false); return; }
     base44.entities.Produtos.filter({ id: produtoId }).then((res) => {
-      setProduto(res[0] || null);
+      const p = res[0] || null;
+      setProduto(p);
+      if (p) analytics.productView(p);
       setLoading(false);
     });
   }, [produtoId]);
@@ -37,6 +40,7 @@ export default function ProdutoDetalhe() {
   const handleAddToCart = () => {
     if (!produto) return;
     addToCart(produto, quantidade);
+    analytics.productAddToCart(produto, quantidade);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
@@ -44,6 +48,7 @@ export default function ProdutoDetalhe() {
   const handleWhatsApp = () => {
     const WHATSAPP_NUMBER = "5511999999999";
     const msg = `Olá, MotorMoura! Gostaria de solicitar orçamento:\n\n• ${quantidade}x ${produto.nome_peca}\n  SKU: ${produto.sku_codigo}\n  Marca: ${produto.relacionamento_marca || "—"}\n\nAguardo retorno!`;
+    analytics.whatsappClick("product_detail");
     window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(msg)}`, "_blank");
   };
 
