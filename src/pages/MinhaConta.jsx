@@ -8,6 +8,7 @@ import {
   Zap, Star, LogOut, ChevronRight, Edit3, Save
 } from "lucide-react";
 import SEOHead from "../components/SEOHead";
+import { analytics } from "@/lib/analytics";
 
 const WHATSAPP_B2B = "https://api.whatsapp.com/send?phone=5585986894081";
 
@@ -113,6 +114,7 @@ export default function MinhaConta() {
     } else {
       const novo = await base44.entities.Lojistas.create({ ...form, user_email: user.email, status: "pendente" });
       setLojista(novo);
+      analytics.registerLojista("pendente");
     }
     setSaving(false);
     setSaved(true);

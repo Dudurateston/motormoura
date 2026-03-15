@@ -4,6 +4,7 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ShoppingCart, Menu, X, Zap, Trash2, Plus, Minus, MessageCircle, Mail, Instagram, ExternalLink, Search } from "lucide-react";
 import HeaderSearch from "@/components/layout/HeaderSearch";
+import { analytics } from "@/lib/analytics";
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
@@ -55,6 +56,10 @@ export default function Layout({ children, currentPageName }) {
 
   const handleSendWhatsApp = async () => {
     const WHATSAPP_NUMBER = "5585986894081";
+    const totalItens = cart.reduce((s, i) => s + i.quantidade, 0);
+    
+    analytics.quoteSubmit(cart, totalItens);
+    
     await base44.entities.Orcamentos.create({
       lojista_email: user?.email || "anonimo",
       lojista_nome: user?.full_name || "Visitante",
@@ -66,6 +71,7 @@ export default function Layout({ children, currentPageName }) {
     cart.forEach(item => { msg += `• ${item.quantidade}x ${item.nome_peca} (SKU: ${item.sku_codigo})\n`; });
     if (user) msg += `\nAtenciosamente,\n${user.full_name}`;
     const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(msg)}`;
+    analytics.whatsappClick("cart_panel");
     saveCart([]);
     setCartOpen(false);
     window.open(url, "_blank");
@@ -174,7 +180,10 @@ export default function Layout({ children, currentPageName }) {
                 </div>
               ) : (
                 <button
-                  onClick={() => base44.auth.redirectToLogin()}
+                  onClick={() => {
+                    analytics.loginAttempt();
+                    base44.auth.redirectToLogin();
+                  }}
                   className="hidden md:flex mm-btn-tactile px-4 h-9 text-xs font-mono-tech font-bold items-center"
                   style={{
                     background: "linear-gradient(135deg, #E53935, #C62828)",
