@@ -8,6 +8,7 @@ import HeroPiston from "../components/home/HeroPiston";
 import CategoryCard from "../components/home/CategoryCard";
 import KitsCarousel from "../components/home/KitsCarousel";
 import ComoSerLojista from "../components/home/ComoSerLojista";
+import CategorySlider from "../components/home/CategorySlider";
 import SEOHead from "../components/SEOHead";
 
 const LINHAS = [
@@ -207,6 +208,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── NAVEGUE POR CATEGORIAS ──────────────────────────────── */}
+      <CategorySlider />
 
       {/* ── NÚMEROS DE AUTORIDADE ───────────────────────────────── */}
       <section style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0", borderBottom: "1px solid #E2E8F0" }}>
