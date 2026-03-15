@@ -80,7 +80,7 @@ export default function Layout({ children, currentPageName }) {
   const navLinks = [
     { label: "INÍCIO", page: "Home" },
     { label: "CATÁLOGO", page: "Catalogo" },
-    { label: "COMPARAR", page: "Comparativo" },
+    { label: "FAVORITOS", page: "Favoritos" },
     { label: "SOBRE", page: "Sobre" },
     { label: "CONTA", page: "MinhaConta" },
   ];

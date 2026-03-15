@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import AnalyticsTracker from '@/components/analytics/AnalyticsTracker';
 import Comparativo from './pages/Comparativo';
+import Favoritos from './pages/Favoritos';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -64,6 +65,11 @@ const AuthenticatedApp = () => {
         <Route path="/Comparativo" element={
           <LayoutWrapper currentPageName="Comparativo">
             <Comparativo />
+          </LayoutWrapper>
+        } />
+        <Route path="/Favoritos" element={
+          <LayoutWrapper currentPageName="Favoritos">
+            <Favoritos />
           </LayoutWrapper>
         } />
         <Route path="*" element={<PageNotFound />} />
