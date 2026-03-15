@@ -246,6 +246,13 @@ export default function MinhaConta() {
                     <ChevronRight className="w-3 h-3" style={{ color: "#CBD5E1" }} />
                   </div>
                 </Link>
+                <Link to={createPageUrl("MeusPedidos")} className="flex items-center justify-between px-3 py-2.5 transition-colors hover:bg-gray-50" style={{ borderRadius: "2px" }}>
+                  <div className="flex items-center gap-2">
+                    <Package className="w-3.5 h-3.5" style={{ color: "#B45309" }} />
+                    <span className="text-xs font-mono-tech" style={{ color: "#6C757D" }}>Meus Pedidos</span>
+                  </div>
+                  <ChevronRight className="w-3 h-3" style={{ color: "#CBD5E1" }} />
+                </Link>
                 <a href={WHATSAPP_B2B} target="_blank" rel="noopener noreferrer"
                   className="flex items-center justify-between px-3 py-2.5 transition-colors hover:bg-gray-50" style={{ borderRadius: "2px" }}>
                   <div className="flex items-center gap-2">
