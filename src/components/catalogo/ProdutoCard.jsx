@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { ShoppingCart, Zap, AlertTriangle, Plus, Minus, ExternalLink } from "lucide-react";
 import { analytics } from "@/components/analytics/analytics";
+import FavoritoButton from "./FavoritoButton";
 
 export default function ProdutoCard({ produto, onAddToCart }) {
   const [quantidade, setQuantidade] = useState(1);
@@ -60,6 +61,11 @@ export default function ProdutoCard({ produto, onAddToCart }) {
           ⭐ TOP
         </div>
       )}
+
+      {/* Favorito button */}
+      <div className="absolute top-3 left-3 z-10">
+        <FavoritoButton produto={produto} />
+      </div>
 
       {/* Corner marks */}
       <div className="absolute top-2 left-2 w-3 h-3 border-t border-l opacity-20" style={{ borderColor: "#D32F2F" }} />
