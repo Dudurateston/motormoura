@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ShoppingCart, Trash2, Plus, Minus, MessageCircle, ArrowLeft, Send, Info } from "lucide-react";
+import SEOHead from "../components/SEOHead";
+import { analytics } from "@/components/analytics/analytics";
 
 const WHATSAPP_NUMBER = "5585986894081";
 const MINIMO_PEDIDO = 50;
@@ -37,6 +39,8 @@ export default function Orcamento() {
   };
 
   const removeItem = (sku) => {
+    const item = cart.find(i => i.sku_codigo === sku);
+    if (item) analytics.cartRemoveItem(item);
     const updated = cart.filter((item) => item.sku_codigo !== sku);
     setCart(updated);
     saveCart(updated);
@@ -52,6 +56,10 @@ export default function Orcamento() {
 
   const handleEnviarWhatsApp = async () => {
     setEnviando(true);
+    const totalItens = cart.reduce((s, i) => s + i.quantidade, 0);
+    
+    analytics.quoteSubmit(cart, totalItens);
+    
     await base44.entities.Orcamentos.create({
       lojista_email: user?.email || "anonimo",
       lojista_nome: user?.full_name || "Visitante",
@@ -62,6 +70,7 @@ export default function Orcamento() {
     });
     const encoded = encodeURIComponent(formatWhatsAppMessage());
     const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encoded}`;
+    analytics.whatsappClick("quote_submit");
     saveCart([]);
     setCart([]);
     setEnviado(true);

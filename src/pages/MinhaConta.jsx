@@ -8,7 +8,7 @@ import {
   Zap, Star, LogOut, ChevronRight, Edit3, Save
 } from "lucide-react";
 import SEOHead from "../components/SEOHead";
-import { analytics } from "@/lib/analytics";
+import { analytics } from "@/components/analytics/analytics";
 
 const WHATSAPP_B2B = "https://api.whatsapp.com/send?phone=5585986894081";
 
