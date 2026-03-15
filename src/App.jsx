@@ -9,6 +9,7 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import AnalyticsTracker from '@/components/analytics/AnalyticsTracker';
 import Comparativo from './pages/Comparativo';
 import Favoritos from './pages/Favoritos';
+import MeusPedidos from './pages/MeusPedidos';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -70,6 +71,11 @@ const AuthenticatedApp = () => {
         <Route path="/Favoritos" element={
           <LayoutWrapper currentPageName="Favoritos">
             <Favoritos />
+          </LayoutWrapper>
+        } />
+        <Route path="/MeusPedidos" element={
+          <LayoutWrapper currentPageName="MeusPedidos">
+            <MeusPedidos />
           </LayoutWrapper>
         } />
         <Route path="*" element={<PageNotFound />} />
