@@ -16,7 +16,6 @@ export default function Comparativo() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    analytics.track("page_view", { page: "comparativo" });
     base44.entities.Produtos.filter({ ativo: true }).then((res) => {
       setProdutos(res || []);
       setLoading(false);
@@ -27,7 +26,6 @@ export default function Comparativo() {
     if (comparando.length >= 4) return;
     if (comparando.find(p => p.id === produto.id)) return;
     setComparando([...comparando, produto]);
-    analytics.track("product_compare_add", { sku: produto.sku_codigo });
   };
 
   const removerDoComparativo = (id) => {
