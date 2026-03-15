@@ -124,6 +124,7 @@ export default function Catalogo() {
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const hasFilters = !!(selectedLinha || selectedTipo || selectedMarcas.length > 0 || searchText || priceFilter !== "all");
+  const shouldShowProducts = !!(selectedLinha || searchText);
 
   const clearFilters = useCallback(() => {
     setSelectedLinha(""); setSelectedTipo(""); setSelectedMarcas([]);
@@ -228,14 +229,14 @@ export default function Catalogo() {
           </a>
         </div>
 
-        {/* ── CATEGORY GRID (shown when no category selected) ── */}
-        {!selectedCategoria && !searchText && (
+        {/* ── CATEGORY GRID (shown when no category selected and no search) ── */}
+        {!shouldShowProducts && (
           <div className="mb-6">
             <CategoriaGrid onSelectCategory={(cat) => { setSelectedCategoria(cat); setPage(1); }} />
           </div>
         )}
 
-        <div className="flex gap-5 items-start" style={{ display: selectedCategoria || searchText ? "flex" : "none" }}>
+        <div className="flex gap-5 items-start" style={{ display: shouldShowProducts ? "flex" : "none" }}>
 
           {/* ── SIDEBAR DESKTOP ── */}
           <aside
@@ -304,21 +305,23 @@ export default function Catalogo() {
               </div>
 
               {/* Mobile filter btn */}
-              <button
-                className="md:hidden flex items-center gap-1.5 px-3 h-9 text-xs font-mono-tech flex-shrink-0"
-                style={{ background: hasFilters ? "rgba(211,47,47,0.08)" : "#FFFFFF", border: hasFilters ? "1px solid rgba(211,47,47,0.3)" : "1px solid #E2E8F0", color: hasFilters ? "#D32F2F" : "#6C757D", borderRadius: "2px" }}
-                onClick={() => setMobileDrawerOpen(true)}
-              >
-                <SlidersHorizontal className="w-3.5 h-3.5" />
-                FILTROS
-                {hasFilters && <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />}
-              </button>
+              {shouldShowProducts && (
+                <button
+                  className="md:hidden flex items-center gap-1.5 px-3 h-9 text-xs font-mono-tech flex-shrink-0"
+                  style={{ background: hasFilters ? "rgba(211,47,47,0.08)" : "#FFFFFF", border: hasFilters ? "1px solid rgba(211,47,47,0.3)" : "1px solid #E2E8F0", color: hasFilters ? "#D32F2F" : "#6C757D", borderRadius: "2px" }}
+                  onClick={() => setMobileDrawerOpen(true)}
+                >
+                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  FILTROS
+                  {hasFilters && <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />}
+                </button>
+              )}
 
               {/* Count */}
               <span className="text-xs font-mono-tech ml-auto flex-shrink-0" style={{ color: "#9CA3AF" }}>
-                {loading ? "CARREGANDO..." : `${filtered.length} ITENS · P.${page}/${Math.max(1, totalPages)}`}
+                {loading ? "CARREGANDO..." : shouldShowProducts ? `${filtered.length} ITENS · P.${page}/${Math.max(1, totalPages)}` : `${produtos.length} PEÇAS CATALOGADAS`}
               </span>
-            </div>
+              </div>
 
             {/* Active pills */}
             {pills.length > 0 && (
