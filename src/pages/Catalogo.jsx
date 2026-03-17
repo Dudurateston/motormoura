@@ -80,7 +80,10 @@ export default function Catalogo() {
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const [catalogoTab, setCatalogoTab] = useState("catalogo"); // "catalogo" | "favoritos" | "comparativo"
+  const [catalogoTab, setCatalogoTab] = useState(() => {
+    const tab = new URLSearchParams(window.location.search).get("tab");
+    return ["favoritos", "comparativo"].includes(tab) ? tab : "catalogo";
+  });
   const [catalogoUser, setCatalogoUser] = useState(null);
 
   useEffect(() => {
