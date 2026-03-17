@@ -121,7 +121,6 @@ export default function Admin() {
   const lojistasAprovados = lojistas.filter(l => l.status === "aprovado").length;
   const lojistasSuspensos = lojistas.filter(l => l.status === "suspenso").length;
   const lojistasComGaragem = lojistas.filter(l => l.garagem?.length > 0).length;
-  const lojistasComPerfil = lojistas.filter(l => l.perfil_empresa).length;
 
   // Perfil completeness avg
   const avgScore = lojistas.length > 0
