@@ -8,9 +8,10 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import AnalyticsTracker from '@/components/analytics/AnalyticsTracker';
 import ScrollToTop from '@/components/ScrollToTop';
-import Comparativo from './pages/Comparativo';
-import Favoritos from './pages/Favoritos';
-import MeusPedidos from './pages/MeusPedidos';
+import { lazy, Suspense } from 'react';
+const Comparativo = lazy(() => import('./pages/Comparativo'));
+const Favoritos = lazy(() => import('./pages/Favoritos'));
+const MeusPedidos = lazy(() => import('./pages/MeusPedidos'));
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
