@@ -37,10 +37,9 @@ export default function HomeVitrine({ title, emoji, tabs, singleTab }) {
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    base44.entities.Produtos.list("-created_date", 500).then((p) => {
-      setProdutos(p);
-      setLoading(false);
-    });
+    apiCache
+      .get("produtos_vitrine", () => base44.entities.Produtos.list("-created_date", 500))
+      .then((p) => { setProdutos(p); setLoading(false); });
   }, []);
 
   const displayed = filterByCategory(produtos, activeTab);
@@ -114,15 +113,12 @@ export default function HomeVitrine({ title, emoji, tabs, singleTab }) {
                   boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                 }}
               >
-                {produto.imagem_url ? (
-                  <div className="h-36 overflow-hidden" style={{ borderRadius: "4px 4px 0 0" }}>
-                    <img src={produto.imagem_url} alt={produto.nome_peca} className="w-full h-full object-cover" />
-                  </div>
-                ) : (
-                  <div className="h-36 flex items-center justify-center" style={{ background: "#F8F9FA", borderRadius: "4px 4px 0 0" }}>
-                    <ShoppingCart className="w-10 h-10" style={{ color: "#E2E8F0" }} />
-                  </div>
-                )}
+                <LazyImage
+                  src={produto.imagem_url}
+                  alt={produto.nome_peca}
+                  style={{ height: 144, borderRadius: "4px 4px 0 0", background: "#F8F9FA" }}
+                  placeholder={<div className="flex items-center justify-center h-full"><ShoppingCart className="w-10 h-10" style={{ color: "#E2E8F0" }} /></div>}
+                />
                 <div className="p-3 flex flex-col flex-1">
                   <p className="text-[10px] font-mono-tech mb-1" style={{ color: "#1D4ED8" }}>SKU: {produto.sku_codigo}</p>
                   <p className="text-xs font-semibold mb-3 flex-1 line-clamp-2" style={{ color: "#212529", lineHeight: 1.4 }}>{produto.nome_peca}</p>
