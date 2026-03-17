@@ -283,23 +283,38 @@ export default function Layout({ children, currentPageName }) {
       {/* ── FOOTER ─────────────────────────────────────────────── */}
       <footer style={{ background: "#0A0A0C", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
+
+        {/* Revendedores Oficiais Banner */}
+        <div className="px-4 py-4" style={{ background: "#111114", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-4">
+            <span className="text-xs font-mono-tech" style={{ color: "#6B7280", letterSpacing: "0.12em" }}>REVENDEDOR OFICIAL:</span>
+            <span className="px-4 py-1.5 text-xs font-bold font-mono-tech" style={{ background: "rgba(29,78,216,0.15)", border: "1px solid rgba(29,78,216,0.35)", color: "#60A5FA", borderRadius: "2px" }}>
+              MAKITA
+            </span>
+            <span className="px-4 py-1.5 text-xs font-bold font-mono-tech" style={{ background: "rgba(229,57,53,0.12)", border: "1px solid rgba(229,57,53,0.3)", color: "#F87171", borderRadius: "2px" }}>
+              VIBROMAK
+            </span>
+            <span className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>+ Honda · Toyama · Tekna · Branco · Buffalo · Husqvarna</span>
+          </div>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
           {/* Col 1: Brand */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <img 
+              <img
                 src="https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/a9d157fda_LogoMOTORMOURASimplificada-cone.png"
                 alt="MotorMoura"
                 className="h-10 w-auto"
                 style={{ objectFit: "contain" }}
               />
             </div>
-            <p style={{ color: "#6B7280", fontSize: "15px", lineHeight: 1.7, marginBottom: "12px" }}>
-              Distribuidora técnica especializada em peças de reposição para motores, geradores e motobombas.
+            <p style={{ color: "#6B7280", fontSize: "14px", lineHeight: 1.7, marginBottom: "12px" }}>
+              Distribuidora técnica especializada em peças de reposição para motores, geradores e motobombas. Revendedor oficial Makita e Vibromak.
             </p>
-            <p className="text-xs font-mono-tech" style={{ color: "#374151" }}>CNPJ: 12.345.678/0001-99</p>
-            <p className="text-xs font-mono-tech mt-1" style={{ color: "#374151" }}>Fortaleza — CE, Brasil</p>
+            <p className="text-xs font-mono-tech" style={{ color: "#374151" }}>Fortaleza — CE, Brasil</p>
+            <p className="text-xs font-mono-tech mt-1" style={{ color: "#374151" }}>PLATAFORMA B2B · CNPJ ativo</p>
           </div>
 
           {/* Col 2: Institucional */}
@@ -307,13 +322,14 @@ export default function Layout({ children, currentPageName }) {
             <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>INSTITUCIONAL</h4>
             <ul className="space-y-2.5">
               {[
-                { label: "Sobre a Importadora", page: "MinhaConta" },
+                { label: "Sobre a MotorMoura", page: "Sobre" },
                 { label: "Seja um Revendedor", page: "MinhaConta" },
-                { label: "Política de Garantia", page: "MinhaConta" },
                 { label: "Minha Conta", page: "MinhaConta" },
+                { label: "Meus Pedidos", page: "MeusPedidos" },
+                { label: "Lista de Cotação", page: "Orcamento" },
               ].map(link => (
                 <li key={link.label}>
-                  <Link to={createPageUrl(link.page)} className="transition-colors hover:text-[#E53935]" style={{ color: "#6B7280", fontSize: "15px" }}>
+                  <Link to={createPageUrl(link.page)} className="transition-colors hover:text-[#E53935]" style={{ color: "#6B7280", fontSize: "14px" }}>
                     {link.label}
                   </Link>
                 </li>
@@ -325,10 +341,22 @@ export default function Layout({ children, currentPageName }) {
           <div>
             <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>CATÁLOGO RÁPIDO</h4>
             <ul className="space-y-2.5">
-              {["Motores a Gasolina","Motores a Diesel","Motobombas 4 Tempos","Geradores 4 Tempos","Geradores 2 Tempos","Bombas de Pulverização"].map(cat => (
-                <li key={cat}>
-                  <Link to={createPageUrl("Catalogo") + "?categoria=" + encodeURIComponent(cat)} className="transition-colors hover:text-[#E53935]" style={{ color: "#6B7280", fontSize: "15px" }}>
-                    {cat}
+              {[
+                { label: "Peças de Alto Giro 🔥", cat: "Peças de Alto Giro" },
+                { label: "Motores Estacionários", cat: "Motores a Gasolina" },
+                { label: "Geradores", cat: "Geradores 4 Tempos" },
+                { label: "Motobombas", cat: "Motobombas 4 Tempos" },
+                { label: "Sistema de Partida", q: "partida" },
+                { label: "Carburadores", q: "carburador" },
+                { label: "Filtros e Manutenção", q: "filtro" },
+              ].map(item => (
+                <li key={item.label}>
+                  <Link
+                    to={createPageUrl("Catalogo") + "?" + (item.cat ? "categoria=" + encodeURIComponent(item.cat) : "q=" + encodeURIComponent(item.q))}
+                    className="transition-colors hover:text-[#E53935]"
+                    style={{ color: "#6B7280", fontSize: "14px" }}
+                  >
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -345,16 +373,16 @@ export default function Layout({ children, currentPageName }) {
                 </div>
                 <div>
                   <p className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>WHATSAPP B2B</p>
-                  <p className="group-hover:text-[#4ADE80] transition-colors" style={{ color: "#9CA3AF", fontSize: "14px" }}>(11) 99999-9999</p>
+                  <p className="group-hover:text-[#4ADE80] transition-colors text-sm" style={{ color: "#9CA3AF" }}>(85) 98689-4081</p>
                 </div>
               </a>
-              <a href="mailto:b2b@motormoura.com.br" className="flex items-center gap-3 group">
+              <a href="mailto:contato@motormoura.com.br" className="flex items-center gap-3 group">
                 <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(29,78,216,0.15)", border: "1px solid rgba(29,78,216,0.3)", borderRadius: "2px" }}>
                   <Mail className="w-4 h-4" style={{ color: "#60A5FA" }} />
                 </div>
                 <div>
-                  <p className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>E-MAIL CORPORATIVO</p>
-                  <p className="group-hover:text-[#60A5FA] transition-colors" style={{ color: "#9CA3AF", fontSize: "14px" }}>b2b@motormoura.com.br</p>
+                  <p className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>E-MAIL</p>
+                  <p className="group-hover:text-[#60A5FA] transition-colors text-sm" style={{ color: "#9CA3AF" }}>contato@motormoura.com.br</p>
                 </div>
               </a>
               <a href="https://www.instagram.com/motormouraequipamentos" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
@@ -362,8 +390,8 @@ export default function Layout({ children, currentPageName }) {
                   <Instagram className="w-4 h-4" style={{ color: "#E53935" }} />
                 </div>
                 <div>
-                  <p className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>INSTAGRAM OFICIAL</p>
-                  <p className="group-hover:text-[#E53935] transition-colors flex items-center gap-1" style={{ color: "#9CA3AF", fontSize: "14px" }}>
+                  <p className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>INSTAGRAM</p>
+                  <p className="group-hover:text-[#E53935] transition-colors flex items-center gap-1 text-sm" style={{ color: "#9CA3AF" }}>
                     @motormouraequipamentos <ExternalLink className="w-3 h-3" />
                   </p>
                 </div>
