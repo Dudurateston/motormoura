@@ -111,15 +111,12 @@ export default function RecomendacoesFrota() {
             <div key={produto.id} className="flex flex-col"
               style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "4px", overflow: "hidden" }}>
               {/* Imagem */}
-              <div className="aspect-square flex items-center justify-center"
-                style={{ background: "#FFFFFF", borderBottom: "1px solid #F1F5F9" }}>
-                {produto.imagem_url ? (
-                  <img src={produto.imagem_url} alt={produto.nome_peca}
-                    className="w-full h-full object-contain p-3" />
-                ) : (
-                  <Package className="w-10 h-10" style={{ color: "#E2E8F0" }} />
-                )}
-              </div>
+              <LazyImage
+                src={produto.imagem_url}
+                alt={produto.nome_peca}
+                style={{ aspectRatio: "1/1", background: "#FFFFFF", borderBottom: "1px solid #F1F5F9" }}
+                placeholder={<div className="flex items-center justify-center h-full"><Package className="w-10 h-10" style={{ color: "#E2E8F0" }} /></div>}
+              />
               {/* Info */}
               <div className="p-3 flex flex-col flex-1">
                 <p className="text-xs font-mono-tech mb-0.5" style={{ color: "#1D4ED8" }}>{produto.sku_codigo}</p>
