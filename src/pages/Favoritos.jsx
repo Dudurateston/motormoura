@@ -1,40 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { base44 } from "@/api/base44Client";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Heart, Trash2, ShoppingCart, ArrowLeft, Package } from "lucide-react";
-import SEOHead from "../components/SEOHead";
-import { analytics } from "@/components/analytics/analytics";
 
 export default function Favoritos() {
-  const [user, setUser] = useState(null);
-  const [favoritos, setFavoritos] = useState([]);
-  const [produtos, setProdutos] = useState({});
-  const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   useEffect(() => {
-    base44.auth.me().then(async (u) => {
-      setUser(u);
-      if (u) {
-        const favs = await base44.entities.Favoritos.filter({ user_email: u.email });
-        setFavoritos(favs || []);
-        
-        // Buscar detalhes dos produtos
-        const prodIds = [...new Set(favs.map(f => f.produto_id))];
-        const prods = await Promise.all(
-          prodIds.map(id => base44.entities.Produtos.filter({ id }).then(r => r[0]))
-        );
-        const prodsMap = {};
-        prods.forEach(p => { if (p) prodsMap[p.id] = p; });
-        setProdutos(prodsMap);
-        setLoading(false);
-      } else {
-        setLoading(false);
-      }
-    }).catch(() => {
-      setUser(null);
-      setLoading(false);
-    });
+    navigate(createPageUrl("Catalogo") + "?tab=favoritos", { replace: true });
   }, []);
 
   const removerFavorito = async (favId) => {
