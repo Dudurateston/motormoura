@@ -449,9 +449,9 @@ export default function Catalogo() {
             )}
           </div>
         </div>
-      </div>
       </>)}
       </div>
+    </div>
     </>
   );
 }
