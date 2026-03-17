@@ -3,10 +3,8 @@ import { base44 } from "@/api/base44Client";
 import { Wrench, ChevronRight, ShoppingCart, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-
-// Cache em módulo para evitar múltiplas chamadas e rate limit
-let _cachedProdutos = null;
-let _cachedLojista = {};
+import { apiCache } from "@/lib/apiCache";
+import LazyImage from "@/components/LazyImage";
 
 const TIPO_TO_CATALOG = {
   "Motor Estacionário": "Motores a Gasolina",

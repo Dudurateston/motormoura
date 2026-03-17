@@ -4,6 +4,8 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { analytics } from "@/components/analytics/analytics";
+import { apiCache } from "@/lib/apiCache";
+import LazyImage from "@/components/LazyImage";
 
 function addToCart(produto) {
   const stored = localStorage.getItem("motormoura_cart");
