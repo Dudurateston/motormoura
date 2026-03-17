@@ -57,16 +57,15 @@ export default function Layout({ children, currentPageName }) {
   const handleSendWhatsApp = async () => {
     const WHATSAPP_NUMBER = "5585986894081";
     const totalItens = cart.reduce((s, i) => s + i.quantidade, 0);
-    
+
     analytics.quoteSubmit(cart, totalItens);
-    
-    await base44.entities.Orcamentos.create({
-      lojista_email: user?.email || "anonimo",
-      lojista_nome: user?.full_name || "Visitante",
-      itens: cart,
-      status: "pendente",
-      numero_orcamento: `ORC-${Date.now()}`,
-    });
+
+    try {
+      await base44.functions.invoke('submeterOrcamento', { itens: cart });
+    } catch (e) {
+      console.warn('Falha ao registrar orçamento:', e.message);
+    }
+
     let msg = "Olá, equipa MotorMoura! Gostaria de cotar as seguintes peças:\n\n";
     cart.forEach(item => { msg += `• ${item.quantidade}x ${item.nome_peca} (SKU: ${item.sku_codigo})\n`; });
     if (user) msg += `\nAtenciosamente,\n${user.full_name}`;
