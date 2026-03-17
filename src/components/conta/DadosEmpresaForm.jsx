@@ -85,7 +85,7 @@ export default function DadosEmpresaForm({ lojista, user, logoUrl, onSaved }) {
       <div className="p-5" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px" }}>
         <div className="flex items-center gap-2 mb-4">
           <Building2 className="w-4 h-4" style={{ color: "#D32F2F" }} />
-          <span className="text-xs font-mono-tech font-bold" style={{ color: "#212529" }}>BLOCO A — DADOS CADASTRAIS</span>
+          <span className="text-xs font-mono-tech font-bold" style={{ color: "#212529" }}>DADOS CADASTRAIS</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="md:col-span-2">
@@ -107,7 +107,7 @@ export default function DadosEmpresaForm({ lojista, user, logoUrl, onSaved }) {
       <div className="p-5" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px" }}>
         <div className="flex items-center gap-2 mb-1">
           <User className="w-4 h-4" style={{ color: "#1D4ED8" }} />
-          <span className="text-xs font-mono-tech font-bold" style={{ color: "#212529" }}>BLOCO B — INTELIGÊNCIA DE NEGÓCIO</span>
+          <span className="text-xs font-mono-tech font-bold" style={{ color: "#212529" }}>INTELIGÊNCIA DE NEGÓCIO</span>
         </div>
         <p className="text-xs mb-4 ml-6" style={{ color: "#9CA3AF" }}>Personaliza sua experiência e recomendações de produtos</p>
 
