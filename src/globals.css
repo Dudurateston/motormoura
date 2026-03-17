@@ -31,183 +31,373 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
+  * { @apply border-border outline-ring/50; }
   body {
     @apply bg-background text-foreground;
     font-family: 'Space Grotesk', sans-serif;
   }
 }
 
-/* MotorMoura Design System – Clean Industrial */
+/* ═══════════════════════════════════════════════════
+   MOTORMOURA — DESIGN SYSTEM v3
+   Paleta: Vermelho · Preto · Cinza · Branco
+   Público: B2B Mecânico / Industrial
+═══════════════════════════════════════════════════ */
+
 :root {
-  --mm-gunmetal: #F8F9FA;
-  --mm-gunmetal-light: #FFFFFF;
-  --mm-gunmetal-mid: #E2E8F0;
-  --mm-orange: #D32F2F;
-  --mm-orange-dark: #B71C1C;
-  --mm-blueprint: #1D4ED8;
-  --mm-blueprint-light: #2563EB;
-  --mm-silver: #212529;
-  --mm-silver-dim: #6C757D;
-  --mm-border: #E2E8F0;
-  --mm-border-blue: rgba(29,78,216,0.3);
+  /* Cores primárias */
+  --mm-red:          #DC2626;
+  --mm-red-dark:     #B91C1C;
+  --mm-red-glow:     rgba(220,38,38,0.25);
+
+  /* Neutros escuros */
+  --mm-black:        #080810;
+  --mm-dark-1:       #0D0D14;
+  --mm-dark-2:       #111118;
+  --mm-dark-3:       #18181F;
+  --mm-dark-4:       #1E1E26;
+
+  /* Neutros médios */
+  --mm-gray-1:       #2A2A35;
+  --mm-gray-2:       #3A3A48;
+  --mm-gray-3:       #6B6B80;
+  --mm-gray-4:       #9090A8;
+
+  /* Claros */
+  --mm-light-1:      #E8E8EF;
+  --mm-light-2:      #F2F2F6;
+  --mm-light-3:      #F8F8FC;
+  --mm-white:        #FFFFFF;
+
+  /* Azul técnico (acento secundário) */
+  --mm-blue:         #1D4ED8;
+  --mm-blue-dim:     rgba(29,78,216,0.2);
+
+  /* Verde status */
+  --mm-green:        #16A34A;
+
+  /* Bordas */
+  --mm-border-dark:  rgba(255,255,255,0.07);
+  --mm-border-light: rgba(0,0,0,0.09);
+  --mm-border-red:   rgba(220,38,38,0.3);
+
+  /* Shadows */
+  --mm-shadow-sm:    0 2px 8px rgba(0,0,0,0.12);
+  --mm-shadow-md:    0 8px 24px rgba(0,0,0,0.18);
+  --mm-shadow-lg:    0 20px 60px rgba(0,0,0,0.28);
+  --mm-shadow-red:   0 8px 32px rgba(220,38,38,0.28);
+
+  /* Transições */
+  --mm-ease:         cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --mm-ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+  --mm-duration:     280ms;
 }
 
-/* Clean light background */
+/* ───────────────────────────────────────────
+   BACKGROUNDS GLOBAIS
+─────────────────────────────────────────── */
 .mm-bg {
-  background-color: #F8F9FA;
+  background: var(--mm-dark-1);
 }
 
-/* Card 3D tilt effect */
+/* Seções com degradê contínuo (não abruptas) */
+.mm-section-dark    { background: var(--mm-dark-1); }
+.mm-section-dark-2  { background: var(--mm-dark-2); }
+.mm-section-mid     { background: linear-gradient(180deg, var(--mm-dark-1) 0%, var(--mm-dark-3) 100%); }
+.mm-section-light   { background: var(--mm-light-3); }
+
+/* ───────────────────────────────────────────
+   CARDS — transições suaves, sem abruptez
+─────────────────────────────────────────── */
 .mm-card {
-  transform-style: preserve-3d;
-  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
-  will-change: transform;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--mm-border-dark);
+  border-radius: 8px;
+  transition:
+    transform var(--mm-duration) var(--mm-ease-out),
+    box-shadow var(--mm-duration) var(--mm-ease-out),
+    border-color var(--mm-duration) var(--mm-ease),
+    background var(--mm-duration) var(--mm-ease);
+  will-change: transform, box-shadow;
 }
 
 .mm-card:hover {
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(29,78,216,0.15);
+  transform: translateY(-4px);
+  box-shadow: var(--mm-shadow-lg), 0 0 0 1px rgba(220,38,38,0.12);
+  border-color: rgba(220,38,38,0.2);
+  background: rgba(255,255,255,0.05);
 }
 
-/* Tilt effect via JS — card-inner rotation */
-.mm-card-inner {
-  transition: transform 0.15s ease-out;
-  transform-style: preserve-3d;
+/* Card versão clara (catálogo, account) */
+.mm-card-light {
+  background: var(--mm-white);
+  border: 1px solid var(--mm-border-light);
+  border-radius: 8px;
+  transition:
+    transform var(--mm-duration) var(--mm-ease-out),
+    box-shadow var(--mm-duration) var(--mm-ease-out),
+    border-color var(--mm-duration) var(--mm-ease);
+  will-change: transform, box-shadow;
 }
 
-/* SKU badge pulse on hover */
-.mm-card:hover .mm-sku-badge {
-  animation: skuPulse 1.5s ease-in-out infinite;
+.mm-card-light:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.1), 0 0 0 1px rgba(220,38,38,0.1);
+  border-color: rgba(220,38,38,0.18);
 }
 
-@keyframes skuPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(29,78,216,0.6); }
-  50% { box-shadow: 0 0 0 6px rgba(29,78,216,0); }
+/* ───────────────────────────────────────────
+   BOTÕES — micro-feedback suave
+─────────────────────────────────────────── */
+.mm-btn {
+  transition:
+    transform var(--mm-duration) var(--mm-ease-out),
+    box-shadow var(--mm-duration) var(--mm-ease-out),
+    background var(--mm-duration) var(--mm-ease),
+    opacity 200ms ease;
+  will-change: transform;
 }
 
-/* Tactile button press */
+.mm-btn:hover  { transform: translateY(-1px); }
+.mm-btn:active { transform: translateY(1px) scale(0.98); }
+
+/* Legado — manter compatibilidade */
 .mm-btn-tactile {
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  transition:
+    transform var(--mm-duration) var(--mm-ease-out),
+    box-shadow var(--mm-duration) var(--mm-ease-out),
+    background var(--mm-duration) var(--mm-ease);
+  will-change: transform;
 }
-.mm-btn-tactile:active {
-  transform: translateY(2px) scale(0.97);
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.3) !important;
+.mm-btn-tactile:hover  { transform: translateY(-1px); }
+.mm-btn-tactile:active { transform: translateY(1px) scale(0.98); }
+
+/* ───────────────────────────────────────────
+   GRADIENTES REUTILIZÁVEIS
+─────────────────────────────────────────── */
+
+/* Linha decorativa vermelha */
+.mm-line-red {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--mm-red), transparent);
 }
 
-/* Metal gradient text */
+/* Linha decorativa principal (bicolor) */
+.mm-line-accent {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--mm-red) 30%, var(--mm-blue) 70%, transparent);
+}
+
+/* Fundo hero escuro com glow vermelho sutil */
+.mm-hero-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(220,38,38,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(29,78,216,0.05) 0%, transparent 60%),
+    var(--mm-black);
+}
+
+/* Texto gradiente vermelho */
+.mm-text-red {
+  background: linear-gradient(135deg, #EF4444, #DC2626, #B91C1C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Texto gradiente metal/prata */
 .mm-text-metal {
-  background: linear-gradient(135deg, #E5E7EB 0%, #9CA3AF 30%, #E5E7EB 60%, #6B7280 100%);
+  background: linear-gradient(135deg, #E5E7EB 0%, #9CA3AF 40%, #E5E7EB 70%, #6B7280 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Red CTA gradient */
-.mm-text-orange {
-  background: linear-gradient(135deg, #E53935, #EF5350, #C62828);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+/* ───────────────────────────────────────────
+   TRANSIÇÕES SUAVES ENTRE SEÇÕES
+   — evitar cortes abruptos de cor
+─────────────────────────────────────────── */
 
-/* Blueprint border */
-.mm-border-blueprint {
-  border: 1px solid rgba(29,78,216,0.5);
+/* Bleed superior de uma seção para outra */
+.mm-bleed-top {
   position: relative;
 }
-.mm-border-blueprint::before {
+.mm-bleed-top::before {
   content: '';
   position: absolute;
-  inset: -1px;
-  background: linear-gradient(135deg, rgba(29,78,216,0.4) 0%, transparent 50%, rgba(29,78,216,0.2) 100%);
-  border-radius: inherit;
+  top: -40px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: inherit;
+  filter: blur(20px);
   pointer-events: none;
+  z-index: 0;
 }
 
-/* Chamfered corners */
-.mm-chamfer {
-  clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+/* ───────────────────────────────────────────
+   PRODUCT CARD — versão catálogo (clara)
+─────────────────────────────────────────── */
+.mm-product-card {
+  background: var(--mm-white);
+  border: 1px solid #E8E8EF;
+  border-radius: 8px;
+  overflow: hidden;
+  transition:
+    transform var(--mm-duration) var(--mm-ease-out),
+    box-shadow var(--mm-duration) var(--mm-ease-out),
+    border-color var(--mm-duration) var(--mm-ease);
 }
 
-/* Scan line overlay */
-.mm-scanlines::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0,0,0,0.05) 3px,
-    rgba(0,0,0,0.05) 4px
-  );
-  pointer-events: none;
-  z-index: 1;
+.mm-product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(220,38,38,0.12);
+  border-color: rgba(220,38,38,0.18);
 }
 
-/* Electric specs panel */
-.mm-spec-panel {
-  background: rgba(29,78,216,0.05);
-  border: 1px solid rgba(29,78,216,0.15);
-}
-
-/* Glow effect */
-.mm-glow-orange {
-  box-shadow: 0 0 20px rgba(229,57,53,0.3), 0 0 60px rgba(229,57,53,0.1);
-}
-.mm-glow-blue {
-  box-shadow: 0 0 20px rgba(29,78,216,0.4), 0 0 60px rgba(29,78,216,0.15);
-}
-
-/* Cart panel slide */
-.mm-cart-panel {
-  transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.mm-cart-panel.open {
-  transform: translateX(0);
-}
-
-/* Category card hover */
+/* ───────────────────────────────────────────
+   CATEGORIA CARD
+─────────────────────────────────────────── */
 .mm-cat-card {
-  transition: all 0.3s ease;
-}
-.mm-cat-card:hover {
-  background: #FFFFFF;
-  border-color: rgba(211,47,47,0.35);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.09);
+  transition:
+    transform var(--mm-duration) var(--mm-ease-out),
+    box-shadow var(--mm-duration) var(--mm-ease-out),
+    border-color var(--mm-duration) var(--mm-ease),
+    background var(--mm-duration) var(--mm-ease);
 }
 
-/* Mono font util */
+.mm-cat-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  border-color: rgba(220,38,38,0.25);
+}
+
+/* ───────────────────────────────────────────
+   BADGE / TAG TÉCNICO
+─────────────────────────────────────────── */
+.mm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  border-radius: 2px;
+  transition: background var(--mm-duration) var(--mm-ease), border-color var(--mm-duration) var(--mm-ease);
+}
+
+/* ───────────────────────────────────────────
+   MONO TECH FONT
+─────────────────────────────────────────── */
 .font-mono-tech {
   font-family: 'Space Mono', monospace;
 }
 
-/* Spinning gear animation */
+/* ───────────────────────────────────────────
+   GLASS EFFECT
+─────────────────────────────────────────── */
+.mm-glass-dark {
+  background: rgba(13,13,20,0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.mm-glass-light {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0,0,0,0.07);
+}
+
+/* ───────────────────────────────────────────
+   ANIMAÇÕES
+─────────────────────────────────────────── */
 @keyframes spinSlow {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  to   { transform: rotate(360deg); }
 }
-.mm-spin { animation: spinSlow 20s linear infinite; }
-.mm-spin-reverse { animation: spinSlow 15s linear infinite reverse; }
+.mm-spin         { animation: spinSlow 22s linear infinite; }
+.mm-spin-reverse { animation: spinSlow 18s linear infinite reverse; }
 
-/* Data blink */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+.mm-float { animation: floatY 5s ease-in-out infinite; }
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+.mm-glow-pulse { animation: glowPulse 2.5s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.mm-shimmer {
+  background: linear-gradient(90deg, #2a2a35 25%, #3a3a4a 50%, #2a2a35 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite;
+}
+
 @keyframes dataBlink {
   0%, 90%, 100% { opacity: 1; }
-  95% { opacity: 0.3; }
+  95%            { opacity: 0.3; }
 }
 .mm-data-blink { animation: dataBlink 3s ease-in-out infinite; }
 
-/* Hero piston animation */
-@keyframes pistonFloat {
-  0%, 100% { transform: translateY(0px) rotateY(0deg); }
-  25% { transform: translateY(-8px) rotateY(5deg); }
-  75% { transform: translateY(4px) rotateY(-3deg); }
+/* ───────────────────────────────────────────
+   SKU BADGE PULSE
+─────────────────────────────────────────── */
+@keyframes skuPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(29,78,216,0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(29,78,216,0); }
 }
-.mm-piston-float { animation: pistonFloat 6s ease-in-out infinite; }
+.mm-product-card:hover .mm-sku-badge {
+  animation: skuPulse 1.8s ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────────
+   INPUT FOCUS
+─────────────────────────────────────────── */
+.mm-input {
+  transition:
+    border-color var(--mm-duration) var(--mm-ease),
+    box-shadow var(--mm-duration) var(--mm-ease),
+    background var(--mm-duration) var(--mm-ease);
+}
+.mm-input:focus {
+  border-color: rgba(220,38,38,0.5);
+  box-shadow: 0 0 0 3px rgba(220,38,38,0.08);
+  outline: none;
+}
+
+/* ───────────────────────────────────────────
+   SCROLLBAR CUSTOMIZADA
+─────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--mm-dark-2); }
+::-webkit-scrollbar-thumb { background: var(--mm-gray-2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--mm-red); }
+
+/* ───────────────────────────────────────────
+   SELECTION
+─────────────────────────────────────────── */
+::selection {
+  background: rgba(220,38,38,0.25);
+  color: #ffffff;
+}
