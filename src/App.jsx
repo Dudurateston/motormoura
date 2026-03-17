@@ -67,19 +67,19 @@ const AuthenticatedApp = () => {
           />
         ))}
         <Route path="/Comparativo" element={
-          <LayoutWrapper currentPageName="Comparativo">
-            <Comparativo />
-          </LayoutWrapper>
+          <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center"><div className="w-8 h-8 border-4 border-slate-200 border-t-red-600 rounded-full animate-spin" /></div>}>
+            <LayoutWrapper currentPageName="Comparativo"><Comparativo /></LayoutWrapper>
+          </Suspense>
         } />
         <Route path="/Favoritos" element={
-          <LayoutWrapper currentPageName="Favoritos">
-            <Favoritos />
-          </LayoutWrapper>
+          <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center"><div className="w-8 h-8 border-4 border-slate-200 border-t-red-600 rounded-full animate-spin" /></div>}>
+            <LayoutWrapper currentPageName="Favoritos"><Favoritos /></LayoutWrapper>
+          </Suspense>
         } />
         <Route path="/MeusPedidos" element={
-          <LayoutWrapper currentPageName="MeusPedidos">
-            <MeusPedidos />
-          </LayoutWrapper>
+          <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center"><div className="w-8 h-8 border-4 border-slate-200 border-t-red-600 rounded-full animate-spin" /></div>}>
+            <LayoutWrapper currentPageName="MeusPedidos"><MeusPedidos /></LayoutWrapper>
+          </Suspense>
         } />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
