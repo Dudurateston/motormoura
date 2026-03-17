@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Search, ChevronRight, MessageCircle, Shield, Zap, Package, TrendingUp } from "lucide-react";
+import { sanitizeSearchQuery } from "@/lib/apiCache";
 import SEOHead from "../components/SEOHead";
 import HomeCategoryCarousel from "../components/home/HomeCategoryCarousel";
 import HomeVitrine from "../components/home/HomeVitrine";
@@ -86,8 +87,9 @@ export default function Home() {
   const parallaxY = useParallax(0.35);
 
   const handleSearch = () => {
-    if (!searchText.trim()) return;
-    window.location.href = createPageUrl("Catalogo") + "?q=" + encodeURIComponent(searchText.trim());
+    const safe = sanitizeSearchQuery(searchText);
+    if (!safe) return;
+    window.location.href = createPageUrl("Catalogo") + "?q=" + encodeURIComponent(safe);
   };
 
   return (
@@ -171,7 +173,7 @@ export default function Home() {
                 <input
                   placeholder="Buscar por SKU, nome ou marca…"
                   value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
+                  onChange={(e) => setSearchText(e.target.value.slice(0, 200))}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                   className="w-full h-11 pl-10 pr-3 text-sm font-mono-tech focus:outline-none bg-transparent"
                   style={{ color: "#FFFFFF" }}
