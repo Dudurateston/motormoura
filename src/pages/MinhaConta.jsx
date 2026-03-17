@@ -4,13 +4,14 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import {
   User, Clock, CheckCircle, XCircle, ShoppingCart, Package,
-  MessageCircle, ChevronRight, LogOut, Camera, Heart, Wrench, Building2, FileText
+  MessageCircle, ChevronRight, LogOut, Camera, Heart, Wrench, Building2, FileText, TrendingUp
 } from "lucide-react";
 import SEOHead from "../components/SEOHead";
 import DadosEmpresaForm from "../components/conta/DadosEmpresaForm";
 import GaragemSection from "../components/conta/GaragemSection";
 import FavoritosTab from "../components/conta/FavoritosTab";
 import PedidosTab from "../components/conta/PedidosTab";
+import GestaoEstoqueTab from "../components/conta/GestaoEstoqueTab";
 import { analytics, trackEvent } from "@/components/analytics/analytics";
 
 const WHATSAPP_B2B = "https://api.whatsapp.com/send?phone=5585986894081";
@@ -26,6 +27,7 @@ const TABS = [
   { id: "garagem", label: "Garagem", icon: Wrench },
   { id: "favoritos", label: "Favoritos", icon: Heart },
   { id: "pedidos", label: "Pedidos", icon: FileText },
+  { id: "gestao", label: "Gestão", icon: TrendingUp },
 ];
 
 // Profile completeness score
@@ -328,6 +330,7 @@ export default function MinhaConta() {
                 )}
                 {activeTab === "favoritos" && <FavoritosTab user={user} />}
                 {activeTab === "pedidos" && <PedidosTab user={user} />}
+                {activeTab === "gestao" && <GestaoEstoqueTab user={user} />}
               </div>
             </div>
           </div>

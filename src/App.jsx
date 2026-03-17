@@ -7,6 +7,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import AnalyticsTracker from '@/components/analytics/AnalyticsTracker';
+import ScrollToTop from '@/components/ScrollToTop';
 import Comparativo from './pages/Comparativo';
 import Favoritos from './pages/Favoritos';
 import MeusPedidos from './pages/MeusPedidos';
@@ -46,6 +47,7 @@ const AuthenticatedApp = () => {
   return (
     <>
       <AnalyticsTracker />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={
           <LayoutWrapper currentPageName={mainPageKey}>
