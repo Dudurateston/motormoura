@@ -5,6 +5,10 @@ import { analytics } from "@/components/analytics/analytics";
 
 const PERFIS = ["Oficina Mecânica", "Loja de Peças Revenda", "Locadora de Máquinas", "Construtora", "Autônomo"];
 const VOLUMES = ["1", "2 a 5", "6 a 10", "10 a 20", "Mais de 20"];
+const FUNCIONARIOS = ["Só eu", "2 a 5", "6 a 15", "16 a 50", "Mais de 50"];
+const TEMPO_MERCADO = ["Menos de 1 ano", "1 a 3 anos", "3 a 10 anos", "Mais de 10 anos"];
+const TIPO_CLIENTE = ["Consumidor final (B2C)", "Outras empresas (B2B)", "Ambos"];
+const REGIOES_ATENDIMENTO = ["Local (cidade)", "Estadual", "Regional (alguns estados)", "Nacional"];
 
 function Field({ label, value, onChange, placeholder }) {
   return (
@@ -35,14 +39,17 @@ export default function DadosEmpresaForm({ lojista, user, logoUrl, onSaved }) {
     perfil_empresa: lojista?.perfil_empresa || "",
     volume_maquinas: lojista?.volume_maquinas || "",
     instagram: lojista?.instagram || "",
+    num_funcionarios: lojista?.num_funcionarios || "",
+    tempo_mercado: lojista?.tempo_mercado || "",
+    tipo_cliente: lojista?.tipo_cliente || "",
+    regiao_atendimento: lojista?.regiao_atendimento || "",
   });
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
-  // Completeness score (used externally too)
-  const fields = [form.nome_loja, form.nome_contato, form.nif, form.telefone, form.cidade, form.estado, form.cep, form.endereco, form.perfil_empresa, form.volume_maquinas, form.instagram];
+  const fields = [form.nome_loja, form.nome_contato, form.nif, form.telefone, form.cidade, form.estado, form.cep, form.endereco, form.perfil_empresa, form.volume_maquinas, form.instagram, form.num_funcionarios, form.tempo_mercado];
   const filled = fields.filter(Boolean).length;
   const completeness = Math.round((filled / fields.length) * 100);
 
@@ -155,6 +162,82 @@ export default function DadosEmpresaForm({ lojista, user, logoUrl, onSaved }) {
             <input value={form.instagram || ""} onChange={set("instagram")} placeholder="https://instagram.com/minha_loja"
               className="w-full h-10 px-3 text-sm focus:outline-none"
               style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529", fontFamily: "'Space Grotesk', sans-serif" }} />
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono-tech mb-2" style={{ color: "#6C757D" }}>QUANTOS FUNCIONÁRIOS A EMPRESA POSSUI?</label>
+            <div className="flex flex-wrap gap-2">
+              {FUNCIONARIOS.map((v) => (
+                <button key={v} type="button"
+                  onClick={() => setForm((f) => ({ ...f, num_funcionarios: f.num_funcionarios === v ? "" : v }))}
+                  className="px-3 h-8 text-xs font-mono-tech transition-all duration-200"
+                  style={{
+                    background: form.num_funcionarios === v ? "rgba(29,78,216,0.1)" : "#F8F9FA",
+                    border: `1px solid ${form.num_funcionarios === v ? "rgba(29,78,216,0.4)" : "#E2E8F0"}`,
+                    color: form.num_funcionarios === v ? "#1D4ED8" : "#6C757D",
+                    borderRadius: "2px"
+                  }}>
+                  {v}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono-tech mb-2" style={{ color: "#6C757D" }}>HÁ QUANTO TEMPO A EMPRESA ESTÁ NO MERCADO?</label>
+            <div className="flex flex-wrap gap-2">
+              {TEMPO_MERCADO.map((v) => (
+                <button key={v} type="button"
+                  onClick={() => setForm((f) => ({ ...f, tempo_mercado: f.tempo_mercado === v ? "" : v }))}
+                  className="px-3 h-8 text-xs font-mono-tech transition-all duration-200"
+                  style={{
+                    background: form.tempo_mercado === v ? "rgba(211,47,47,0.1)" : "#F8F9FA",
+                    border: `1px solid ${form.tempo_mercado === v ? "rgba(211,47,47,0.4)" : "#E2E8F0"}`,
+                    color: form.tempo_mercado === v ? "#D32F2F" : "#6C757D",
+                    borderRadius: "2px"
+                  }}>
+                  {v}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono-tech mb-2" style={{ color: "#6C757D" }}>PARA QUEM VOCÊ VENDE PRINCIPALMENTE?</label>
+            <div className="flex flex-wrap gap-2">
+              {TIPO_CLIENTE.map((v) => (
+                <button key={v} type="button"
+                  onClick={() => setForm((f) => ({ ...f, tipo_cliente: f.tipo_cliente === v ? "" : v }))}
+                  className="px-3 h-8 text-xs font-mono-tech transition-all duration-200"
+                  style={{
+                    background: form.tipo_cliente === v ? "rgba(22,163,74,0.1)" : "#F8F9FA",
+                    border: `1px solid ${form.tipo_cliente === v ? "rgba(22,163,74,0.4)" : "#E2E8F0"}`,
+                    color: form.tipo_cliente === v ? "#16A34A" : "#6C757D",
+                    borderRadius: "2px"
+                  }}>
+                  {v}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono-tech mb-2" style={{ color: "#6C757D" }}>ABRANGÊNCIA DE ATENDIMENTO</label>
+            <div className="flex flex-wrap gap-2">
+              {REGIOES_ATENDIMENTO.map((v) => (
+                <button key={v} type="button"
+                  onClick={() => setForm((f) => ({ ...f, regiao_atendimento: f.regiao_atendimento === v ? "" : v }))}
+                  className="px-3 h-8 text-xs font-mono-tech transition-all duration-200"
+                  style={{
+                    background: form.regiao_atendimento === v ? "rgba(180,83,9,0.1)" : "#F8F9FA",
+                    border: `1px solid ${form.regiao_atendimento === v ? "rgba(180,83,9,0.4)" : "#E2E8F0"}`,
+                    color: form.regiao_atendimento === v ? "#B45309" : "#6C757D",
+                    borderRadius: "2px"
+                  }}>
+                  {v}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
