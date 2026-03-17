@@ -48,21 +48,14 @@ export default function RecomendacoesFrota() {
     if (!user) { setLoading(false); return; }
 
     const load = async () => {
-      // Cache do lojista por email
-      if (!_cachedLojista[user.email]) {
-        const lojistas = await base44.entities.Lojistas.filter({ user_email: user.email });
-        _cachedLojista[user.email] = lojistas[0] || null;
-      }
-      const l = _cachedLojista[user.email];
-      const g = l?.garagem || [];
+      const [lojistas, prods] = await Promise.all([
+        apiCache.get(`lojista_${user.email}`, () => base44.entities.Lojistas.filter({ user_email: user.email }), 10 * 60 * 1000),
+        apiCache.get("produtos_vitrine", () => base44.entities.Produtos.list("-created_date", 500)),
+      ]);
+      const g = lojistas[0]?.garagem || [];
       setGaragem(g);
-
       if (g.length > 0) {
-        // Cache dos produtos
-        if (!_cachedProdutos) {
-          _cachedProdutos = await base44.entities.Produtos.list("-created_date", 2000);
-        }
-        const matched = _cachedProdutos.filter(p => p.ativo !== false && matchProduto(p, g));
+        const matched = prods.filter(p => p.ativo !== false && matchProduto(p, g));
         setProdutos(matched.slice(0, 8));
       }
       setLoading(false);
