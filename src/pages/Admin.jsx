@@ -33,7 +33,8 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-function KPICard({ label, value, sub, icon: Icon, color, trend }) {
+function KPICard({ label, value, sub, icon: IconComp, color, trend }) {
+  const Icon = IconComp;
   return (
     <div className="p-5 relative overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px", boxShadow: "0 1px 4px rgba(0,0,0,0.04)" }}>
       <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: color }} />
