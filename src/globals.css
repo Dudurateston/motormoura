@@ -44,6 +44,34 @@
   }
 }
 
+/* ──────────────────────────────────────────────
+   CARD HOVER LIFT — usável em qualquer card
+   ────────────────────────────────────────────── */
+.mm-lift {
+  transition: transform 0.22s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.22s ease;
+  will-change: transform;
+}
+.mm-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+}
+
+/* Section gradient dividers */
+.mm-section-light {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
+}
+.mm-section-fade-in {
+  background: linear-gradient(180deg, #F8F9FA 0%, #FFFFFF 100%);
+}
+
+/* Smooth button transitions */
+.mm-btn-hover {
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.mm-btn-hover:hover {
+  transform: translateY(-2px);
+}
+
 /* MotorMoura Design System – Clean Industrial */
 :root {
   --mm-gunmetal: #F8F9FA;
