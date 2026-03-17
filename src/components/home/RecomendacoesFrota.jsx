@@ -4,6 +4,10 @@ import { Wrench, ChevronRight, ShoppingCart, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
+// Cache em módulo para evitar múltiplas chamadas e rate limit
+let _cachedProdutos = null;
+let _cachedLojista = {};
+
 const TIPO_TO_CATALOG = {
   "Motor Estacionário": "Motores a Gasolina",
   "Gerador": "Geradores 4 Tempos",
@@ -44,18 +48,29 @@ export default function RecomendacoesFrota() {
 
   useEffect(() => {
     if (!user) { setLoading(false); return; }
-    Promise.all([
-      base44.entities.Lojistas.filter({ user_email: user.email }),
-      base44.entities.Produtos.list("-created_date", 2000),
-    ]).then(([lojistas, prods]) => {
-      const l = lojistas[0];
+
+    const load = async () => {
+      // Cache do lojista por email
+      if (!_cachedLojista[user.email]) {
+        const lojistas = await base44.entities.Lojistas.filter({ user_email: user.email });
+        _cachedLojista[user.email] = lojistas[0] || null;
+      }
+      const l = _cachedLojista[user.email];
       const g = l?.garagem || [];
       setGaragem(g);
+
       if (g.length > 0) {
-        const matched = prods.filter(p => p.ativo !== false && matchProduto(p, g));
+        // Cache dos produtos
+        if (!_cachedProdutos) {
+          _cachedProdutos = await base44.entities.Produtos.list("-created_date", 2000);
+        }
+        const matched = _cachedProdutos.filter(p => p.ativo !== false && matchProduto(p, g));
         setProdutos(matched.slice(0, 8));
       }
-    }).finally(() => setLoading(false));
+      setLoading(false);
+    };
+
+    load();
   }, [user]);
 
   // Não renderiza se não logado, sem garagem ou sem matches
