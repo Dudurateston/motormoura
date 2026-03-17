@@ -24,7 +24,7 @@ function getCatalogUrl(equip) {
   return `${createPageUrl("Catalogo")}?${params.toString()}`;
 }
 
-export default function GaragemSection({ lojista, onSaved }) {
+export default function GaragemSection({ lojista, onSaved, onGoToDados }) {
   const [garagem, setGaragem] = useState(lojista?.garagem || []);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -116,6 +116,13 @@ Retorne um JSON com um array "equipamentos".`,
         <AlertCircle className="w-10 h-10 mx-auto mb-3" style={{ color: "#B45309" }} />
         <p className="text-sm font-mono-tech mb-1" style={{ color: "#212529" }}>COMPLETE SEU CADASTRO PRIMEIRO</p>
         <p className="text-xs mb-4" style={{ color: "#9CA3AF" }}>Preencha os dados da empresa na aba "Dados" antes de cadastrar equipamentos.</p>
+        {onGoToDados && (
+          <button onClick={onGoToDados}
+            className="h-9 px-5 text-xs font-mono-tech font-bold mm-btn-tactile"
+            style={{ background: "linear-gradient(135deg, #D32F2F, #B71C1C)", color: "#fff", borderRadius: "2px", border: "none" }}>
+            IR PARA DADOS DA EMPRESA
+          </button>
+        )}
       </div>
     );
   }

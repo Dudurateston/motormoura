@@ -81,12 +81,12 @@ export default function MinhaConta() {
       setPendingLogoUrl(file_url);
     }
     setUploadingLogo(false);
-    analytics.trackEvent?.("logo_upload", { has_lojista: !!lojista });
+    analytics.filterApply("logo_upload", lojista ? "update" : "new");
   };
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
-    analytics.filterApply("tab_conta", tabId);
+    analytics.trackEvent?.("tab_conta_click", { tab: tabId }) ?? analytics.filterApply("tab_conta", tabId);
   };
 
   if (loading) return (
@@ -240,6 +240,42 @@ export default function MinhaConta() {
                   </a>
                 </div>
               </div>
+
+              {/* Garage quick-access panel */}
+              {lojista?.garagem?.length > 0 && (
+                <div className="p-4" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px" }}>
+                  <p className="text-xs font-mono-tech mb-3" style={{ color: "#9CA3AF", letterSpacing: "0.1em" }}>PEÇAS DA SUA GARAGEM</p>
+                  <div className="space-y-1">
+                    {lojista.garagem.slice(0, 4).map((equip, i) => {
+                      const TIPO_TO_CAT = {
+                        "Motor a Gasolina": "Motores a Gasolina",
+                        "Motor a Diesel": "Motores a Diesel",
+                        "Gerador 4T": "Geradores 4 Tempos",
+                        "Gerador 2T": "Geradores 2 Tempos",
+                        "Motobomba": "Motobombas 4 Tempos",
+                        "Pulverizador": "Bombas de Pulverização",
+                      };
+                      const cat = TIPO_TO_CAT[equip.tipo];
+                      const params = new URLSearchParams();
+                      if (cat) params.set("categoria", cat);
+                      else if (equip.tipo && equip.tipo !== "Outro") params.set("q", equip.tipo);
+                      const label = [equip.marca, equip.modelo].filter(Boolean).join(" ") || equip.tipo || "Equipamento";
+                      return (
+                        <Link key={i} to={`${createPageUrl("Catalogo")}?${params.toString()}`}
+                          className="flex items-center justify-between px-3 py-2 transition-colors hover:bg-gray-50" style={{ borderRadius: "2px" }}>
+                          <span className="text-xs font-mono-tech truncate" style={{ color: "#6C757D" }}>{label}</span>
+                          <ChevronRight className="w-3 h-3 flex-shrink-0" style={{ color: "#CBD5E1" }} />
+                        </Link>
+                      );
+                    })}
+                    {lojista.garagem.length > 4 && (
+                      <button onClick={() => handleTabChange("garagem")} className="w-full text-left px-3 py-1.5 text-xs font-mono-tech" style={{ color: "#D32F2F" }}>
+                        +{lojista.garagem.length - 4} mais…
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
 
               <button onClick={() => base44.auth.logout()}
                 className="w-full flex items-center justify-center gap-2 h-9 text-xs font-mono-tech transition-colors hover:bg-red-50"
