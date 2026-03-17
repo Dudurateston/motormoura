@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
-import { Search, SlidersHorizontal, X, ArrowUpDown, ArrowLeft } from "lucide-react";
+import { Search, SlidersHorizontal, X, ArrowUpDown, ArrowLeft, Heart, GitCompare } from "lucide-react";
 import ProdutoCard from "../components/catalogo/ProdutoCard";
 import CatalogoSidebar from "../components/catalogo/CatalogoSidebar";
 import CategoriaGrid from "../components/catalogo/CategoriaGrid";
 import SEOHead from "../components/SEOHead";
+import FavoritosTab from "../components/conta/FavoritosTab";
+import ComparativoTab from "../components/catalogo/ComparativoTab";
 import { analytics } from "@/components/analytics/analytics";
 
 const PAGE_SIZE = 36;
@@ -78,6 +80,12 @@ export default function Catalogo() {
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [catalogoTab, setCatalogoTab] = useState("catalogo"); // "catalogo" | "favoritos" | "comparativo"
+  const [catalogoUser, setCatalogoUser] = useState(null);
+
+  useEffect(() => {
+    base44.auth.me().then(setCatalogoUser).catch(() => setCatalogoUser(null));
+  }, []);
 
   const urlParams = new URLSearchParams(window.location.search);
   const urlCategoria = urlParams.get("categoria") || "";
@@ -197,6 +205,40 @@ export default function Catalogo() {
       />
       <div style={{ background: "#F8F9FA", minHeight: "100vh" }}>
       <div className="max-w-[1440px] mx-auto px-4 py-6 md:py-8">
+
+        {/* Top tabs */}
+        <div className="flex gap-0 mb-5 overflow-x-auto" style={{ borderBottom: "1px solid #E2E8F0" }}>
+          {[
+            { id: "catalogo", label: "CATÁLOGO" },
+            { id: "favoritos", label: "FAVORITOS", icon: Heart },
+            { id: "comparativo", label: "COMPARATIVO", icon: GitCompare },
+          ].map(({ id, label, icon: Icon }) => (
+            <button key={id} onClick={() => setCatalogoTab(id)}
+              className="flex items-center gap-1.5 px-5 py-3 text-xs font-mono-tech whitespace-nowrap transition-all duration-200"
+              style={{
+                color: catalogoTab === id ? "#D32F2F" : "#6C757D",
+                background: "transparent", border: "none",
+                borderBottom: catalogoTab === id ? "2px solid #D32F2F" : "2px solid transparent",
+                marginBottom: "-1px",
+              }}>
+              {Icon && <Icon className="w-3.5 h-3.5" />}
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Favoritos tab */}
+        {catalogoTab === "favoritos" && (
+          <FavoritosTab user={catalogoUser} />
+        )}
+
+        {/* Comparativo tab */}
+        {catalogoTab === "comparativo" && (
+          <ComparativoTab />
+        )}
+
+        {/* Catálogo tab */}
+        {catalogoTab === "catalogo" && (<>
 
         {/* Page header */}
         <div className="mb-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
