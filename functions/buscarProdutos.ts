@@ -24,6 +24,8 @@ Deno.serve(async (req) => {
   if (categoria) filter.relacionamento_categoria = categoria;
   if (marca) filter.relacionamento_marca = marca;
 
+  // Catálogo público — RLS de Produtos já permite leitura sem auth (read: {})
+  // asServiceRole usado apenas para garantir leitura completa mesmo sem token
   const todos = await base44.asServiceRole.entities.Produtos.filter(filter, 'nome_peca', 5000);
 
   // Filtro por texto no servidor

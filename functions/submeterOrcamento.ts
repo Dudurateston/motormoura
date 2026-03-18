@@ -67,6 +67,7 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'Nenhum SKU válido encontrado no catálogo.' }, { status: 400 });
   }
 
+  // Usar serviceRole apenas para contornar RLS em criações anónimas validadas
   const orcamento = await base44.asServiceRole.entities.Orcamentos.create({
     numero_orcamento: `ORC-${Date.now()}`,
     lojista_email: user?.email || 'anonimo',
