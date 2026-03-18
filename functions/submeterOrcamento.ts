@@ -57,9 +57,9 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'Nenhum item válido encontrado.' }, { status: 400 });
   }
 
-  // Verificar se SKUs existem no catálogo
+  // Verificar se SKUs existem no catálogo (Produtos tem RLS pública de leitura)
   const skus = itensSanitizados.map(i => i.sku_codigo);
-  const produtos = await base44.asServiceRole.entities.Produtos.filter({ sku_codigo: { $in: skus } });
+  const produtos = await base44.entities.Produtos.filter({ sku_codigo: { $in: skus } });
   const skusValidos = new Set(produtos.map(p => p.sku_codigo));
   const itensVerificados = itensSanitizados.filter(i => skusValidos.has(i.sku_codigo));
 
@@ -67,8 +67,8 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'Nenhum SKU válido encontrado no catálogo.' }, { status: 400 });
   }
 
-  // Usar serviceRole apenas para contornar RLS em criações anónimas validadas
-  const orcamento = await base44.asServiceRole.entities.Orcamentos.create({
+  // RLS de Orcamentos já permite criação anónima (data.lojista_email = "anonimo")
+  const orcamento = await base44.entities.Orcamentos.create({
     numero_orcamento: `ORC-${Date.now()}`,
     lojista_email: user?.email || 'anonimo',
     lojista_nome: sanitizeString(user?.full_name || 'Visitante'),
