@@ -6,7 +6,7 @@ import { ShoppingCart, Trash2, Plus, Minus, MessageCircle, ArrowLeft, Send, Info
 import SEOHead from "../components/SEOHead";
 import { analytics } from "@/components/analytics/analytics";
 
-const WHATSAPP_NUMBER = "5585986894081";
+import { whatsappUrl } from "@/lib/config";
 const MINIMO_PEDIDO = 50;
 
 function getCart() {
@@ -60,16 +60,12 @@ export default function Orcamento() {
     
     analytics.quoteSubmit(cart, totalItens);
     
-    await base44.entities.Orcamentos.create({
-      lojista_email: user?.email || "anonimo",
-      lojista_nome: user?.full_name || "Visitante",
-      itens: cart,
-      status: "pendente",
-      observacoes,
-      numero_orcamento: `ORC-${Date.now()}`,
-    });
-    const encoded = encodeURIComponent(formatWhatsAppMessage());
-    const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encoded}`;
+    try {
+      await base44.functions.invoke('submeterOrcamento', { itens: cart, observacoes });
+    } catch (e) {
+      console.warn('Falha ao registrar orçamento:', e.message);
+    }
+    const url = whatsappUrl(formatWhatsAppMessage());
     analytics.whatsappClick("quote_submit");
     saveCart([]);
     setCart([]);

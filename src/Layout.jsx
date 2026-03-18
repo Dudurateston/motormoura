@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ShoppingCart, Menu, X, Zap, Trash2, Plus, Minus, MessageCircle, Mail, Instagram, ExternalLink, Search } from "lucide-react";
+import { whatsappUrl, WHATSAPP_NUMBER } from "@/lib/config";
 import HeaderSearch from "@/components/layout/HeaderSearch";
 import { analytics } from "@/components/analytics/analytics";
 
@@ -55,7 +56,6 @@ export default function Layout({ children, currentPageName }) {
   };
 
   const handleSendWhatsApp = async () => {
-    const WHATSAPP_NUMBER = "5585986894081";
     const totalItens = cart.reduce((s, i) => s + i.quantidade, 0);
 
     analytics.quoteSubmit(cart, totalItens);
@@ -69,7 +69,7 @@ export default function Layout({ children, currentPageName }) {
     let msg = "Olá, equipa MotorMoura! Gostaria de cotar as seguintes peças:\n\n";
     cart.forEach(item => { msg += `• ${item.quantidade}x ${item.nome_peca} (SKU: ${item.sku_codigo})\n`; });
     if (user) msg += `\nAtenciosamente,\n${user.full_name}`;
-    const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(msg)}`;
+    const url = whatsappUrl(msg);
     analytics.whatsappClick("cart_panel");
     saveCart([]);
     setCartOpen(false);
@@ -366,7 +366,7 @@ export default function Layout({ children, currentPageName }) {
           <div>
             <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>ATENDIMENTO B2B</h4>
             <div className="space-y-4">
-              <a href="https://api.whatsapp.com/send?phone=5585986894081&text=Olá,%20MotorMoura!" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
+              <a href={whatsappUrl("Olá, MotorMoura!")} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
                 <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ background: "rgba(22,163,74,0.15)", border: "1px solid rgba(22,163,74,0.3)", borderRadius: "2px" }}>
                   <MessageCircle className="w-4 h-4" style={{ color: "#4ADE80" }} />
                 </div>

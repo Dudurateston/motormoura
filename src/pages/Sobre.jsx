@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Settings, Package, DollarSign, MessageCircle, ChevronRight } from "lucide-react";
 
-const WA_LINK = "https://api.whatsapp.com/send?phone=5585986894081&text=Olá,%20preciso%20de%20ajuda%20técnica!";
+import { whatsappUrl } from "@/lib/config";
+const WA_LINK = whatsappUrl("Olá, preciso de ajuda técnica!");
 
 const HERO_BG = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/dc4446f88_BackgroundPatternIndustrial-MOTORMOURA.png";
 const IMG_EXPERTISE = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/29ae079cf_SobreMOTORMOURA-ExpertiseTcnica.png";

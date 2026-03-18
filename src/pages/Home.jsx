@@ -12,7 +12,8 @@ import RecomendacoesFrota from "../components/home/RecomendacoesFrota";
 const HERO_BG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/543e1e799_HeroBackgroundSutilMOTORMOURA.png";
 const PARTS_IMG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/73d1d5761_BannerCatlogo-MOTORMOURA.png";
 const SEAL_IMG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/73011c8a3_11_Selo_Garantia_Certificacao_MOTORMOURA.png";
-const WA_LINK = "https://api.whatsapp.com/send?phone=5585986894081&text=Olá,%20preciso%20de%20ajuda%20técnica!";
+import { whatsappUrl } from "@/lib/config";
+const WA_LINK = whatsappUrl("Olá, preciso de ajuda técnica!");
 
 // Hook para parallax via scroll
 function useParallax(speed = 0.4) {
