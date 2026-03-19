@@ -342,7 +342,7 @@ export default function Home() {
               PORTFÓLIO MULTIMARCAS — COMPATIBILIDADE GARANTIDA
             </p>
             <div className="flex items-center justify-center flex-wrap gap-3">
-              {["HONDA", "TOYAMA", "TEKNA", "BRANCO", "BUFFALO", "HUSQVARNA"].map((marca) =>
+              {["HONDA", "TOYAMA", "TEKNA", "MAKITA", "BUFFALO", "VIBROMAK"].map((marca) =>
               <div
                 key={marca}
                 className="px-5 py-2 font-bold font-mono-tech text-xs cursor-default"
