@@ -3,21 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import {
   Flame, Cpu, Zap, Droplets, Leaf, Filter,
-  RotateCw, Fuel, Settings, Bolt
-} from "lucide-react";
+  RotateCw, Fuel, Settings, Bolt } from
+"lucide-react";
 
 const CATS = [
-  { nome: "Peças de Alto Giro", icon: Flame, color: "#D32F2F", destaque: true, q: "filtro carburador vela partida" },
-  { nome: "Motores Estacionários", icon: Cpu, color: "#1D4ED8", cat: "Motores a Gasolina" },
-  { nome: "Geradores", icon: Zap, color: "#B45309", cat: "Geradores 4 Tempos" },
-  { nome: "Motobombas", icon: Droplets, color: "#0369A1", cat: "Motobombas 4 Tempos" },
-  { nome: "Agrícola", icon: Leaf, color: "#15803D", cat: "Bombas de Pulverização" },
-  { nome: "Filtros e Manutenção", icon: Filter, color: "#7C3AED", q: "filtro" },
-  { nome: "Sistema de Partida", icon: RotateCw, color: "#0891B2", q: "partida cordão" },
-  { nome: "Sistema de Alimentação", icon: Fuel, color: "#C2410C", q: "carburador" },
-  { nome: "Ignição e Elétrica", icon: Zap, color: "#D97706", q: "vela bobina ignição" },
-  { nome: "Mecânica Interna", icon: Settings, color: "#475569", q: "pistão anel biela" },
-];
+{ nome: "Peças de Alto Giro", icon: Flame, color: "#D32F2F", destaque: true, q: "filtro carburador vela partida" },
+{ nome: "Motores Estacionários", icon: Cpu, color: "#1D4ED8", cat: "Motores a Gasolina" },
+{ nome: "Geradores", icon: Zap, color: "#B45309", cat: "Geradores 4 Tempos" },
+{ nome: "Motobombas", icon: Droplets, color: "#0369A1", cat: "Motobombas 4 Tempos" },
+{ nome: "Agrícola", icon: Leaf, color: "#15803D", cat: "Bombas de Pulverização" },
+{ nome: "Filtros e Manutenção", icon: Filter, color: "#7C3AED", q: "filtro" },
+{ nome: "Sistema de Partida", icon: RotateCw, color: "#0891B2", q: "partida cordão" },
+{ nome: "Sistema de Alimentação", icon: Fuel, color: "#C2410C", q: "carburador" },
+{ nome: "Ignição e Elétrica", icon: Zap, color: "#D97706", q: "vela bobina ignição" },
+{ nome: "Mecânica Interna", icon: Settings, color: "#475569", q: "pistão anel biela" }];
+
 
 export default function HomeCategoryCarousel() {
   const scrollRef = useRef(null);
@@ -37,7 +37,7 @@ export default function HomeCategoryCarousel() {
     const x = e.pageX - scrollRef.current.offsetLeft;
     scrollRef.current.scrollLeft = scrollLeft.current - (x - startX.current);
   };
-  const onMouseUp = () => { isDragging.current = false; };
+  const onMouseUp = () => {isDragging.current = false;};
 
   const handleClick = (cat) => {
     if (isDragging.current) return;
@@ -57,14 +57,14 @@ export default function HomeCategoryCarousel() {
           </span>
         </div>
         <div
-          ref={scrollRef}
-          className="flex gap-5 overflow-x-auto pb-2 cursor-grab active:cursor-grabbing select-none"
+          ref={scrollRef} className="mx-20 pt-4 pb-2 flex gap-5 overflow-x-auto cursor-grab active:cursor-grabbing select-none"
+
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}
-          onMouseLeave={onMouseUp}
-        >
+          onMouseLeave={onMouseUp}>
+          
           {CATS.map((cat) => {
             const Icon = cat.icon;
             return (
@@ -72,35 +72,35 @@ export default function HomeCategoryCarousel() {
                 key={cat.nome}
                 onClick={() => handleClick(cat)}
                 className="flex flex-col items-center gap-2 flex-shrink-0 group"
-                style={{ minWidth: 88 }}
-              >
+                style={{ minWidth: 88 }}>
+                
                 <div
                   className="w-[72px] h-[72px] rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110"
                   style={{
                     background: cat.destaque ? `${cat.color}12` : "#F8F9FA",
-                    border: cat.destaque
-                      ? `2.5px solid ${cat.color}`
-                      : "2px solid #E2E8F0",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
-                  }}
-                >
-                  {cat.destaque ? (
-                    <span style={{ fontSize: 28 }}>🔥</span>
-                  ) : (
-                    <Icon className="w-7 h-7" style={{ color: cat.color }} />
-                  )}
+                    border: cat.destaque ?
+                    `2.5px solid ${cat.color}` :
+                    "2px solid #E2E8F0",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.06)"
+                  }}>
+                  
+                  {cat.destaque ?
+                  <span style={{ fontSize: 28 }}>🔥</span> :
+
+                  <Icon className="w-7 h-7" style={{ color: cat.color }} />
+                  }
                 </div>
                 <span
                   className="text-center font-mono-tech leading-tight"
-                  style={{ color: "#212529", fontSize: "10px", maxWidth: 80 }}
-                >
+                  style={{ color: "#212529", fontSize: "10px", maxWidth: 80 }}>
+                  
                   {cat.nome}
                 </span>
-              </button>
-            );
+              </button>);
+
           })}
         </div>
       </div>
-    </section>
-  );
+    </section>);
+
 }
