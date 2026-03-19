@@ -63,25 +63,25 @@ function KPICard({ valor, label, color, icon: Icon }) {
         borderRadius: "8px",
         boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
         transition: "box-shadow 0.3s ease, transform 0.15s ease",
-        willChange: "transform",
+        willChange: "transform"
       }}
-      onMouseEnter={e => e.currentTarget.style.boxShadow = `0 12px 32px rgba(0,0,0,0.1), 0 0 0 1px ${color}30`}
-      onMouseLeave={e => e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.06)"}
-    >
+      onMouseEnter={(e) => e.currentTarget.style.boxShadow = `0 12px 32px rgba(0,0,0,0.1), 0 0 0 1px ${color}30`}
+      onMouseLeave={(e) => e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,0,0,0.06)"}>
+      
       <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }} />
       {Icon && <Icon className="w-5 h-5 mx-auto mb-2" style={{ color: `${color}99` }} />}
       <p className="font-bold font-mono-tech mb-1" style={{ color, fontSize: "28px", lineHeight: 1 }}>{valor}</p>
       <p className="text-xs font-mono-tech" style={{ color: "#6C757D", letterSpacing: "0.06em" }}>{label}</p>
-    </div>
-  );
+    </div>);
+
 }
 
 const NUMEROS = [
-  { valor: "+1.000", label: "SKUs em Estoque", color: "#D32F2F", icon: Package },
-  { valor: "10+", label: "Categorias Técnicas", color: "#1D4ED8", icon: Zap },
-  { valor: "100%", label: "Suporte B2B", color: "#16A34A", icon: Shield },
-  { valor: "CE→BR", label: "Despacho Nacional", color: "#D32F2F", icon: TrendingUp },
-];
+{ valor: "+1.000", label: "SKUs em Estoque", color: "#D32F2F", icon: Package },
+{ valor: "10+", label: "Categorias Técnicas", color: "#1D4ED8", icon: Zap },
+{ valor: "100%", label: "Suporte B2B", color: "#16A34A", icon: Shield },
+{ valor: "CE→BR", label: "Despacho Nacional", color: "#D32F2F", icon: TrendingUp }];
+
 
 export default function Home() {
   const [searchText, setSearchText] = useState("");
@@ -98,8 +98,8 @@ export default function Home() {
       <SEOHead
         title="MotorMoura - Distribuidora de Peças para Motores, Geradores e Motobombas | Fortaleza-CE"
         description="Distribuidora técnica B2B especializada em peças de reposição para motores, geradores e motobombas. Mais de 1.000 SKUs em estoque. Importação direta. Fortaleza-CE."
-        keywords="peças motor, peças gerador, peças motobomba, distribuidor B2B, importadora peças, Honda, Toyama, Tekna, Fortaleza"
-      />
+        keywords="peças motor, peças gerador, peças motobomba, distribuidor B2B, importadora peças, Honda, Toyama, Tekna, Fortaleza" />
+      
 
       <div style={{ background: "#F8F9FA" }}>
 
@@ -115,9 +115,9 @@ export default function Home() {
               transform: `translateY(${parallaxY}px)`,
               willChange: "transform",
               top: "-60px",
-              bottom: "-60px",
-            }}
-          />
+              bottom: "-60px"
+            }} />
+          
 
           {/* Layered overlays for depth */}
           <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(10,10,15,0.88) 0%, rgba(10,10,15,0.75) 50%, rgba(15,20,40,0.80) 100%)" }} />
@@ -141,14 +141,14 @@ export default function Home() {
 
             <h1
               className="text-4xl md:text-5xl lg:text-6xl font-bold font-mono-tech mb-4 leading-tight"
-              style={{ color: "#FFFFFF", textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}
-            >
+              style={{ color: "#FFFFFF", textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
+              
               Reposição Imediata para<br />
               <span style={{
                 background: "linear-gradient(135deg, #EF5350, #E53935, #C62828)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                backgroundClip: "text"
               }}>
                 o seu Negócio.
               </span>
@@ -166,9 +166,9 @@ export default function Home() {
                 border: "1px solid rgba(255,255,255,0.14)",
                 borderRadius: "8px",
                 backdropFilter: "blur(12px)",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1)",
-              }}
-            >
+                boxShadow: "0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1)"
+              }}>
+              
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#9CA3AF" }} />
                 <input
@@ -177,8 +177,8 @@ export default function Home() {
                   onChange={(e) => setSearchText(e.target.value.slice(0, 200))}
                   onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                   className="w-full h-11 pl-10 pr-3 text-sm font-mono-tech focus:outline-none bg-transparent"
-                  style={{ color: "#FFFFFF" }}
-                />
+                  style={{ color: "#FFFFFF" }} />
+                
               </div>
               <button
                 onClick={handleSearch}
@@ -189,11 +189,11 @@ export default function Home() {
                   borderRadius: "6px",
                   border: "none",
                   boxShadow: "0 4px 12px rgba(229,57,53,0.4)",
-                  transition: "box-shadow 0.2s, transform 0.1s",
+                  transition: "box-shadow 0.2s, transform 0.1s"
                 }}
-                onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 20px rgba(229,57,53,0.55)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 4px 12px rgba(229,57,53,0.4)"; e.currentTarget.style.transform = "translateY(0)"; }}
-              >
+                onMouseEnter={(e) => {e.currentTarget.style.boxShadow = "0 6px 20px rgba(229,57,53,0.55)";e.currentTarget.style.transform = "translateY(-1px)";}}
+                onMouseLeave={(e) => {e.currentTarget.style.boxShadow = "0 4px 12px rgba(229,57,53,0.4)";e.currentTarget.style.transform = "translateY(0)";}}>
+                
                 BUSCAR
               </button>
             </div>
@@ -209,11 +209,11 @@ export default function Home() {
                     borderRadius: "6px",
                     border: "none",
                     boxShadow: "0 4px 20px rgba(229,57,53,0.35)",
-                    transition: "transform 0.15s, box-shadow 0.2s",
+                    transition: "transform 0.15s, box-shadow 0.2s"
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 28px rgba(229,57,53,0.5)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 20px rgba(229,57,53,0.35)"; }}
-                >
+                  onMouseEnter={(e) => {e.currentTarget.style.transform = "translateY(-2px)";e.currentTarget.style.boxShadow = "0 8px 28px rgba(229,57,53,0.5)";}}
+                  onMouseLeave={(e) => {e.currentTarget.style.transform = "translateY(0)";e.currentTarget.style.boxShadow = "0 4px 20px rgba(229,57,53,0.35)";}}>
+                  
                   Ver Catálogo Completo <ChevronRight className="w-4 h-4" />
                 </button>
               </Link>
@@ -226,11 +226,11 @@ export default function Home() {
                     color: "#4ADE80",
                     borderRadius: "6px",
                     backdropFilter: "blur(8px)",
-                    transition: "background 0.2s, transform 0.15s",
+                    transition: "background 0.2s, transform 0.15s"
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(37,211,102,0.2)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(37,211,102,0.12)"; e.currentTarget.style.transform = "translateY(0)"; }}
-                >
+                  onMouseEnter={(e) => {e.currentTarget.style.background = "rgba(37,211,102,0.2)";e.currentTarget.style.transform = "translateY(-1px)";}}
+                  onMouseLeave={(e) => {e.currentTarget.style.background = "rgba(37,211,102,0.12)";e.currentTarget.style.transform = "translateY(0)";}}>
+                  
                   <MessageCircle className="w-4 h-4" /> Falar com Especialista
                 </button>
               </a>
@@ -244,9 +244,9 @@ export default function Home() {
         {/* ── KPI STRIP ── */}
         <section style={{ background: "linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%)", borderBottom: "1px solid #E2E8F0" }}>
           <div className="max-w-5xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-            {NUMEROS.map((n) => (
-              <KPICard key={n.label} {...n} />
-            ))}
+            {NUMEROS.map((n) =>
+            <KPICard key={n.label} {...n} />
+            )}
           </div>
         </section>
 
@@ -263,8 +263,8 @@ export default function Home() {
           <HomeVitrine
             title="Peças de Alto Giro"
             emoji="🔥"
-            singleTab="Peças de Alto Giro"
-          />
+            singleTab="Peças de Alto Giro" />
+          
         </section>
 
         {/* ── BANNER CATÁLOGO (imagem peças) ── */}
@@ -275,9 +275,9 @@ export default function Home() {
               backgroundImage: `url(${PARTS_IMG})`,
               backgroundSize: "cover",
               backgroundPosition: "center top",
-              opacity: 0.22,
-            }}
-          />
+              opacity: 0.22
+            }} />
+          
           <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(10,10,15,0.7) 0%, rgba(29,78,216,0.15) 100%)" }} />
           <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, transparent, #E53935, transparent)" }} />
 
@@ -298,10 +298,10 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <img
                 src={SEAL_IMG}
-                alt="Peças Originais Garantidas"
-                className="w-24 h-24 object-contain"
-                style={{ filter: "drop-shadow(0 4px 16px rgba(211,47,47,0.35))", animation: "sealSpin 20s linear infinite" }}
-              />
+                alt="Peças Originais Garantidas" className="rounded-full w-24 h-24 object-contain"
+
+                style={{ filter: "drop-shadow(0 4px 16px rgba(211,47,47,0.35))", animation: "sealSpin 20s linear infinite" }} />
+              
               <Link to={createPageUrl("MinhaConta")}>
                 <button
                   className="flex items-center gap-2 px-8 h-12 text-sm font-mono-tech font-bold"
@@ -311,11 +311,11 @@ export default function Home() {
                     borderRadius: "6px",
                     border: "none",
                     boxShadow: "0 4px 20px rgba(229,57,53,0.4)",
-                    transition: "transform 0.15s, box-shadow 0.2s",
+                    transition: "transform 0.15s, box-shadow 0.2s"
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 28px rgba(229,57,53,0.55)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 20px rgba(229,57,53,0.4)"; }}
-                >
+                  onMouseEnter={(e) => {e.currentTarget.style.transform = "translateY(-2px)";e.currentTarget.style.boxShadow = "0 8px 28px rgba(229,57,53,0.55)";}}
+                  onMouseLeave={(e) => {e.currentTarget.style.transform = "translateY(0)";e.currentTarget.style.boxShadow = "0 4px 20px rgba(229,57,53,0.4)";}}>
+                  
                   Criar Conta de Revenda <ChevronRight className="w-4 h-4" />
                 </button>
               </Link>
@@ -327,50 +327,50 @@ export default function Home() {
         <section style={{ background: "linear-gradient(180deg, #F8F9FA 0%, #FFFFFF 100%)" }}>
           <HomeVitrine
             title="Equipamentos por Linha"
-            tabs={["Motores Estacionários", "Geradores", "Motobombas"]}
-          />
+            tabs={["Motores Estacionários", "Geradores", "Motobombas"]} />
+          
         </section>
 
         {/* ── MARCAS ── */}
         <section style={{
           background: "linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%)",
           borderTop: "1px solid #E2E8F0",
-          borderBottom: "1px solid #E2E8F0",
+          borderBottom: "1px solid #E2E8F0"
         }}>
           <div className="max-w-5xl mx-auto px-4 py-10">
             <p className="text-center text-xs font-mono-tech mb-6" style={{ color: "#9CA3AF", letterSpacing: "0.2em" }}>
               PORTFÓLIO MULTIMARCAS — COMPATIBILIDADE GARANTIDA
             </p>
             <div className="flex items-center justify-center flex-wrap gap-3">
-              {["HONDA", "TOYAMA", "TEKNA", "BRANCO", "BUFFALO", "HUSQVARNA"].map((marca) => (
-                <div
-                  key={marca}
-                  className="px-5 py-2 font-bold font-mono-tech text-xs cursor-default"
-                  style={{
-                    background: "#FFFFFF",
-                    border: "1px solid #E2E8F0",
-                    color: "#6C757D",
-                    borderRadius: "4px",
-                    letterSpacing: "0.12em",
-                    transition: "all 0.2s ease",
-                    boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.borderColor = "rgba(211,47,47,0.35)";
-                    e.currentTarget.style.color = "#D32F2F";
-                    e.currentTarget.style.boxShadow = "0 4px 12px rgba(211,47,47,0.12)";
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.borderColor = "#E2E8F0";
-                    e.currentTarget.style.color = "#6C757D";
-                    e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.04)";
-                    e.currentTarget.style.transform = "translateY(0)";
-                  }}
-                >
+              {["HONDA", "TOYAMA", "TEKNA", "BRANCO", "BUFFALO", "HUSQVARNA"].map((marca) =>
+              <div
+                key={marca}
+                className="px-5 py-2 font-bold font-mono-tech text-xs cursor-default"
+                style={{
+                  background: "#FFFFFF",
+                  border: "1px solid #E2E8F0",
+                  color: "#6C757D",
+                  borderRadius: "4px",
+                  letterSpacing: "0.12em",
+                  transition: "all 0.2s ease",
+                  boxShadow: "0 1px 4px rgba(0,0,0,0.04)"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(211,47,47,0.35)";
+                  e.currentTarget.style.color = "#D32F2F";
+                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(211,47,47,0.12)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "#E2E8F0";
+                  e.currentTarget.style.color = "#6C757D";
+                  e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.04)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}>
+                
                   {marca}
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </section>
@@ -393,11 +393,11 @@ export default function Home() {
                   borderRadius: "6px",
                   border: "none",
                   boxShadow: "0 4px 16px rgba(29,185,84,0.3)",
-                  transition: "transform 0.15s, box-shadow 0.2s",
+                  transition: "transform 0.15s, box-shadow 0.2s"
                 }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(29,185,84,0.45)"; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(29,185,84,0.3)"; }}
-              >
+                onMouseEnter={(e) => {e.currentTarget.style.transform = "translateY(-2px)";e.currentTarget.style.boxShadow = "0 8px 24px rgba(29,185,84,0.45)";}}
+                onMouseLeave={(e) => {e.currentTarget.style.transform = "translateY(0)";e.currentTarget.style.boxShadow = "0 4px 16px rgba(29,185,84,0.3)";}}>
+                
                 <MessageCircle className="w-4 h-4" /> Falar com Especialista Técnico
               </button>
             </a>
@@ -412,6 +412,6 @@ export default function Home() {
           to { transform: rotate(360deg); }
         }
       `}</style>
-    </>
-  );
+    </>);
+
 }
