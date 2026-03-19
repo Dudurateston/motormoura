@@ -21,11 +21,11 @@ export default function Sobre() {
         style={{
           backgroundImage: `url(${HERO_BG})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+          backgroundPosition: "center"
+        }}>
+        
         {/* Dark overlay for readability */}
-        <div className="absolute inset-0" style={{ background: "rgba(10,10,12,0.72)" }} />
+        <div className="opacity-0 absolute inset-0" style={{ background: "rgba(10,10,12,0.72)" }} />
         {/* Blueprint accent line */}
         <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
 
@@ -38,8 +38,8 @@ export default function Sobre() {
 
           <h1
             className="text-4xl md:text-6xl font-bold font-mono-tech mb-5 leading-tight"
-            style={{ color: "#FFFFFF" }}
-          >
+            style={{ color: "#FFFFFF" }}>
+            
             A Peça Certa.<br />
             <span style={{ color: "#E53935" }}>No Momento Exato.</span>
           </h1>
@@ -52,16 +52,16 @@ export default function Sobre() {
             <Link to={createPageUrl("Catalogo")}>
               <button
                 className="flex items-center gap-2 px-8 h-12 text-sm font-mono-tech font-bold mm-btn-tactile"
-                style={{ background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none", boxShadow: "0 4px 20px rgba(229,57,53,0.35)" }}
-              >
+                style={{ background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none", boxShadow: "0 4px 20px rgba(229,57,53,0.35)" }}>
+                
                 Explorar Peças de Alto Giro <ChevronRight className="w-4 h-4" />
               </button>
             </Link>
             <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
               <button
                 className="flex items-center gap-2 px-8 h-12 text-sm font-mono-tech font-bold mm-btn-tactile"
-                style={{ background: "linear-gradient(135deg, #25D366, #1DA851)", color: "#fff", borderRadius: "2px", border: "none", boxShadow: "0 4px 20px rgba(37,211,102,0.25)" }}
-              >
+                style={{ background: "linear-gradient(135deg, #25D366, #1DA851)", color: "#fff", borderRadius: "2px", border: "none", boxShadow: "0 4px 20px rgba(37,211,102,0.25)" }}>
+                
                 <MessageCircle className="w-4 h-4" />
                 Falar com um Especialista Técnico
               </button>
@@ -88,15 +88,15 @@ export default function Sobre() {
             </p>
             <div className="flex flex-col gap-3">
               {[
-                "Importação direta sem intermediários",
-                "Estoque dedicado para pronta entrega",
-                "Suporte técnico especializado",
-              ].map((item) => (
-                <div key={item} className="flex items-center gap-3">
+              "Importação direta sem intermediários",
+              "Estoque dedicado para pronta entrega",
+              "Suporte técnico especializado"].
+              map((item) =>
+              <div key={item} className="flex items-center gap-3">
                   <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#E53935" }} />
                   <span className="text-sm font-mono-tech" style={{ color: "#495057" }}>{item}</span>
                 </div>
-              ))}
+              )}
             </div>
           </div>
 
@@ -104,18 +104,18 @@ export default function Sobre() {
           <div className="relative">
             <div
               className="absolute -top-4 -left-4 w-full h-full"
-              style={{ border: "2px solid rgba(229,57,53,0.2)", borderRadius: "4px", zIndex: 0 }}
-            />
+              style={{ border: "2px solid rgba(229,57,53,0.2)", borderRadius: "4px", zIndex: 0 }} />
+            
             <img
               src={IMG_B2B}
               alt="MOTORMOURA Parceria B2B"
               className="relative z-10 w-full object-cover"
-              style={{ borderRadius: "4px", maxHeight: 480, boxShadow: "0 20px 60px rgba(0,0,0,0.15)" }}
-            />
+              style={{ borderRadius: "4px", maxHeight: 480, boxShadow: "0 20px 60px rgba(0,0,0,0.15)" }} />
+            
             <div
               className="absolute -bottom-3 -right-3 px-4 py-2 font-mono-tech text-xs font-bold z-20"
-              style={{ background: "#E53935", color: "#fff", borderRadius: "2px" }}
-            >
+              style={{ background: "#E53935", color: "#fff", borderRadius: "2px" }}>
+              
               PARCERIA B2B
             </div>
           </div>
@@ -140,20 +140,20 @@ export default function Sobre() {
             {/* Card 1 - Curadoria com imagem */}
             <div
               className="relative overflow-hidden group"
-              style={{ borderRadius: "4px", border: "1px solid rgba(255,255,255,0.08)" }}
-            >
+              style={{ borderRadius: "4px", border: "1px solid rgba(255,255,255,0.08)" }}>
+              
               <div className="h-52 overflow-hidden">
                 <img
                   src={IMG_EXPERTISE}
                   alt="Curadoria Técnica"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                
               </div>
               <div className="p-6" style={{ background: "#2D3239" }}>
                 <div
                   className="w-10 h-10 flex items-center justify-center mb-4 -mt-10 relative z-10"
-                  style={{ background: "#E53935", borderRadius: "2px" }}
-                >
+                  style={{ background: "#E53935", borderRadius: "2px" }}>
+                  
                   <Settings className="w-5 h-5 text-white" />
                 </div>
                 <h3 className="text-lg font-bold font-mono-tech mb-2" style={{ color: "#FFFFFF" }}>Curadoria Técnica</h3>
@@ -166,20 +166,20 @@ export default function Sobre() {
             {/* Card 2 - Estoque com imagem */}
             <div
               className="relative overflow-hidden group"
-              style={{ borderRadius: "4px", border: "1px solid rgba(255,255,255,0.08)" }}
-            >
+              style={{ borderRadius: "4px", border: "1px solid rgba(255,255,255,0.08)" }}>
+              
               <div className="h-52 overflow-hidden">
                 <img
                   src={IMG_ESTOQUE}
                   alt="Pronta Entrega"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                
               </div>
               <div className="p-6" style={{ background: "#2D3239" }}>
                 <div
                   className="w-10 h-10 flex items-center justify-center mb-4 -mt-10 relative z-10"
-                  style={{ background: "#1D4ED8", borderRadius: "2px" }}
-                >
+                  style={{ background: "#1D4ED8", borderRadius: "2px" }}>
+                  
                   <Package className="w-5 h-5 text-white" />
                 </div>
                 <h3 className="text-lg font-bold font-mono-tech mb-2" style={{ color: "#FFFFFF" }}>Pronta Entrega</h3>
@@ -192,15 +192,15 @@ export default function Sobre() {
             {/* Card 3 - Margem sem imagem mas com visual forte */}
             <div
               className="relative overflow-hidden"
-              style={{ borderRadius: "4px", border: "1px solid rgba(255,255,255,0.08)" }}
-            >
+              style={{ borderRadius: "4px", border: "1px solid rgba(255,255,255,0.08)" }}>
+              
               <div
                 className="h-52 flex items-center justify-center"
                 style={{
                   background: `linear-gradient(135deg, rgba(29,78,216,0.3) 0%, rgba(229,57,53,0.2) 100%), url(${HERO_BG})`,
-                  backgroundSize: "cover",
-                }}
-              >
+                  backgroundSize: "cover"
+                }}>
+                
                 <div className="text-center px-6">
                   <p className="text-5xl font-bold font-mono-tech" style={{ color: "#FFFFFF" }}>+40%</p>
                   <p className="text-xs font-mono-tech mt-1 tracking-wider" style={{ color: "#CBD5E1" }}>DE MARGEM MÉDIA</p>
@@ -209,8 +209,8 @@ export default function Sobre() {
               <div className="p-6" style={{ background: "#2D3239" }}>
                 <div
                   className="w-10 h-10 flex items-center justify-center mb-4 -mt-10 relative z-10"
-                  style={{ background: "#16A34A", borderRadius: "2px" }}
-                >
+                  style={{ background: "#16A34A", borderRadius: "2px" }}>
+                  
                   <DollarSign className="w-5 h-5 text-white" />
                 </div>
                 <h3 className="text-lg font-bold font-mono-tech mb-2" style={{ color: "#FFFFFF" }}>Margem de Lucro</h3>
@@ -240,8 +240,8 @@ export default function Sobre() {
           <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
             <button
               className="flex items-center gap-2 mx-auto px-8 h-12 text-sm font-mono-tech font-bold mm-btn-tactile"
-              style={{ background: "linear-gradient(135deg, #25D366, #1DA851)", color: "#fff", borderRadius: "2px", border: "none", boxShadow: "0 4px 20px rgba(37,211,102,0.25)" }}
-            >
+              style={{ background: "linear-gradient(135deg, #25D366, #1DA851)", color: "#fff", borderRadius: "2px", border: "none", boxShadow: "0 4px 20px rgba(37,211,102,0.25)" }}>
+              
               <MessageCircle className="w-4 h-4" />
               Falar com um Especialista Técnico
             </button>
@@ -252,17 +252,17 @@ export default function Sobre() {
       {/* ── SEÇÃO 5: CONVERSÃO FINAL ── */}
       <section
         className="relative overflow-hidden py-24 md:py-32"
-        style={{ background: "#212529" }}
-      >
+        style={{ background: "#212529" }}>
+        
         {/* Background pattern overlay */}
         <div
           className="absolute inset-0 opacity-20"
           style={{
             backgroundImage: `url(${HERO_BG})`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+            backgroundPosition: "center"
+          }} />
+        
         {/* Top accent */}
         <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
 
@@ -281,8 +281,8 @@ export default function Sobre() {
           <Link to={createPageUrl("MinhaConta")}>
             <button
               className="flex items-center gap-2 mx-auto px-10 h-14 text-sm font-mono-tech font-bold mm-btn-tactile"
-              style={{ background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none", boxShadow: "0 6px 28px rgba(229,57,53,0.4)", fontSize: "0.9rem" }}
-            >
+              style={{ background: "linear-gradient(135deg, #E53935, #C62828)", color: "#fff", borderRadius: "2px", border: "none", boxShadow: "0 6px 28px rgba(229,57,53,0.4)", fontSize: "0.9rem" }}>
+              
               Desbloquear Preços de Atacado <ChevronRight className="w-4 h-4" />
             </button>
           </Link>
@@ -292,6 +292,6 @@ export default function Sobre() {
         </div>
       </section>
 
-    </div>
-  );
+    </div>);
+
 }
