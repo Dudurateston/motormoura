@@ -255,13 +255,13 @@ export default function Sobre() {
         style={{ background: "#212529" }}>
         
         {/* Background pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: `url(${HERO_BG})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center"
-          }} />
+        <div className="opacity-65 absolute inset-0"
+
+        style={{
+          backgroundImage: `url(${HERO_BG})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center"
+        }} />
         
         {/* Top accent */}
         <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
