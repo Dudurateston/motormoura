@@ -155,7 +155,7 @@ export default function Home() {
             </h1>
 
             <p className="text-base md:text-lg mb-10 max-w-xl mx-auto" style={{ color: "rgba(203,213,225,0.85)" }}>
-              Estoque em Fortaleza para despacho rápido em todo o Brasil.
+              Estoque em Fortaleza para abastecimento rápido em todo o Norte e Nordete.
             </p>
 
             {/* Search bar — glassmorphism */}
