@@ -6,7 +6,8 @@ import { Settings, Package, DollarSign, MessageCircle, ChevronRight } from "luci
 import { whatsappUrl } from "@/lib/config";
 const WA_LINK = whatsappUrl("Olá, preciso de ajuda técnica!");
 
-const HERO_BG = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/dc4446f88_BackgroundPatternIndustrial-MOTORMOURA.png";
+const HERO_BG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/351439c3a_SobreMOTORMOURA-HeroBanner1.png";
+const CARD_BG = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/dc4446f88_BackgroundPatternIndustrial-MOTORMOURA.png";
 const IMG_EXPERTISE = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/29ae079cf_SobreMOTORMOURA-ExpertiseTcnica.png";
 const IMG_B2B = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/a37c8a934_SobreMOTORMOURA-ValoreseMisso.png";
 const IMG_ESTOQUE = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/f6d3c0ae0_SobreMOTORMOURA-EstoqueLocalFortaleza.png";
@@ -197,7 +198,7 @@ export default function Sobre() {
               <div
                 className="h-52 flex items-center justify-center"
                 style={{
-                  background: `linear-gradient(135deg, rgba(29,78,216,0.3) 0%, rgba(229,57,53,0.2) 100%), url(${HERO_BG})`,
+                  background: `linear-gradient(135deg, rgba(29,78,216,0.3) 0%, rgba(229,57,53,0.2) 100%), url(${CARD_BG})`,
                   backgroundSize: "cover"
                 }}>
                 
@@ -258,7 +259,7 @@ export default function Sobre() {
         <div className="opacity-65 absolute inset-0"
 
         style={{
-          backgroundImage: `url(${HERO_BG})`,
+          backgroundImage: `url(${CARD_BG})`,
           backgroundSize: "cover",
           backgroundPosition: "center"
         }} />
