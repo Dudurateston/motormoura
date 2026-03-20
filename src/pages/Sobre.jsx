@@ -10,7 +10,7 @@ const HERO_BG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13
 const CARD_BG = "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/69a2232aaedb3f01dfc43e13/dc4446f88_BackgroundPatternIndustrial-MOTORMOURA.png";
 const IMG_EXPERTISE = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/29ae079cf_SobreMOTORMOURA-ExpertiseTcnica.png";
 const IMG_B2B = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/a37c8a934_SobreMOTORMOURA-ValoreseMisso.png";
-const IMG_ESTOQUE = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/f6d3c0ae0_SobreMOTORMOURA-EstoqueLocalFortaleza.png";
+const IMG_ESTOQUE = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/dc330d6c1_InstitucionalLogsticaRegional-MOTORMOURA2.png";
 
 export default function Sobre() {
   return (
