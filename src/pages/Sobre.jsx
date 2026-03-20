@@ -26,7 +26,7 @@ export default function Sobre() {
         }}>
         
         {/* Dark overlay for readability */}
-        <div className="opacity-0 absolute inset-0" style={{ background: "rgba(10,10,12,0.72)" }} />
+        <div className="opacity-95 absolute inset-0" style={{ background: "rgba(10,10,12,0.72)" }} />
         {/* Blueprint accent line */}
         <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
 
