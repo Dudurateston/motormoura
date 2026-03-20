@@ -9,7 +9,7 @@ import HomeCategoryCarousel from "../components/home/HomeCategoryCarousel";
 import HomeVitrine from "../components/home/HomeVitrine";
 import RecomendacoesFrota from "../components/home/RecomendacoesFrota";
 
-const HERO_BG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/9ca6727c0_Image231.png";
+const HERO_BG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/92e3f7932_Image231.png";
 const PARTS_IMG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/73d1d5761_BannerCatlogo-MOTORMOURA.png";
 const SEAL_IMG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/73011c8a3_11_Selo_Garantia_Certificacao_MOTORMOURA.png";
 import { whatsappUrl } from "@/lib/config";

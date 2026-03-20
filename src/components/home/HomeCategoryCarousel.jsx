@@ -9,10 +9,10 @@ import {
 const CATS = [
 { nome: "Peças de Alto Giro", icon: Flame, color: "#D32F2F", destaque: true, q: "filtro carburador vela partida" },
 { nome: "Motores Estacionários", icon: Cpu, color: "#1D4ED8", cat: "Motores a Gasolina" },
-{ nome: "Geradores", icon: Zap, color: "#B45309", cat: "Geradores 4 Tempos", img: "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/84943f4ab_HeroProduto-GeradorPorttilMOTORMOURA.png" },
-{ nome: "Motobombas", icon: Droplets, color: "#0369A1", cat: "Motobombas 4 Tempos", img: "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/089eefdd2_Elemento3DMotobomba-MOTORMOURA.png" },
+{ nome: "Geradores", icon: Zap, color: "#B45309", cat: "Geradores 4 Tempos" },
+{ nome: "Motobombas", icon: Droplets, color: "#0369A1", cat: "Motobombas 4 Tempos" },
 { nome: "Agrícola", icon: Leaf, color: "#15803D", cat: "Bombas de Pulverização" },
-{ nome: "Filtros e Manutenção", icon: Filter, color: "#7C3AED", q: "filtro", img: "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/050d902d1_HeroProduto-FiltrodeArMOTORMOURA.png" },
+{ nome: "Filtros e Manutenção", icon: Filter, color: "#7C3AED", q: "filtro" },
 { nome: "Sistema de Partida", icon: RotateCw, color: "#0891B2", q: "partida cordão" },
 { nome: "Sistema de Alimentação", icon: Fuel, color: "#C2410C", q: "carburador" },
 { nome: "Ignição e Elétrica", icon: Zap, color: "#D97706", q: "vela bobina ignição" },
@@ -86,8 +86,7 @@ export default function HomeCategoryCarousel() {
                   
                   {cat.destaque ?
                   <span style={{ fontSize: 28 }}>🔥</span> :
-                  cat.img ?
-                  <img src={cat.img} alt={cat.nome} className="w-11 h-11 object-contain" /> :
+
                   <Icon className="w-7 h-7" style={{ color: cat.color }} />
                   }
                 </div>
