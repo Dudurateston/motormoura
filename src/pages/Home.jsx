@@ -98,7 +98,7 @@ export default function Home() {
       <SEOHead
         title="MotorMoura - Distribuidora de Peças para Motores, Geradores e Motobombas | Fortaleza-CE"
         description="Distribuidora técnica B2B especializada em peças de reposição para motores, geradores e motobombas. Mais de 1.000 SKUs em estoque. Importação direta. Fortaleza-CE."
-        keywords="peças motor, peças gerador, peças motobomba, distribuidor B2B, importadora peças, Honda, Toyama, Tekna, Fortaleza" />
+        keywords="peças motor, peças gerador, peças motobomba, distribuidor B2B, importadora peças, Honda, Tekna, Fortaleza" />
       
 
       <div style={{ background: "#F8F9FA" }}>
@@ -339,7 +339,7 @@ export default function Home() {
               PORTFÓLIO MULTIMARCAS — COMPATIBILIDADE GARANTIDA
             </p>
             <div className="flex items-center justify-center flex-wrap gap-3">
-              {["HONDA", "TOYAMA", "TEKNA", "MAKITA", "BUFFALO", "VIBROMAK"].map((marca) =>
+              {["HONDA", "TEKNA", "MAKITA", "BUFFALO", "VIBROMAK"].map((marca) =>
               <div
                 key={marca}
                 className="px-5 py-2 font-bold font-mono-tech text-xs cursor-default"
