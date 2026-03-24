@@ -12,7 +12,7 @@ import GaragemSection from "../components/conta/GaragemSection";
 import FavoritosTab from "../components/conta/FavoritosTab";
 import PedidosTab from "../components/conta/PedidosTab";
 import GestaoEstoqueTab from "../components/conta/GestaoEstoqueTab";
-import { analytics, trackEvent } from "@/components/analytics/analytics.js";
+import { analytics, trackEvent } from "@/components/analytics/analytics.jsx";
 
 const WHATSAPP_B2B = "https://api.whatsapp.com/send?phone=5585986894081";
 
