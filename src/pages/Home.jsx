@@ -119,7 +119,10 @@ export default function Home() {
             }} />
           
 
-        
+          {/* Layered overlays for depth */}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(10,10,15,0.88) 0%, rgba(10,10,15,0.75) 50%, rgba(15,20,40,0.80) 100%)" }} />
+          <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(211,47,47,0.12) 0%, transparent 60%)" }} />
+          <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 75% 40%, rgba(29,78,216,0.10) 0%, transparent 55%)" }} />
 
           {/* Top accent line */}
           <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
