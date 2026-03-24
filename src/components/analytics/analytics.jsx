@@ -14,7 +14,6 @@ export const trackEvent = (eventName, properties = {}) => {
 
 // Predefined event trackers
 export const analytics = {
-  // Product interactions
   productView: (produto) => trackEvent("product_view", {
     sku: produto.sku_codigo,
     nome: produto.nome_peca,
@@ -36,7 +35,6 @@ export const analytics = {
     nome: produto.nome_peca
   }),
 
-  // Search
   search: (query, filters = {}) => trackEvent("search", {
     query: query,
     categoria: filters.categoria || null,
@@ -44,37 +42,31 @@ export const analytics = {
     tipo: filters.tipo || null
   }),
 
-  // Quote/Order
   quoteSubmit: (itens, total) => trackEvent("quote_submit", {
     num_itens: itens.length,
     total_quantidade: total,
     via: "whatsapp"
   }),
 
-  // User actions
   loginAttempt: () => trackEvent("login_attempt"),
-  
+
   registerLojista: (status) => trackEvent("lojista_register", {
     status: status
   }),
 
-  // Category navigation
   categoryClick: (categoria) => trackEvent("category_click", {
     categoria: categoria
   }),
 
-  // Filter usage
   filterApply: (filterType, value) => trackEvent("filter_apply", {
     filter_type: filterType,
     filter_value: value
   }),
 
-  // WhatsApp clicks
   whatsappClick: (context) => trackEvent("whatsapp_click", {
-    context: context // 'quote', 'header', 'product', etc
+    context: context
   }),
 
-  // External links
   externalLink: (url, context) => trackEvent("external_link_click", {
     url: url,
     context: context
