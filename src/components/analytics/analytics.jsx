@@ -71,7 +71,7 @@ export const analytics = {
 
   // WhatsApp clicks
   whatsappClick: (context) => trackEvent("whatsapp_click", {
-    context: context // 'quote', 'header', 'product', etc
+    context: context
   }),
 
   // External links
