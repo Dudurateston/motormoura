@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { ShoppingCart, Menu, X, Zap, Trash2, Plus, Minus, MessageCircle, Mail, Instagram, ExternalLink, Search } from "lucide-react";
 import { whatsappUrl, WHATSAPP_NUMBER } from "@/lib/config";
 import HeaderSearch from "@/components/layout/HeaderSearch";
-import { analytics } from "@/components/analytics/analytics";
+import { analytics } from "@/components/analytics/analytics.js";
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);

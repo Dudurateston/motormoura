@@ -7,7 +7,7 @@ import CategoriaGrid from "../components/catalogo/CategoriaGrid";
 import SEOHead from "../components/SEOHead";
 import FavoritosTab from "../components/conta/FavoritosTab";
 import ComparativoTab from "../components/catalogo/ComparativoTab";
-import { analytics } from "@/components/analytics/analytics";
+import { analytics } from "@/components/analytics/analytics.js";
 
 const PAGE_SIZE = 36;
 
