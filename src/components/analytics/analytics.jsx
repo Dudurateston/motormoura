@@ -26,3 +26,5 @@ export const analytics = {
     base44.analytics.track({ eventName: "login_attempt" });
   },
 };
+
+export default analytics;
