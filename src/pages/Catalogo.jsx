@@ -7,7 +7,7 @@ import CategoriaGrid from "../components/catalogo/CategoriaGrid";
 import SEOHead from "../components/SEOHead";
 import FavoritosTab from "../components/conta/FavoritosTab";
 import ComparativoTab from "../components/catalogo/ComparativoTab";
-import { analytics } from "@/components/analytics/analytics.jsx";
+import { analytics } from "@/components/analytics/analytics";
 
 const PAGE_SIZE = 36;
 
@@ -197,7 +197,7 @@ export default function Catalogo() {
     
   const seoDescription = selectedCategoria
     ? `Peças de reposição para ${selectedCategoria}. Mais de ${filtered.length} itens disponíveis. Importação direta, qualidade garantida. Fortaleza-CE.`
-    : `Catálogo completo com mais de 1.000 peças de reposição para motores, geradores e motobombas. Honda, Tekna, Makita, Buffalo, Husqvarna.`;
+    : `Catálogo completo com mais de 1.000 peças de reposição para motores, geradores e motobombas. Honda, Toyama, Tekna, Branco, Buffalo, Husqvarna.`;
 
   return (
     <>

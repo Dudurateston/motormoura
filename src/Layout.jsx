@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { ShoppingCart, Menu, X, Zap, Trash2, Plus, Minus, MessageCircle, Mail, Instagram, ExternalLink, Search } from "lucide-react";
 import { whatsappUrl, WHATSAPP_NUMBER } from "@/lib/config";
 import HeaderSearch from "@/components/layout/HeaderSearch";
-import { analytics } from "@/components/analytics/analytics.jsx";
+import { analytics } from "@/components/analytics/analytics";
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
@@ -293,7 +293,7 @@ export default function Layout({ children, currentPageName }) {
             <span className="px-4 py-1.5 text-xs font-bold font-mono-tech" style={{ background: "rgba(229,57,53,0.12)", border: "1px solid rgba(229,57,53,0.3)", color: "#F87171", borderRadius: "2px" }}>
               VIBROMAK
             </span>
-            <span className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>+ Honda · Tekna · Buffalo · Husqvarna</span>
+            <span className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>+ Honda · Toyama · Tekna · Branco · Buffalo · Husqvarna</span>
           </div>
         </div>
 
