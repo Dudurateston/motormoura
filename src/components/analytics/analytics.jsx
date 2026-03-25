@@ -6,13 +6,8 @@ export const analytics = {
   productView: () => {},
   addToCart: () => {},
   removeFromCart: () => {},
-  productAddToCart: () => {},
-  cartRemoveItem: () => {},
-  search: () => {},
-  quoteSubmit: () => {},
-  loginAttempt: () => {},
-  filterApply: () => {},
-  whatsappClick: () => {},
-  externalLink: () => {},
 };
+
 export const trackEvent = () => {};
+
+export default analytics;
