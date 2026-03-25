@@ -590,3 +590,4 @@ export default function Layout({ children, currentPageName }) {
     </div>
   );
 }
+export const analytics = {};
