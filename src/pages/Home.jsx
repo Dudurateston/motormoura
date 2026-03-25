@@ -4,17 +4,16 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { Search, ChevronRight, MessageCircle, Shield, Zap, Package, TrendingUp } from "lucide-react";
 import { sanitizeSearchQuery } from "@/lib/apiCache";
-import { whatsappUrl } from "@/lib/config";
 import SEOHead from "../components/SEOHead";
 import HomeCategoryCarousel from "../components/home/HomeCategoryCarousel";
 import HomeVitrine from "../components/home/HomeVitrine";
 import RecomendacoesFrota from "../components/home/RecomendacoesFrota";
 
+const HERO_BG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/92e3f7932_Image231.png";
+const PARTS_IMG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/73d1d5761_BannerCatlogo-MOTORMOURA.png";
+const SEAL_IMG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/73011c8a3_11_Selo_Garantia_Certificacao_MOTORMOURA.png";
+import { whatsappUrl } from "@/lib/config";
 const WA_LINK = whatsappUrl("Olá, preciso de ajuda técnica!");
-
-const HERO_BG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/351439c3a_SobreMOTORMOURA-HeroBanner1.png";
-const PARTS_IMG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/f6d3c0ae0_SobreMOTORMOURA-EstoqueLocalFortaleza.png";
-const SEAL_IMG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/a9d157fda_LogoMOTORMOURASimplificada-cone.png";
 
 // Hook para parallax via scroll
 function useParallax(speed = 0.4) {

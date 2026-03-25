@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
-
+import { analytics } from "@/components/analytics/analytics";
 import { apiCache } from "@/lib/apiCache";
 import LazyImage from "@/components/LazyImage";
 
@@ -15,6 +15,7 @@ function addToCart(produto) {
   else cart.push({ sku_codigo: produto.sku_codigo, nome_peca: produto.nome_peca, quantidade: 1 });
   localStorage.setItem("motormoura_cart", JSON.stringify(cart));
   window.dispatchEvent(new Event("cartUpdated"));
+  analytics.productAddToCart(produto, 1);
 }
 
 function filterByCategory(produtos, tab) {

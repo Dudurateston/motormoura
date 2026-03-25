@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
-import { base44 } from "@/api/base44Client";
 
 export const LINHAS = [
   "Motores a Gasolina",
@@ -27,7 +26,11 @@ export const TIPOS_PECA = [
   "Outras Peças",
 ];
 
-
+const MARCAS = [
+  "Agrimotor","Anova","Argon","Bambozzi","Branco","Buffalo","Chiaperini",
+  "Honda","Kawashima","Lifan","Loncin","Matsuyama","Motomil","Nagano",
+  "Rossel","Savana","Schulz","Tekna","Toyama","Tramontina","Vulcan",
+];
 
 function SectionHeader({ label, color, open, onToggle }) {
   return (
@@ -54,13 +57,6 @@ export default function CatalogoSidebar({
   const [linhasOpen, setLinhasOpen] = useState(true);
   const [tiposOpen, setTiposOpen] = useState(true);
   const [marcasOpen, setMarcasOpen] = useState(false);
-  const [marcas, setMarcas] = useState([]);
-
-  useEffect(() => {
-    base44.entities.MarcasCompativeis.filter({ ativa: true }).then((list) => {
-      setMarcas(list.map((m) => m.nome).sort());
-    }).catch(() => {});
-  }, []);
 
   return (
     <div className="flex flex-col" style={{ fontFamily: "'Space Mono', monospace" }}>
@@ -176,7 +172,7 @@ export default function CatalogoSidebar({
       <SectionHeader label="MARCAS COMPATÍVEIS" color="#6C757D" open={marcasOpen} onToggle={() => setMarcasOpen(v => !v)} />
       {marcasOpen && (
         <ul className="space-y-0.5 max-h-52 overflow-y-auto pr-1 mb-2" style={{ scrollbarWidth: "thin", scrollbarColor: "#E2E8F0 transparent" }}>
-          {marcas.map((marca) => {
+          {MARCAS.map((marca) => {
             const active = selectedMarcas.includes(marca);
             return (
               <li key={marca}>

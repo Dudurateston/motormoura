@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Heart, ShoppingCart, Trash2, ExternalLink, Package, CheckCircle2 } from "lucide-react";
-
+import { analytics } from "@/components/analytics/analytics";
 
 export default function FavoritosTab({ user }) {
   const [favoritos, setFavoritos] = useState([]);
@@ -44,6 +44,7 @@ export default function FavoritosTab({ user }) {
     localStorage.setItem("motormoura_cart", JSON.stringify(updated));
     setCartSkus(new Set(updated.map((i) => i.sku_codigo)));
     window.dispatchEvent(new Event("cartUpdated"));
+    analytics.productAddToCart({ sku_codigo: fav.produto_sku, nome_peca: fav.produto_nome, relacionamento_categoria: fav.produto_categoria, relacionamento_marca: fav.produto_marca }, 1);
     setAddedId(fav.id);
     setTimeout(() => setAddedId(null), 2000);
   };

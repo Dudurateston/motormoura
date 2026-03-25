@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-
+import AnalyticsTracker from '@/components/analytics/AnalyticsTracker';
 import ScrollToTop from '@/components/ScrollToTop';
 import { lazy, Suspense } from 'react';
 const Comparativo = lazy(() => import('./pages/Comparativo'));
@@ -47,7 +47,7 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <>
-
+      <AnalyticsTracker />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={
