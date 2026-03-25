@@ -1,2 +1,11 @@
-export const analytics = {};
+export const analytics = {
+  categoryClick: () => {},
+  registerLojista: () => {},
+  trackEvent: () => {},
+  pageView: () => {},
+  productView: () => {},
+  addToCart: () => {},
+  removeFromCart: () => {},
+};
+
 export const trackEvent = () => {};
