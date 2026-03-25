@@ -55,6 +55,8 @@ export default function Orcamento() {
   const handleEnviarWhatsApp = async () => {
     setEnviando(true);
     try {
+      await base44.functions.invoke('submeterOrcamento', { itens: cart, observacoes });
+    } catch (e) {
       console.warn('Falha ao registrar orçamento:', e.message);
     }
     const url = whatsappUrl(formatWhatsAppMessage());
