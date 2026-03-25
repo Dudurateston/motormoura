@@ -1,6 +1,6 @@
 import React from "react";
 import { Cpu, Droplets, Activity, Leaf, Zap, Settings, ChevronRight } from "lucide-react";
-import { analytics } from "@/components/analytics/analytics";
+
 
 // IMPORTANT: These names MUST match exactly the LINHAS used in CatalogoSidebar and Catalogo filter logic
 export const CATEGORIES = [
@@ -60,10 +60,7 @@ export default function CategoriaGrid({ onSelectCategory }) {
           return (
             <button
               key={cat.name}
-              onClick={() => {
-                analytics.categoryClick(cat.name);
-                onSelectCategory(cat.name);
-              }}
+              onClick={() => onSelectCategory(cat.name)}
               className="text-left p-6 relative overflow-hidden group mm-btn-tactile"
               style={{
                 background: "#FFFFFF",
