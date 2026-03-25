@@ -4,7 +4,6 @@ import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
 import { ShoppingCart, Trash2, Plus, Minus, MessageCircle, ArrowLeft, Send, Info } from "lucide-react";
 import SEOHead from "../components/SEOHead";
-import { analytics } from "@/components/analytics/analytics";
 
 import { whatsappUrl } from "@/lib/config";
 const MINIMO_PEDIDO = 50;
@@ -39,8 +38,6 @@ export default function Orcamento() {
   };
 
   const removeItem = (sku) => {
-    const item = cart.find(i => i.sku_codigo === sku);
-    if (item) analytics.cartRemoveItem(item);
     const updated = cart.filter((item) => item.sku_codigo !== sku);
     setCart(updated);
     saveCart(updated);
@@ -58,15 +55,12 @@ export default function Orcamento() {
     setEnviando(true);
     const totalItens = cart.reduce((s, i) => s + i.quantidade, 0);
     
-    analytics.quoteSubmit(cart, totalItens);
-    
     try {
       await base44.functions.invoke('submeterOrcamento', { itens: cart, observacoes });
     } catch (e) {
       console.warn('Falha ao registrar orçamento:', e.message);
     }
     const url = whatsappUrl(formatWhatsAppMessage());
-    analytics.whatsappClick("quote_submit");
     saveCart([]);
     setCart([]);
     setEnviado(true);

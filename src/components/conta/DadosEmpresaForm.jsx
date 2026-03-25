@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { Save, CheckCircle2, Building2, User } from "lucide-react";
-import { analytics } from "@/components/analytics/analytics";
 
 const PERFIS = ["Oficina Mecânica", "Loja de Peças Revenda", "Locadora de Máquinas", "Construtora", "Autônomo"];
 const VOLUMES = ["1", "2 a 5", "6 a 10", "10 a 20", "Mais de 20"];

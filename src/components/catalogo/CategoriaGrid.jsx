@@ -1,6 +1,5 @@
 import React from "react";
 import { Cpu, Droplets, Activity, Leaf, Zap, Settings, ChevronRight } from "lucide-react";
-import { analytics } from "@/components/analytics/analytics";
 
 // IMPORTANT: These names MUST match exactly the LINHAS used in CatalogoSidebar and Catalogo filter logic
 export const CATEGORIES = [

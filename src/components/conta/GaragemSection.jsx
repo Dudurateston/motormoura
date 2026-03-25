@@ -3,7 +3,6 @@ import { base44 } from "@/api/base44Client";
 import { Plus, Trash2, Wrench, Save, CheckCircle2, X, AlertCircle, ChevronRight, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { trackEvent } from "@/components/analytics/analytics";
 
 // ─────────────────────────────────────────────
 // DADOS CASCATA — Categoria → Marca → Modelos
@@ -118,7 +117,6 @@ function AddEquipamentoModal({ onClose, onAdd }) {
       potencial_pecas: [],
     };
     onAdd(equip);
-    trackEvent("garagem_manual_add", { categoria, marca });
     onClose();
   };
 

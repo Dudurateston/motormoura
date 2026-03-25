@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { ShoppingCart, Zap, AlertTriangle, Plus, Minus, ExternalLink } from "lucide-react";
-import { analytics } from "@/components/analytics/analytics";
 import FavoritoButton from "./FavoritoButton";
 
 export default function ProdutoCard({ produto, onAddToCart }) {
@@ -31,7 +30,6 @@ export default function ProdutoCard({ produto, onAddToCart }) {
     setPressed(true);
     setTimeout(() => setPressed(false), 150);
     onAddToCart(produto, quantidade);
-    analytics.productAddToCart(produto, quantidade);
     setQuantidade(1);
   };
 
