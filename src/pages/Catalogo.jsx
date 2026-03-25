@@ -7,7 +7,7 @@ import CategoriaGrid from "../components/catalogo/CategoriaGrid";
 import SEOHead from "../components/SEOHead";
 import FavoritosTab from "../components/conta/FavoritosTab";
 import ComparativoTab from "../components/catalogo/ComparativoTab";
-import { analytics } from "@/components/analytics/analytics";
+
 
 const PAGE_SIZE = 36;
 
@@ -144,7 +144,6 @@ export default function Catalogo() {
   const toggleMarca = useCallback((nome) => {
     setSelectedMarcas((prev) => {
       const isAdding = !prev.includes(nome);
-      if (isAdding) analytics.filterApply("marca", nome);
       return isAdding ? [...prev, nome] : prev.filter((m) => m !== nome);
     });
     setPage(1);
@@ -156,18 +155,15 @@ export default function Catalogo() {
     setSelectedLinha(v); 
     setPage(1); 
     setMobileDrawerOpen(false); 
-    if (v) analytics.filterApply("linha", v);
   }, []);
   const handleSetTipo = useCallback((v) => { 
     setSelectedTipo(v); 
     setPage(1); 
     setMobileDrawerOpen(false); 
-    if (v) analytics.filterApply("tipo", v);
   }, []);
   const handleSetPrice = useCallback((v) => { 
     setPriceFilter(v); 
-    setPage(1); 
-    if (v !== "all") analytics.filterApply("preco", v);
+    setPage(1);
   }, []);
 
   // Filter pills
@@ -317,11 +313,7 @@ export default function Catalogo() {
                   placeholder="SKU, nome, HP…"
                   value={searchText}
                   onChange={(e) => { setSearchText(e.target.value); setPage(1); }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && searchText) {
-                      analytics.search(searchText, { categoria: selectedLinha, tipo: selectedTipo });
-                    }
-                  }}
+                  onKeyDown={(e) => {}}
                   className="w-full h-9 pl-9 pr-7 text-xs font-mono-tech focus:outline-none"
                   style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }}
                 />

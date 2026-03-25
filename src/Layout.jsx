@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { ShoppingCart, Menu, X, Zap, Trash2, Plus, Minus, MessageCircle, Mail, Instagram, ExternalLink, Search } from "lucide-react";
 import { whatsappUrl, WHATSAPP_NUMBER } from "@/lib/config";
 import HeaderSearch from "@/components/layout/HeaderSearch";
-import { analytics } from "@/components/analytics/analytics";
+
 
 export default function Layout({ children, currentPageName }) {
   const [user, setUser] = useState(null);
@@ -58,7 +58,7 @@ export default function Layout({ children, currentPageName }) {
   const handleSendWhatsApp = async () => {
     const totalItens = cart.reduce((s, i) => s + i.quantidade, 0);
 
-    analytics.quoteSubmit(cart, totalItens);
+
 
     try {
       await base44.functions.invoke('submeterOrcamento', { itens: cart });
@@ -70,7 +70,7 @@ export default function Layout({ children, currentPageName }) {
     cart.forEach(item => { msg += `• ${item.quantidade}x ${item.nome_peca} (SKU: ${item.sku_codigo})\n`; });
     if (user) msg += `\nAtenciosamente,\n${user.full_name}`;
     const url = whatsappUrl(msg);
-    analytics.whatsappClick("cart_panel");
+
     saveCart([]);
     setCartOpen(false);
     window.open(url, "_blank");
@@ -180,7 +180,6 @@ export default function Layout({ children, currentPageName }) {
               ) : (
                 <button
                   onClick={() => {
-                    analytics.loginAttempt();
                     base44.auth.redirectToLogin();
                   }}
                   className="hidden md:flex mm-btn-tactile px-4 h-9 text-xs font-mono-tech font-bold items-center"
