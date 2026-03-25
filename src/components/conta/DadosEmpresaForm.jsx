@@ -64,7 +64,6 @@ export default function DadosEmpresaForm({ lojista, user, logoUrl, onSaved }) {
       onSaved({ ...lojista, ...form });
     } else {
       const novo = await base44.entities.Lojistas.create({ ...data, status: "pendente" });
-      analytics.registerLojista("pendente");
       onSaved(novo);
     }
     setSaving(false);

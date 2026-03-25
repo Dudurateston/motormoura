@@ -61,7 +61,6 @@ export default function CategoriaGrid({ onSelectCategory }) {
             <button
               key={cat.name}
               onClick={() => {
-                analytics.categoryClick(cat.name);
                 onSelectCategory(cat.name);
               }}
               className="text-left p-6 relative overflow-hidden group mm-btn-tactile"
