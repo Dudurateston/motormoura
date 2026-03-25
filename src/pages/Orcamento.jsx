@@ -54,7 +54,6 @@ export default function Orcamento() {
   const handleEnviarWhatsApp = async () => {
     setEnviando(true);
     const totalItens = cart.reduce((s, i) => s + i.quantidade, 0);
-    
     try {
       await base44.functions.invoke('submeterOrcamento', { itens: cart, observacoes });
     } catch (e) {

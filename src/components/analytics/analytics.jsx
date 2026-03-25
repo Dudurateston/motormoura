@@ -7,7 +7,5 @@ export const analytics = {
   addToCart: () => {},
   removeFromCart: () => {},
 };
-
 export const trackEvent = () => {};
-
 export default analytics;
