@@ -1,6 +1,6 @@
 import { base44 } from "@/api/base44Client";
 
-const trackEvent = (eventName, properties = {}) => {
+export const trackEvent = (eventName, properties = {}) => {
   try {
     base44.analytics.track({ eventName, properties });
   } catch (error) {
@@ -34,5 +34,3 @@ export const analytics = {
   whatsappClick: (context) => trackEvent("whatsapp_click", { context }),
   externalLink: (url, context) => trackEvent("external_link_click", { url, context }),
 };
-
-export const trackEvent as default;
