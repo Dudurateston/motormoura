@@ -41,28 +41,28 @@ export default function RecomendacoesFrota() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    base44.auth.me().then(setUser).catch(() => setUser(null));
-  }, []);
-
-  useEffect(() => {
-    if (!user) { setLoading(false); return; }
-
     const load = async () => {
-      const [lojistas, prods] = await Promise.all([
-        apiCache.get(`lojista_${user.email}`, () => base44.entities.Lojistas.filter({ user_email: user.email }), 10 * 60 * 1000),
-        apiCache.get("produtos_vitrine", () => base44.entities.Produtos.list("-created_date", 500)),
-      ]);
-      const g = lojistas[0]?.garagem || [];
-      setGaragem(g);
-      if (g.length > 0) {
-        const matched = prods.filter(p => p.ativo !== false && matchProduto(p, g));
-        setProdutos(matched.slice(0, 8));
+      try {
+        const u = await base44.auth.me();
+        setUser(u);
+        const [lojistas, prods] = await Promise.all([
+          apiCache.get(`lojista_${u.email}`, () => base44.entities.Lojistas.filter({ user_email: u.email }), 15 * 60 * 1000),
+          apiCache.get("produtos_vitrine", () => base44.entities.Produtos.list("-created_date", 500)),
+        ]);
+        const g = lojistas[0]?.garagem || [];
+        setGaragem(g);
+        if (g.length > 0) {
+          const matched = prods.filter(p => p.ativo !== false && matchProduto(p, g));
+          setProdutos(matched.slice(0, 8));
+        }
+      } catch {
+        // not logged in or error
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
-
     load();
-  }, [user]);
+  }, []);
 
   // Não renderiza se não logado, sem garagem ou sem matches
   if (!user || loading || garagem.length === 0 || produtos.length === 0) return null;

@@ -5,7 +5,7 @@
 
 const store = new Map();
 const inFlight = new Map();
-const DEFAULT_TTL = 5 * 60 * 1000; // 5 minutes
+const DEFAULT_TTL = 15 * 60 * 1000; // 15 minutes
 
 export const apiCache = {
   /**
