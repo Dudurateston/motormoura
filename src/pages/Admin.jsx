@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import {
   Users, Package, FileText, CheckCircle, XCircle, Clock,
-  TrendingUp, Heart, Wrench, BarChart2, Star, AlertTriangle
+  TrendingUp, Heart, Wrench, BarChart2, Star, AlertTriangle,
+  Search, Plus, Pencil, Trash2, X, CheckCircle2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -76,6 +77,100 @@ export default function Admin() {
   const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("dashboard");
+
+  // Catálogo CRUD state
+  const [catalogoBusca, setCatalogoBusca] = useState("");
+  const [categorias, setCategorias] = useState([]);
+  const [marcas, setMarcas] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingProduto, setEditingProduto] = useState(null);
+  const [saving, setSaving] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+  const [formData, setFormData] = useState({});
+
+  const FORM_DEFAULT = { sku_codigo: "", nome_peca: "", descricao: "", relacionamento_categoria: "", relacionamento_marca: "", preco_base_atacado: "", estoque_disponivel: "", imagem_url: "", destaque: false, ativo: true };
+
+  const showFeedback = (msg, ok = true) => {
+    setFeedback({ msg, ok });
+    setTimeout(() => setFeedback(null), 3000);
+  };
+
+  const loadProdutos = async () => {
+    const p = await base44.entities.Produtos.list("-created_date", 200);
+    setProdutos(p || []);
+  };
+
+  const loadCatalogOptions = async () => {
+    const [cats, marcsList] = await Promise.all([
+      base44.entities.Categorias.list(),
+      base44.entities.MarcasCompativeis.list(),
+    ]);
+    setCategorias(cats || []);
+    setMarcas(marcsList || []);
+  };
+
+  const openCreate = () => {
+    setEditingProduto(null);
+    setFormData(FORM_DEFAULT);
+    setModalOpen(true);
+  };
+
+  const openEdit = (p) => {
+    setEditingProduto(p);
+    setFormData({
+      sku_codigo: p.sku_codigo || "",
+      nome_peca: p.nome_peca || "",
+      descricao: p.descricao || "",
+      relacionamento_categoria: p.relacionamento_categoria || "",
+      relacionamento_marca: p.relacionamento_marca || "",
+      preco_base_atacado: p.preco_base_atacado ?? "",
+      estoque_disponivel: p.estoque_disponivel ?? "",
+      imagem_url: p.imagem_url || "",
+      destaque: !!p.destaque,
+      ativo: p.ativo !== false,
+    });
+    setModalOpen(true);
+  };
+
+  const handleSave = async () => {
+    if (!formData.sku_codigo || !formData.nome_peca) return;
+    setSaving(true);
+    const data = {
+      ...formData,
+      preco_base_atacado: formData.preco_base_atacado !== "" ? parseFloat(formData.preco_base_atacado) : null,
+      estoque_disponivel: formData.estoque_disponivel !== "" ? parseInt(formData.estoque_disponivel) : null,
+    };
+    try {
+      if (editingProduto) {
+        await base44.entities.Produtos.update(editingProduto.id, data);
+        showFeedback("Produto atualizado com sucesso!");
+      } else {
+        await base44.entities.Produtos.create(data);
+        showFeedback("Produto criado com sucesso!");
+      }
+      setModalOpen(false);
+      await loadProdutos();
+    } catch (e) {
+      showFeedback("Erro: " + e.message, false);
+    }
+    setSaving(false);
+  };
+
+  const handleDelete = async (p) => {
+    if (!window.confirm(`Excluir "${p.nome_peca}"? Esta ação não pode ser desfeita.`)) return;
+    try {
+      await base44.entities.Produtos.delete(p.id);
+      showFeedback("Produto excluído.");
+      await loadProdutos();
+    } catch (e) {
+      showFeedback("Erro ao excluir: " + e.message, false);
+    }
+  };
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    if (tab === "catalogo" && categorias.length === 0) loadCatalogOptions();
+  };
 
   useEffect(() => {
     base44.auth.me().then(async (u) => {
@@ -235,7 +330,7 @@ export default function Admin() {
         {/* Tabs */}
         <div className="flex gap-0 mb-6 overflow-x-auto" style={{ borderBottom: "1px solid #E2E8F0" }}>
           {TABS.map((tab) => (
-            <button key={tab} onClick={() => setActiveTab(tab)}
+            <button key={tab} onClick={() => handleTabChange(tab)}
               className="px-5 py-3 text-xs font-mono-tech whitespace-nowrap transition-all duration-200"
               style={{
                 color: activeTab === tab ? "#D32F2F" : "#6C757D",
@@ -557,20 +652,65 @@ export default function Admin() {
         {/* ── CATÁLOGO TAB ── */}
         {activeTab === "catalogo" && (
           <div key="catalogo" style={{ animation: "fadeInTab 0.2s ease" }}>
+
+            {/* Feedback */}
+            {feedback && (
+              <div className="flex items-center gap-2 mb-4 px-4 py-3" style={{ background: feedback.ok ? "rgba(22,163,74,0.08)" : "rgba(211,47,47,0.08)", border: `1px solid ${feedback.ok ? "rgba(22,163,74,0.3)" : "rgba(211,47,47,0.3)"}`, borderRadius: "4px" }}>
+                {feedback.ok ? <CheckCircle2 className="w-4 h-4" style={{ color: "#16A34A" }} /> : <X className="w-4 h-4" style={{ color: "#D32F2F" }} />}
+                <span className="text-xs font-mono-tech" style={{ color: feedback.ok ? "#16A34A" : "#D32F2F" }}>{feedback.msg}</span>
+              </div>
+            )}
+
+            {/* Toolbar */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative flex-1 max-w-sm">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: "#9CA3AF" }} />
+                <input
+                  placeholder="Buscar por nome ou SKU..."
+                  value={catalogoBusca}
+                  onChange={(e) => setCatalogoBusca(e.target.value)}
+                  className="w-full h-9 pl-9 pr-3 text-xs font-mono-tech focus:outline-none"
+                  style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }}
+                />
+              </div>
+              <button
+                onClick={openCreate}
+                className="flex items-center gap-2 h-9 px-4 text-xs font-mono-tech font-bold"
+                style={{ background: "linear-gradient(135deg, #D32F2F, #B71C1C)", color: "#fff", border: "none", borderRadius: "2px" }}
+              >
+                <Plus className="w-3.5 h-3.5" /> NOVO PRODUTO
+              </button>
+              <span className="text-xs font-mono-tech ml-auto" style={{ color: "#9CA3AF" }}>
+                {produtos.filter(p => {
+                  const q = catalogoBusca.toLowerCase();
+                  return !q || p.nome_peca?.toLowerCase().includes(q) || p.sku_codigo?.toLowerCase().includes(q);
+                }).length} produto(s)
+              </span>
+            </div>
+
+            {/* Table */}
             <div className="overflow-x-auto" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px" }}>
               <table className="w-full text-sm">
                 <thead style={{ background: "#F8F9FA", borderBottom: "1px solid #E2E8F0" }}>
                   <tr>
-                    {["SKU", "Nome", "Categoria", "Marca", "Preço", "Estoque", "Status"].map(h => (
+                    {["SKU", "Nome", "Categoria", "Marca", "Preço", "Estoque", "Status", "Ações"].map(h => (
                       <th key={h} className="text-left px-4 py-3 text-xs font-mono-tech" style={{ color: "#6C757D" }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {produtos.map((p) => (
+                  {produtos
+                    .filter(p => {
+                      const q = catalogoBusca.toLowerCase();
+                      return !q || p.nome_peca?.toLowerCase().includes(q) || p.sku_codigo?.toLowerCase().includes(q);
+                    })
+                    .map((p) => (
                     <tr key={p.id} style={{ borderBottom: "1px solid #F1F5F9" }}>
                       <td className="px-4 py-3 font-mono text-xs" style={{ color: "#1D4ED8" }}>{p.sku_codigo}</td>
-                      <td className="px-4 py-3 text-sm font-medium" style={{ color: "#212529" }}>{p.nome_peca}</td>
+                      <td className="px-4 py-3 text-sm font-medium" style={{ color: "#212529", maxWidth: 200 }}>
+                        <p className="truncate">{p.nome_peca}</p>
+                        {p.destaque && <span className="text-xs font-mono-tech" style={{ color: "#B45309" }}>★ DESTAQUE</span>}
+                      </td>
                       <td className="px-4 py-3 text-xs" style={{ color: "#6C757D" }}>{p.relacionamento_categoria}</td>
                       <td className="px-4 py-3 text-xs" style={{ color: "#6C757D" }}>{p.relacionamento_marca}</td>
                       <td className="px-4 py-3 text-xs font-mono-tech" style={{ color: "#212529" }}>
@@ -587,14 +727,148 @@ export default function Admin() {
                           {p.ativo !== false ? "ATIVO" : "INATIVO"}
                         </span>
                       </td>
+                      <td className="px-4 py-3">
+                        <div className="flex gap-1.5">
+                          <button onClick={() => openEdit(p)}
+                            className="h-7 px-3 text-xs font-mono-tech flex items-center gap-1"
+                            style={{ background: "rgba(29,78,216,0.08)", border: "1px solid rgba(29,78,216,0.2)", color: "#1D4ED8", borderRadius: "2px" }}>
+                            <Pencil className="w-3 h-3" /> Editar
+                          </button>
+                          <button onClick={() => handleDelete(p)}
+                            className="h-7 px-3 text-xs font-mono-tech flex items-center gap-1"
+                            style={{ background: "rgba(211,47,47,0.08)", border: "1px solid rgba(211,47,47,0.2)", color: "#D32F2F", borderRadius: "2px" }}>
+                            <Trash2 className="w-3 h-3" /> Excluir
+                          </button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                   {produtos.length === 0 && (
-                    <tr><td colSpan={7} className="text-center py-10 text-xs" style={{ color: "#9CA3AF" }}>Nenhum produto</td></tr>
+                    <tr><td colSpan={8} className="text-center py-10 text-xs" style={{ color: "#9CA3AF" }}>Nenhum produto cadastrado</td></tr>
                   )}
                 </tbody>
               </table>
             </div>
+
+            {/* Modal */}
+            {modalOpen && (
+              <>
+                <div className="fixed inset-0 z-40" style={{ background: "rgba(0,0,0,0.5)" }} onClick={() => setModalOpen(false)} />
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                  <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px", boxShadow: "0 20px 60px rgba(0,0,0,0.15)" }}>
+                    {/* Modal header */}
+                    <div className="flex items-center justify-between px-6 py-4" style={{ borderBottom: "1px solid #E2E8F0" }}>
+                      <div>
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <div className="w-3 h-[2px]" style={{ background: "#D32F2F" }} />
+                          <span className="text-xs font-mono-tech" style={{ color: "#D32F2F", letterSpacing: "0.12em" }}>{editingProduto ? "EDITAR PRODUTO" : "NOVO PRODUTO"}</span>
+                        </div>
+                      </div>
+                      <button onClick={() => setModalOpen(false)} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100" style={{ borderRadius: "2px", color: "#6C757D" }}>
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    {/* Form */}
+                    <div className="px-6 py-5 space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>SKU *</label>
+                          <input value={formData.sku_codigo} onChange={e => setFormData(f => ({ ...f, sku_codigo: e.target.value }))}
+                            className="w-full h-9 px-3 text-sm focus:outline-none"
+                            style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>NOME DA PEÇA *</label>
+                          <input value={formData.nome_peca} onChange={e => setFormData(f => ({ ...f, nome_peca: e.target.value }))}
+                            className="w-full h-9 px-3 text-sm focus:outline-none"
+                            style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>DESCRIÇÃO</label>
+                        <textarea value={formData.descricao} onChange={e => setFormData(f => ({ ...f, descricao: e.target.value }))}
+                          rows={3} className="w-full px-3 py-2 text-sm focus:outline-none resize-none"
+                          style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>CATEGORIA</label>
+                          <select value={formData.relacionamento_categoria} onChange={e => setFormData(f => ({ ...f, relacionamento_categoria: e.target.value }))}
+                            className="w-full h-9 px-3 text-sm focus:outline-none appearance-none"
+                            style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }}>
+                            <option value="">Selecione...</option>
+                            {categorias.map(c => <option key={c.id} value={c.nome}>{c.nome}</option>)}
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>MARCA COMPATÍVEL</label>
+                          <select value={formData.relacionamento_marca} onChange={e => setFormData(f => ({ ...f, relacionamento_marca: e.target.value }))}
+                            className="w-full h-9 px-3 text-sm focus:outline-none appearance-none"
+                            style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }}>
+                            <option value="">Selecione...</option>
+                            {marcas.map(m => <option key={m.id} value={m.nome}>{m.nome}</option>)}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>PREÇO ATACADO (R$)</label>
+                          <input type="number" step="0.01" value={formData.preco_base_atacado} onChange={e => setFormData(f => ({ ...f, preco_base_atacado: e.target.value }))}
+                            className="w-full h-9 px-3 text-sm focus:outline-none"
+                            style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>ESTOQUE DISPONÍVEL</label>
+                          <input type="number" step="1" value={formData.estoque_disponivel} onChange={e => setFormData(f => ({ ...f, estoque_disponivel: e.target.value }))}
+                            className="w-full h-9 px-3 text-sm focus:outline-none"
+                            style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>URL DA IMAGEM</label>
+                        <input value={formData.imagem_url} onChange={e => setFormData(f => ({ ...f, imagem_url: e.target.value }))}
+                          placeholder="https://..."
+                          className="w-full h-9 px-3 text-sm focus:outline-none"
+                          style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                      </div>
+
+                      <div className="flex gap-6">
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input type="checkbox" checked={formData.destaque} onChange={e => setFormData(f => ({ ...f, destaque: e.target.checked }))}
+                            className="w-4 h-4" style={{ accentColor: "#D32F2F" }} />
+                          <span className="text-xs font-mono-tech" style={{ color: "#6C757D" }}>Produto em destaque na Home</span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer">
+                          <input type="checkbox" checked={formData.ativo} onChange={e => setFormData(f => ({ ...f, ativo: e.target.checked }))}
+                            className="w-4 h-4" style={{ accentColor: "#16A34A" }} />
+                          <span className="text-xs font-mono-tech" style={{ color: "#6C757D" }}>Produto ativo no catálogo</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    {/* Modal footer */}
+                    <div className="flex items-center justify-end gap-3 px-6 py-4" style={{ borderTop: "1px solid #E2E8F0" }}>
+                      <button onClick={() => setModalOpen(false)}
+                        className="h-9 px-4 text-xs font-mono-tech"
+                        style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", color: "#6C757D", borderRadius: "2px" }}>
+                        CANCELAR
+                      </button>
+                      <button onClick={handleSave} disabled={saving || !formData.sku_codigo || !formData.nome_peca}
+                        className="h-9 px-5 text-xs font-mono-tech font-bold disabled:opacity-50"
+                        style={{ background: "linear-gradient(135deg, #D32F2F, #B71C1C)", color: "#fff", border: "none", borderRadius: "2px" }}>
+                        {saving ? "SALVANDO..." : editingProduto ? "SALVAR ALTERAÇÕES" : "CRIAR PRODUTO"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
           </div>
         )}
 
