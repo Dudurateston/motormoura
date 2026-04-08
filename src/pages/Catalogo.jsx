@@ -132,12 +132,10 @@ export default function Catalogo() {
     clearFilters, hasFilters,
   };
 
-  const pageTitle = selectedCategoria || selectedTipo || "Todas as Peças de Reposição";
+  const pageTitle = selectedCategoria || "Todas as Peças de Reposição";
   
   const seoTitle = selectedCategoria 
     ? `${selectedCategoria} - Peças de Reposição | MotorMoura` 
-    : selectedTipo 
-    ? `${selectedTipo} - Catálogo de Peças | MotorMoura`
     : "Catálogo de Peças para Motores, Geradores e Motobombas | MotorMoura";
     
   const seoDescription = selectedCategoria
