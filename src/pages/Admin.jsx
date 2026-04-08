@@ -96,6 +96,14 @@ export default function Admin() {
   const [catFeedback, setCatFeedback] = useState(null);
   const [catSaving, setCatSaving] = useState(false);
 
+  // Marcas CRUD state
+  const MARCA_FORM_DEFAULT = { nome: "", ativa: true };
+  const [marcaFormOpen, setMarcaFormOpen] = useState(false);
+  const [editingMarca, setEditingMarca] = useState(null);
+  const [marcaForm, setMarcaForm] = useState(MARCA_FORM_DEFAULT);
+  const [marcaFeedback, setMarcaFeedback] = useState(null);
+  const [marcaSaving, setMarcaSaving] = useState(false);
+
   const FORM_DEFAULT = { sku_codigo: "", nome_peca: "", descricao: "", relacionamento_categoria: "", relacionamento_marca: "", preco_base_atacado: "", estoque_disponivel: "", imagem_url: "", destaque: false, ativo: true };
 
   const showFeedback = (msg, ok = true) => {
@@ -235,6 +243,7 @@ export default function Admin() {
     setActiveTab(tab);
     if (tab === "catalogo" && categorias.length === 0) loadCatalogOptions();
     if (tab === "categorias") loadCategorias();
+    if (tab === "marcas") loadMarcas();
   };
 
   useEffect(() => {
@@ -367,8 +376,8 @@ export default function Admin() {
     return l.status === "pendente" && dias > 3;
   });
 
-  const TABS = ["dashboard", "lojistas", "orcamentos", "catalogo", "categorias"];
-  const TAB_LABELS = { dashboard: "Dashboard", lojistas: "Lojistas", orcamentos: "Orçamentos", catalogo: "Catálogo", categorias: "Categorias" };
+  const TABS = ["dashboard", "lojistas", "orcamentos", "catalogo", "categorias", "marcas"];
+  const TAB_LABELS = { dashboard: "Dashboard", lojistas: "Lojistas", orcamentos: "Orçamentos", catalogo: "Catálogo", categorias: "Categorias", marcas: "Marcas" };
 
   const ICON_OPTIONS = ["Cpu", "Zap", "Droplets", "Leaf", "Filter", "RotateCw", "Fuel", "Settings", "Flame", "Activity", "Wrench", "Star", "Battery", "Sprout", "Package"];
 
@@ -716,19 +725,118 @@ export default function Admin() {
           </div>
         )}
 
+        {/* ── MARCAS TAB ── */}
+        {activeTab === "marcas" && (
+          <div key="marcas" style={{ animation: "fadeInTab 0.2s ease" }}>
+            {marcaFeedback && (
+              <div className="flex items-center gap-2 mb-4 px-4 py-3" style={{ background: marcaFeedback.ok ? "rgba(22,163,74,0.08)" : "rgba(211,47,47,0.08)", border: `1px solid ${marcaFeedback.ok ? "rgba(22,163,74,0.3)" : "rgba(211,47,47,0.3)"}`, borderRadius: "4px" }}>
+                {marcaFeedback.ok ? <CheckCircle2 className="w-4 h-4" style={{ color: "#16A34A" }} /> : <X className="w-4 h-4" style={{ color: "#D32F2F" }} />}
+                <span className="text-xs font-mono-tech" style={{ color: marcaFeedback.ok ? "#16A34A" : "#D32F2F" }}>{marcaFeedback.msg}</span>
+              </div>
+            )}
+            <div className="flex items-center gap-3 mb-4">
+              <button onClick={openMarcaCreate}
+                className="flex items-center gap-2 h-9 px-4 text-xs font-mono-tech font-bold"
+                style={{ background: "linear-gradient(135deg, #D32F2F, #B71C1C)", color: "#fff", border: "none", borderRadius: "2px" }}>
+                <Plus className="w-3.5 h-3.5" /> NOVA MARCA
+              </button>
+              <span className="text-xs font-mono-tech ml-auto" style={{ color: "#9CA3AF" }}>
+                {marcas.filter(m => m.ativa !== false).length} ativas · {marcas.filter(m => m.ativa === false).length} inativas
+              </span>
+            </div>
+
+            {marcaFormOpen && (
+              <div className="mb-5 p-5" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px" }}>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-mono-tech font-bold" style={{ color: "#D32F2F" }}>{editingMarca ? "EDITAR MARCA" : "NOVA MARCA"}</span>
+                  <button onClick={() => setMarcaFormOpen(false)} className="w-7 h-7 flex items-center justify-center hover:bg-gray-100" style={{ borderRadius: "2px", color: "#6C757D" }}><X className="w-4 h-4" /></button>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4 mb-4">
+                  <div className="flex-1">
+                    <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>NOME *</label>
+                    <input value={marcaForm.nome} onChange={e => setMarcaForm(f => ({ ...f, nome: e.target.value }))}
+                      className="w-full h-9 px-3 text-sm focus:outline-none"
+                      style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={marcaForm.ativa} onChange={e => setMarcaForm(f => ({ ...f, ativa: e.target.checked }))}
+                      className="w-4 h-4" style={{ accentColor: "#16A34A" }} />
+                    <span className="text-xs font-mono-tech" style={{ color: "#6C757D" }}>Marca ativa no catálogo</span>
+                  </label>
+                  <div className="flex gap-2">
+                    <button onClick={() => setMarcaFormOpen(false)}
+                      className="h-9 px-4 text-xs font-mono-tech"
+                      style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", color: "#6C757D", borderRadius: "2px" }}>CANCELAR</button>
+                    <button onClick={handleMarcaSave} disabled={marcaSaving || !marcaForm.nome}
+                      className="h-9 px-5 text-xs font-mono-tech font-bold disabled:opacity-50"
+                      style={{ background: "linear-gradient(135deg, #D32F2F, #B71C1C)", color: "#fff", border: "none", borderRadius: "2px" }}>
+                      {marcaSaving ? "SALVANDO..." : editingMarca ? "SALVAR" : "CRIAR"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="overflow-x-auto" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px" }}>
+              <table className="w-full text-sm">
+                <thead style={{ background: "#F8F9FA", borderBottom: "1px solid #E2E8F0" }}>
+                  <tr>
+                    {["Nome", "Status", "Ações"].map(h => (
+                      <th key={h} className="text-left px-4 py-3 text-xs font-mono-tech" style={{ color: "#6C757D" }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {marcas.map((m) => (
+                    <tr key={m.id} style={{ borderBottom: "1px solid #F1F5F9" }}>
+                      <td className="px-4 py-3 font-medium text-sm" style={{ color: "#212529" }}>{m.nome}</td>
+                      <td className="px-4 py-3">
+                        <span className="text-xs font-mono-tech px-2 py-0.5" style={{
+                          background: m.ativa !== false ? "rgba(22,163,74,0.1)" : "rgba(211,47,47,0.08)",
+                          color: m.ativa !== false ? "#16A34A" : "#D32F2F", borderRadius: "2px"
+                        }}>{m.ativa !== false ? "ATIVA" : "INATIVA"}</span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex gap-1.5">
+                          <button onClick={() => openMarcaEdit(m)}
+                            className="h-7 px-3 text-xs font-mono-tech flex items-center gap-1"
+                            style={{ background: "rgba(29,78,216,0.08)", border: "1px solid rgba(29,78,216,0.2)", color: "#1D4ED8", borderRadius: "2px" }}>
+                            <Pencil className="w-3 h-3" /> Editar
+                          </button>
+                          <button onClick={() => handleMarcaToggle(m)}
+                            className="h-7 px-3 text-xs font-mono-tech"
+                            style={{ background: "rgba(180,83,9,0.07)", border: "1px solid rgba(180,83,9,0.2)", color: "#B45309", borderRadius: "2px" }}>
+                            {m.ativa !== false ? "Desativar" : "Ativar"}
+                          </button>
+                          <button onClick={() => handleMarcaDelete(m)}
+                            className="h-7 px-3 text-xs font-mono-tech flex items-center gap-1"
+                            style={{ background: "rgba(211,47,47,0.08)", border: "1px solid rgba(211,47,47,0.2)", color: "#D32F2F", borderRadius: "2px" }}>
+                            <Trash2 className="w-3 h-3" /> Excluir
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                  {marcas.length === 0 && (
+                    <tr><td colSpan={3} className="text-center py-10 text-xs" style={{ color: "#9CA3AF" }}>Nenhuma marca cadastrada</td></tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
         {/* ── CATEGORIAS TAB ── */}
         {activeTab === "categorias" && (
           <div key="categorias" style={{ animation: "fadeInTab 0.2s ease" }}>
-
-            {/* Feedback */}
             {catFeedback && (
               <div className="flex items-center gap-2 mb-4 px-4 py-3" style={{ background: catFeedback.ok ? "rgba(22,163,74,0.08)" : "rgba(211,47,47,0.08)", border: `1px solid ${catFeedback.ok ? "rgba(22,163,74,0.3)" : "rgba(211,47,47,0.3)"}`, borderRadius: "4px" }}>
                 {catFeedback.ok ? <CheckCircle2 className="w-4 h-4" style={{ color: "#16A34A" }} /> : <X className="w-4 h-4" style={{ color: "#D32F2F" }} />}
                 <span className="text-xs font-mono-tech" style={{ color: catFeedback.ok ? "#16A34A" : "#D32F2F" }}>{catFeedback.msg}</span>
               </div>
             )}
-
-            {/* Toolbar */}
             <div className="flex items-center gap-3 mb-4">
               <button onClick={openCatCreate}
                 className="flex items-center gap-2 h-9 px-4 text-xs font-mono-tech font-bold"
@@ -739,8 +847,6 @@ export default function Admin() {
                 {categorias.filter(c => c.ativa !== false).length} ativas · {categorias.filter(c => c.ativa === false).length} inativas
               </span>
             </div>
-
-            {/* Inline form */}
             {catFormOpen && (
               <div className="mb-5 p-5" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px" }}>
                 <div className="flex items-center justify-between mb-4">
@@ -788,8 +894,6 @@ export default function Admin() {
                 </div>
               </div>
             )}
-
-            {/* Table */}
             <div className="overflow-x-auto" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px" }}>
               <table className="w-full text-sm">
                 <thead style={{ background: "#F8F9FA", borderBottom: "1px solid #E2E8F0" }}>
@@ -802,36 +906,15 @@ export default function Admin() {
                 <tbody>
                   {categorias.map((c) => (
                     <tr key={c.id} style={{ borderBottom: "1px solid #F1F5F9" }}>
-                      <td className="px-4 py-3">
-                        <span className="text-xs font-mono-tech px-2 py-0.5" style={{ background: "rgba(29,78,216,0.06)", border: "1px solid rgba(29,78,216,0.15)", color: "#1D4ED8", borderRadius: "2px" }}>{c.icone || "—"}</span>
-                      </td>
+                      <td className="px-4 py-3"><span className="text-xs font-mono-tech px-2 py-0.5" style={{ background: "rgba(29,78,216,0.06)", border: "1px solid rgba(29,78,216,0.15)", color: "#1D4ED8", borderRadius: "2px" }}>{c.icone || "—"}</span></td>
                       <td className="px-4 py-3 font-medium text-sm" style={{ color: "#212529" }}>{c.nome}</td>
-                      <td className="px-4 py-3 text-xs" style={{ color: "#6C757D", maxWidth: 260 }}>
-                        <p className="truncate">{c.descricao || "—"}</p>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="text-xs font-mono-tech px-2 py-0.5" style={{
-                          background: c.ativa !== false ? "rgba(22,163,74,0.1)" : "rgba(211,47,47,0.08)",
-                          color: c.ativa !== false ? "#16A34A" : "#D32F2F", borderRadius: "2px"
-                        }}>{c.ativa !== false ? "ATIVA" : "INATIVA"}</span>
-                      </td>
+                      <td className="px-4 py-3 text-xs" style={{ color: "#6C757D", maxWidth: 260 }}><p className="truncate">{c.descricao || "—"}</p></td>
+                      <td className="px-4 py-3"><span className="text-xs font-mono-tech px-2 py-0.5" style={{ background: c.ativa !== false ? "rgba(22,163,74,0.1)" : "rgba(211,47,47,0.08)", color: c.ativa !== false ? "#16A34A" : "#D32F2F", borderRadius: "2px" }}>{c.ativa !== false ? "ATIVA" : "INATIVA"}</span></td>
                       <td className="px-4 py-3">
                         <div className="flex gap-1.5">
-                          <button onClick={() => openCatEdit(c)}
-                            className="h-7 px-3 text-xs font-mono-tech flex items-center gap-1"
-                            style={{ background: "rgba(29,78,216,0.08)", border: "1px solid rgba(29,78,216,0.2)", color: "#1D4ED8", borderRadius: "2px" }}>
-                            <Pencil className="w-3 h-3" /> Editar
-                          </button>
-                          <button onClick={() => handleCatToggle(c)}
-                            className="h-7 px-3 text-xs font-mono-tech"
-                            style={{ background: "rgba(180,83,9,0.07)", border: "1px solid rgba(180,83,9,0.2)", color: "#B45309", borderRadius: "2px" }}>
-                            {c.ativa !== false ? "Desativar" : "Ativar"}
-                          </button>
-                          <button onClick={() => handleCatDelete(c)}
-                            className="h-7 px-3 text-xs font-mono-tech flex items-center gap-1"
-                            style={{ background: "rgba(211,47,47,0.08)", border: "1px solid rgba(211,47,47,0.2)", color: "#D32F2F", borderRadius: "2px" }}>
-                            <Trash2 className="w-3 h-3" /> Excluir
-                          </button>
+                          <button onClick={() => openCatEdit(c)} className="h-7 px-3 text-xs font-mono-tech flex items-center gap-1" style={{ background: "rgba(29,78,216,0.08)", border: "1px solid rgba(29,78,216,0.2)", color: "#1D4ED8", borderRadius: "2px" }}><Pencil className="w-3 h-3" /> Editar</button>
+                          <button onClick={() => handleCatToggle(c)} className="h-7 px-3 text-xs font-mono-tech" style={{ background: "rgba(180,83,9,0.07)", border: "1px solid rgba(180,83,9,0.2)", color: "#B45309", borderRadius: "2px" }}>{c.ativa !== false ? "Desativar" : "Ativar"}</button>
+                          <button onClick={() => handleCatDelete(c)} className="h-7 px-3 text-xs font-mono-tech flex items-center gap-1" style={{ background: "rgba(211,47,47,0.08)", border: "1px solid rgba(211,47,47,0.2)", color: "#D32F2F", borderRadius: "2px" }}><Trash2 className="w-3 h-3" /> Excluir</button>
                         </div>
                       </td>
                     </tr>
@@ -845,7 +928,6 @@ export default function Admin() {
           </div>
         )}
 
-        {/* ── CATÁLOGO TAB ── */}
         {activeTab === "catalogo" && (
           <div key="catalogo" style={{ animation: "fadeInTab 0.2s ease" }}>
 
@@ -1005,7 +1087,7 @@ export default function Admin() {
                             className="w-full h-9 px-3 text-sm focus:outline-none appearance-none"
                             style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }}>
                             <option value="">Selecione...</option>
-                            {marcas.map(m => <option key={m.id} value={m.nome}>{m.nome}</option>)}
+                            {marcas.filter(m => m.ativa !== false).map(m => <option key={m.id} value={m.nome}>{m.nome}</option>)}
                           </select>
                         </div>
                       </div>

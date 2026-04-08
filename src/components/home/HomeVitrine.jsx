@@ -106,7 +106,7 @@ export default function HomeVitrine({ title, emoji, tabs, singleTab }) {
                 key={produto.id}
                 className="flex-shrink-0 flex flex-col"
                 style={{
-                  width: 220, background: "#FFFFFF",
+                  width: "clamp(180px, 25vw, 220px)", background: "#FFFFFF",
                   border: "1px solid #E2E8F0", borderRadius: "4px",
                   boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
                 }}
