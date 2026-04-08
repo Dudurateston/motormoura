@@ -4,6 +4,7 @@
  */
 
 const store = new Map();
+const inFlight = new Map();
 const DEFAULT_TTL = 5 * 60 * 1000; // 5 minutes
 
 export const apiCache = {
@@ -18,9 +19,20 @@ export const apiCache = {
     if (cached && Date.now() - cached.ts < ttl) {
       return cached.data;
     }
-    const data = await fetcher();
-    store.set(key, { data, ts: Date.now() });
-    return data;
+    // Deduplicate concurrent requests for the same key
+    if (inFlight.has(key)) {
+      return inFlight.get(key);
+    }
+    const promise = fetcher().then((data) => {
+      store.set(key, { data, ts: Date.now() });
+      inFlight.delete(key);
+      return data;
+    }).catch((err) => {
+      inFlight.delete(key);
+      throw err;
+    });
+    inFlight.set(key, promise);
+    return promise;
   },
 
   /** Invalidate a specific key */
