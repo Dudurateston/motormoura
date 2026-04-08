@@ -1,9 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 
-/**
- * LazyImage — loads the image only when it enters the viewport.
- * Shows a skeleton placeholder while loading.
- */
 export default function LazyImage({
   src,
   alt = "",
@@ -12,32 +8,11 @@ export default function LazyImage({
   placeholderStyle = {},
   placeholder = null,
 }) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
-    if (!src) return;
-    const el = ref.current;
-    if (!el) return;
-
-    // Use IntersectionObserver for lazy loading
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "200px 0px" } // preload 200px before entering viewport
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [src]);
-
   return (
-    <div ref={ref} className={className} style={{ position: "relative", overflow: "hidden", ...style }}>
-      {/* Skeleton */}
+    <div className={className} style={{ position: "relative", overflow: "hidden", ...style }}>
+      {/* Skeleton shown until image loads */}
       {!loaded && (
         <div
           style={{
@@ -52,17 +27,19 @@ export default function LazyImage({
           {placeholder}
         </div>
       )}
-      {/* Actual image — only set src once visible */}
-      {visible && src && (
+      {src && (
         <img
           src={src}
           alt={alt}
-          className="w-full h-full object-contain"
+          className="w-full h-full"
           style={{
+            objectFit: "cover",
             opacity: loaded ? 1 : 0,
             transition: "opacity 0.3s ease",
+            display: "block",
           }}
           onLoad={() => setLoaded(true)}
+          onError={() => setLoaded(true)}
         />
       )}
       <style>{`
