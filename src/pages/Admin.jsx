@@ -172,6 +172,62 @@ export default function Admin() {
     }
   };
 
+  const loadMarcas = async () => {
+    const list = await base44.entities.MarcasCompativeis.list("-created_date");
+    setMarcas(list || []);
+  };
+
+  const showMarcaFeedback = (msg, ok = true) => {
+    setMarcaFeedback({ msg, ok });
+    setTimeout(() => setMarcaFeedback(null), 3000);
+  };
+
+  const openMarcaCreate = () => { setEditingMarca(null); setMarcaForm(MARCA_FORM_DEFAULT); setMarcaFormOpen(true); };
+  const openMarcaEdit = (m) => {
+    setEditingMarca(m);
+    setMarcaForm({ nome: m.nome || "", ativa: m.ativa !== false });
+    setMarcaFormOpen(true);
+  };
+
+  const handleMarcaSave = async () => {
+    if (!marcaForm.nome) return;
+    setMarcaSaving(true);
+    try {
+      if (editingMarca) {
+        await base44.entities.MarcasCompativeis.update(editingMarca.id, marcaForm);
+        showMarcaFeedback("Marca atualizada!");
+      } else {
+        await base44.entities.MarcasCompativeis.create(marcaForm);
+        showMarcaFeedback("Marca criada!");
+      }
+      setMarcaFormOpen(false);
+      await loadMarcas();
+    } catch (e) {
+      showMarcaFeedback("Erro: " + e.message, false);
+    }
+    setMarcaSaving(false);
+  };
+
+  const handleMarcaDelete = async (m) => {
+    if (!window.confirm(`Excluir marca "${m.nome}"? Esta ação não pode ser desfeita.`)) return;
+    try {
+      await base44.entities.MarcasCompativeis.delete(m.id);
+      showMarcaFeedback("Marca excluída.");
+      await loadMarcas();
+    } catch (e) {
+      showMarcaFeedback("Erro ao excluir: " + e.message, false);
+    }
+  };
+
+  const handleMarcaToggle = async (m) => {
+    try {
+      await base44.entities.MarcasCompativeis.update(m.id, { ativa: !m.ativa });
+      await loadMarcas();
+    } catch (e) {
+      showMarcaFeedback("Erro: " + e.message, false);
+    }
+  };
+
   const loadCatalogOptions = async () => {
     const [cats, marcsList] = await Promise.all([
       base44.entities.Categorias.list(),
