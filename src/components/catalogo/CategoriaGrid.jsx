@@ -23,7 +23,7 @@ export default function CategoriaGrid({ onSelectCategory }) {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="h-28 animate-pulse" style={{ background: "#E2E8F0", borderRadius: "4px" }} />
         ))}
@@ -45,26 +45,26 @@ export default function CategoriaGrid({ onSelectCategory }) {
         <div className="w-4 h-[2px]" style={{ background: "#D32F2F" }} />
         <span className="text-xs font-mono-tech" style={{ color: "#D32F2F", letterSpacing: "0.12em" }}>LINHAS DE PRODUTO</span>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
         {categorias.map((cat) => {
           const Icon = ICON_MAP[cat.icone] || Settings;
           return (
             <button
               key={cat.id}
               onClick={() => onSelectCategory(cat.nome)}
-              className="mm-cat-card text-left p-4 transition-all"
+              className="mm-cat-card text-left p-3 transition-all"
               style={{
                 background: "#FFFFFF",
                 border: "1px solid #E2E8F0",
                 borderRadius: "4px",
               }}
             >
-              <div className="w-8 h-8 flex items-center justify-center mb-3" style={{ background: "rgba(211,47,47,0.08)", borderRadius: "2px" }}>
+              <div className="w-7 h-7 flex items-center justify-center mb-2" style={{ background: "rgba(211,47,47,0.08)", borderRadius: "2px" }}>
                 <Icon className="w-4 h-4" style={{ color: "#D32F2F" }} />
               </div>
               <p className="text-xs font-bold font-mono-tech leading-tight mb-1" style={{ color: "#212529" }}>{cat.nome}</p>
               {cat.descricao && (
-                <p className="text-xs leading-snug line-clamp-2" style={{ color: "#9CA3AF" }}>{cat.descricao}</p>
+                <p className="hidden sm:block text-xs leading-snug line-clamp-2" style={{ color: "#9CA3AF" }}>{cat.descricao}</p>
               )}
             </button>
           );

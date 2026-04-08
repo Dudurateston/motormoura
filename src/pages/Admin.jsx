@@ -88,6 +88,8 @@ export default function Admin() {
   const [feedback, setFeedback] = useState(null);
   const [formData, setFormData] = useState({});
   const [produtosSelecionados, setProdutosSelecionados] = useState([]);
+  const [uploadingImg, setUploadingImg] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
 
   // Categorias CRUD state
   const CAT_FORM_DEFAULT = { nome: "", descricao: "", icone: "Settings", ativa: true };
@@ -1221,11 +1223,46 @@ export default function Admin() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>URL DA IMAGEM</label>
-                        <input value={formData.imagem_url} onChange={e => setFormData(f => ({ ...f, imagem_url: e.target.value }))}
-                          placeholder="https://..."
-                          className="w-full h-9 px-3 text-sm focus:outline-none"
-                          style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                        <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>IMAGEM DO PRODUTO</label>
+                        <div className="flex flex-col gap-2">
+                          {formData.imagem_url && (
+                            <div className="flex items-center gap-3">
+                              <img src={formData.imagem_url} style={{ height: 80, width: 80, objectFit: "cover", borderRadius: "2px", border: "1px solid #E2E8F0" }} />
+                              <button type="button" onClick={() => setFormData(f => ({ ...f, imagem_url: "" }))}
+                                className="h-7 px-3 text-xs font-mono-tech"
+                                style={{ background: "rgba(211,47,47,0.08)", border: "1px solid rgba(211,47,47,0.2)", color: "#D32F2F", borderRadius: "2px" }}>
+                                REMOVER
+                              </button>
+                            </div>
+                          )}
+                          <div className="flex gap-2">
+                            <label className="flex items-center gap-2 h-9 px-3 text-xs font-mono-tech cursor-pointer"
+                              style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: uploadingImg ? "#9CA3AF" : "#6C757D" }}>
+                              <input type="file" accept="image/*" className="hidden" disabled={uploadingImg}
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0];
+                                  if (!file) return;
+                                  setUploadingImg(true);
+                                  setUploadError(null);
+                                  try {
+                                    const result = await base44.integrations.Core.UploadFile({ file });
+                                    setFormData(f => ({ ...f, imagem_url: result.file_url }));
+                                  } catch (err) {
+                                    setUploadError("Erro no upload. Cole a URL manualmente.");
+                                  } finally {
+                                    setUploadingImg(false);
+                                  }
+                                }}
+                              />
+                              {uploadingImg ? "ENVIANDO..." : "SELECIONAR IMAGEM"}
+                            </label>
+                            <input value={formData.imagem_url} onChange={e => setFormData(f => ({ ...f, imagem_url: e.target.value }))}
+                              placeholder="ou cole URL aqui..."
+                              className="flex-1 h-9 px-3 text-xs focus:outline-none"
+                              style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                          </div>
+                          {uploadError && <p className="text-xs font-mono-tech" style={{ color: "#D32F2F" }}>{uploadError}</p>}
+                        </div>
                       </div>
 
                       <div className="flex gap-6">

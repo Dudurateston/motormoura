@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { ShoppingCart, Zap, AlertTriangle, Plus, Minus, ExternalLink } from "lucide-react";
+import LazyImage from "@/components/LazyImage";
 import FavoritoButton from "./FavoritoButton";
 
 export default function ProdutoCard({ produto, onAddToCart }) {
@@ -52,17 +53,37 @@ export default function ProdutoCard({ produto, onAddToCart }) {
       {/* Top accent line */}
       <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, #1D4ED8, #D32F2F, #1D4ED8)" }} />
 
-      {/* Carro-chefe badge */}
-      {produto.destaque && (
-        <div className="absolute top-3 right-3 px-1.5 py-0.5 text-[10px] font-mono-tech font-bold z-10"
-          style={{ background: "#D32F2F", color: "#fff", borderRadius: "2px" }}>
-          ⭐ TOP
-        </div>
-      )}
+      {/* Product image */}
+      <div className="relative" style={{ height: produto.imagem_url ? 160 : 80 }}>
+        {produto.imagem_url ? (
+          <LazyImage
+            src={produto.imagem_url}
+            alt={produto.nome_peca}
+            style={{ height: 160, width: "100%", background: "#F8F9FA", objectFit: "cover" }}
+            placeholder={
+              <div className="flex items-center justify-center h-full">
+                <ShoppingCart className="w-8 h-8" style={{ color: "#E2E8F0" }} />
+              </div>
+            }
+          />
+        ) : (
+          <div style={{ height: 80, background: "#F8F9FA", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <ShoppingCart className="w-8 h-8" style={{ color: "#E2E8F0" }} />
+          </div>
+        )}
 
-      {/* Favorito button */}
-      <div className="absolute top-3 left-3 z-10">
-        <FavoritoButton produto={produto} />
+        {/* Carro-chefe badge */}
+        {produto.destaque && (
+          <div className="absolute top-2 right-2 px-1.5 py-0.5 text-[10px] font-mono-tech font-bold z-10"
+            style={{ background: "#D32F2F", color: "#fff", borderRadius: "2px" }}>
+            ⭐ TOP
+          </div>
+        )}
+
+        {/* Favorito button */}
+        <div className="absolute top-2 left-2 z-10">
+          <FavoritoButton produto={produto} />
+        </div>
       </div>
 
       {/* Corner marks */}
