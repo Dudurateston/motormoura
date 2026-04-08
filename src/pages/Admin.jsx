@@ -299,14 +299,23 @@ export default function Admin() {
 
   const handleDeleteSelecionados = async () => {
     if (!window.confirm(`Excluir ${produtosSelecionados.length} produto(s) selecionado(s)? Esta ação não pode ser desfeita.`)) return;
-    try {
-      await Promise.all(produtosSelecionados.map(id => base44.entities.Produtos.delete(id)));
-      showFeedback(`${produtosSelecionados.length} produto(s) excluído(s).`);
-      setProdutosSelecionados([]);
-      await loadProdutos();
-    } catch (e) {
-      showFeedback("Erro ao excluir: " + e.message, false);
+    let errors = 0;
+    const total = produtosSelecionados.length;
+    for (const id of produtosSelecionados) {
+      try {
+        await base44.entities.Produtos.delete(id);
+        await new Promise(r => setTimeout(r, 400));
+      } catch (e) {
+        errors++;
+      }
     }
+    if (errors === 0) {
+      showFeedback(`${total} produto(s) excluído(s).`);
+    } else {
+      showFeedback(`${total - errors} excluído(s), ${errors} com erro.`, false);
+    }
+    setProdutosSelecionados([]);
+    await loadProdutos();
   };
 
   const handleTabChange = (tab) => {
