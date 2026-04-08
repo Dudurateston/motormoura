@@ -57,7 +57,7 @@ export default function HomeCategoryCarousel() {
           </span>
         </div>
         <div
-          ref={scrollRef} className="mx-1 pt-4 pr-4 pb-2 flex gap-5 overflow-x-auto cursor-grab active:cursor-grabbing select-none"
+          ref={scrollRef} className="pt-4 pr-4 pb-2 flex gap-5 overflow-x-auto cursor-grab active:cursor-grabbing select-none"
 
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           onMouseDown={onMouseDown}
