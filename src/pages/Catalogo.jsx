@@ -10,46 +10,6 @@ import ComparativoTab from "../components/catalogo/ComparativoTab";
 
 const PAGE_SIZE = 36;
 
-// Inferir TIPO DE PEÇA a partir do nome_peca
-function inferTipo(nome) {
-  const n = nome.toLowerCase();
-  if (n.includes("carburador") || n.includes("agulha carburador") || n.includes("borboleta")) return "Carburação";
-  if (n.includes("anel") || n.includes("pistão") || n.includes("biela") || n.includes("segmento") || n.includes("seg.") || n.includes("virabrequim")) return "Motor / Pistão";
-  if (n.includes("vela") || n.includes("bobina") || n.includes("ignição") || n.includes("alternador") || n.includes("estator") || n.includes("circuito") || n.includes("rotor") || n.includes("escova") || n.includes("fusível") || n.includes("controle remoto")) return "Elétrico / Ignição";
-  if (n.includes("filtro")) return "Filtros";
-  if (n.includes("válvula") || n.includes("valvula") || n.includes("mola válvula") || n.includes("mola valvula")) return "Válvulas";
-  if (n.includes("bomba") || n.includes("diafragma")) return "Bombas / Diafragmas";
-  if (n.includes("kit") || n.includes("jogo") || n.includes("junta")) return "Kits / Juntas";
-  if (n.includes("retentor") || n.includes("vedação") || n.includes("vedacao") || n.includes("o-ring") || n.includes("oring")) return "Vedações";
-  if (n.includes("parafuso") || n.includes("porca") || n.includes("grampo") || n.includes("pino")) return "Fixação";
-  if (n.includes("alavanca") || n.includes("cabo") || n.includes("manete") || n.includes("aceleração") || n.includes("aceleracao") || n.includes("gatilho")) return "Comando / Alavancas";
-  if (n.includes("tampa") || n.includes("carcaça") || n.includes("carcaca") || n.includes("suporte") || n.includes("base") || n.includes("protetor")) return "Estrutura / Tampas";
-  if (n.includes("óleo") || n.includes("oleo") || n.includes("lubrif") || n.includes("vareta")) return "Lubrificação";
-  if (n.includes("mola")) return "Válvulas";
-  if (n.includes("agulha")) return "Carburação";
-  return "Outras Peças";
-}
-
-// Inferir LINHA de equipamento a partir do relacionamento_categoria
-function inferLinha(produto) {
-  const cat = (produto.relacionamento_categoria || "").toLowerCase();
-  const nome = (produto.nome_peca || "").toLowerCase();
-
-  if (cat.includes("gasolina") || cat.includes("motor a gasolina")) return "Motores a Gasolina";
-  if (cat.includes("diesel") || cat.includes("motor a diesel")) return "Motores a Diesel";
-  if (cat.includes("motobomba")) return "Motobombas 4 Tempos";
-  if (cat.includes("gerador 4") || cat.includes("geradores 4")) return "Geradores 4 Tempos";
-  if (cat.includes("gerador 2") || cat.includes("geradores 2")) return "Geradores 2 Tempos";
-  if (cat.includes("pulveriza") || cat.includes("bomba de pulveriza")) return "Bombas de Pulverização";
-
-  // fallback por keywords no nome
-  if (nome.includes("gerador") || nome.includes("estator") || nome.includes("circuito protetor")) return "Geradores 4 Tempos";
-  if (nome.includes("motobomba")) return "Motobombas 4 Tempos";
-  if (nome.includes("pulverizad")) return "Bombas de Pulverização";
-
-  return null; // sem linha definida
-}
-
 function addToCart(produto, quantidade) {
   const stored = localStorage.getItem("motormoura_cart");
   const cart = stored ? JSON.parse(stored) : [];
@@ -92,7 +52,6 @@ export default function Catalogo() {
   const urlParams = new URLSearchParams(window.location.search);
   const urlCategoria = urlParams.get("categoria") || "";
   const [selectedCategoria, setSelectedCategoria] = useState(urlCategoria);
-  const [selectedTipo, setSelectedTipo] = useState("");
   const [selectedMarcas, setSelectedMarcas] = useState([]);
   const [searchText, setSearchText] = useState(urlParams.get("q") || "");
   const [priceFilter, setPriceFilter] = useState("all");
@@ -117,26 +76,25 @@ export default function Catalogo() {
   const filtered = useMemo(() => {
     const base = produtos.filter((p) => {
       if (p.ativo === false) return false;
-      const linhaMatch = !selectedCategoria || p.relacionamento_categoria === selectedCategoria || inferLinha(p) === selectedCategoria;
-      const tipoMatch = !selectedTipo || inferTipo(p.nome_peca) === selectedTipo;
+      const linhaMatch = !selectedCategoria || p.relacionamento_categoria === selectedCategoria;
       const marcaMatch = selectedMarcas.length === 0 || selectedMarcas.includes(p.relacionamento_marca);
       const textMatch = matchesSearch(p, searchTerms);
       const priceMatch =
         priceFilter === "all" ||
         (priceFilter === "sob_consulta" && (!p.preco_base_atacado || p.preco_base_atacado === 0)) ||
         (priceFilter === "com_preco" && p.preco_base_atacado > 0);
-      return linhaMatch && tipoMatch && marcaMatch && textMatch && priceMatch;
+      return linhaMatch && marcaMatch && textMatch && priceMatch;
     });
     return sortProdutos(base, sortOrder);
-  }, [produtos, selectedLinha, selectedTipo, selectedMarcas, searchTerms, priceFilter, sortOrder]);
+  }, [produtos, selectedCategoria, selectedMarcas, searchTerms, priceFilter, sortOrder]);
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  const hasFilters = !!(selectedLinha || selectedTipo || selectedMarcas.length > 0 || searchText || priceFilter !== "all");
+  const hasFilters = !!(selectedLinha || selectedMarcas.length > 0 || searchText || priceFilter !== "all");
 
   const clearFilters = useCallback(() => {
-    setSelectedLinha(""); setSelectedTipo(""); setSelectedMarcas([]);
+    setSelectedLinha(""); setSelectedMarcas([]);
     setSearchText(""); setPriceFilter("all"); setPage(1);
   }, []);
 
@@ -154,11 +112,6 @@ export default function Catalogo() {
     setPage(1); 
     setMobileDrawerOpen(false);
   }, []);
-  const handleSetTipo = useCallback((v) => { 
-    setSelectedTipo(v); 
-    setPage(1); 
-    setMobileDrawerOpen(false);
-  }, []);
   const handleSetPrice = useCallback((v) => { 
     setPriceFilter(v); 
     setPage(1);
@@ -167,7 +120,6 @@ export default function Catalogo() {
   // Filter pills
   const pills = [
     selectedLinha && { key: "linha", label: selectedLinha, color: "#FB923C", bg: "rgba(251,146,60,0.1)", border: "rgba(251,146,60,0.3)", clear: () => handleSetLinha("") },
-    selectedTipo && { key: "tipo", label: selectedTipo, color: "#60A5FA", bg: "rgba(29,78,216,0.1)", border: "rgba(29,78,216,0.3)", clear: () => handleSetTipo("") },
     priceFilter !== "all" && { key: "price", label: priceFilter === "sob_consulta" ? "Sob Consulta" : "Com Preço", color: "#4ADE80", bg: "rgba(74,222,128,0.08)", border: "rgba(74,222,128,0.3)", clear: () => handleSetPrice("all") },
     ...selectedMarcas.map((m) => ({ key: m, label: m, color: "#93C5FD", bg: "rgba(29,78,216,0.08)", border: "rgba(29,78,216,0.25)", clear: () => toggleMarca(m) })),
     searchText && { key: "q", label: `"${searchText}"`, color: "#9CA3AF", bg: "rgba(255,255,255,0.05)", border: "rgba(255,255,255,0.12)", clear: () => { setSearchText(""); setPage(1); } },
@@ -175,7 +127,6 @@ export default function Catalogo() {
 
   const sidebarProps = {
     selectedLinha, setSelectedLinha: handleSetLinha,
-    selectedTipo, setSelectedTipo: handleSetTipo,
     selectedMarcas, toggleMarca,
     priceFilter, setPriceFilter: handleSetPrice,
     clearFilters, hasFilters,

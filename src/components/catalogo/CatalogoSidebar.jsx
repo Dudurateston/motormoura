@@ -2,33 +2,6 @@ import React, { useState, useEffect } from "react";
 import { X, ChevronDown, ChevronUp } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 
-export const LINHAS = [
-  "Motores a Gasolina",
-  "Motores a Diesel",
-  "Motobombas 4 Tempos",
-  "Geradores 4 Tempos",
-  "Geradores 2 Tempos",
-  "Bombas de Pulverização",
-];
-
-export const TIPOS_PECA = [
-  "Carburação",
-  "Motor / Pistão",
-  "Elétrico / Ignição",
-  "Filtros",
-  "Válvulas",
-  "Bombas / Diafragmas",
-  "Kits / Juntas",
-  "Vedações",
-  "Fixação",
-  "Comando / Alavancas",
-  "Estrutura / Tampas",
-  "Lubrificação",
-  "Outras Peças",
-];
-
-
-
 function SectionHeader({ label, color, open, onToggle }) {
   return (
     <button
@@ -46,19 +19,21 @@ function SectionHeader({ label, color, open, onToggle }) {
 
 export default function CatalogoSidebar({
   selectedLinha, setSelectedLinha,
-  selectedTipo, setSelectedTipo,
   selectedMarcas, toggleMarca,
   priceFilter, setPriceFilter,
   clearFilters, hasFilters, onClose,
 }) {
   const [linhasOpen, setLinhasOpen] = useState(true);
-  const [tiposOpen, setTiposOpen] = useState(true);
   const [marcasOpen, setMarcasOpen] = useState(false);
   const [marcasDB, setMarcasDB] = useState([]);
+  const [categoriasDB, setCategoriasDB] = useState([]);
 
   useEffect(() => {
     base44.entities.MarcasCompativeis.list().then(list => {
       setMarcasDB((list || []).filter(m => m.ativa !== false).map(m => m.nome).sort());
+    });
+    base44.entities.Categorias.list().then(list => {
+      setCategoriasDB((list || []).filter(c => c.ativa !== false).sort((a, b) => a.nome.localeCompare(b.nome)));
     });
   }, []);
 
@@ -97,50 +72,19 @@ export default function CatalogoSidebar({
                 border: !selectedLinha ? "1px solid rgba(211,47,47,0.3)" : "1px solid transparent",
                 color: !selectedLinha ? "#D32F2F" : "#6C757D", borderRadius: "2px",
               }}>
-              <span className="font-mono-tech">Todas as Linhas</span>
+              <span className="font-mono-tech">Todas as Categorias</span>
             </button>
           </li>
-          {LINHAS.map((linha) => (
-            <li key={linha}>
-              <button onClick={() => setSelectedLinha(linha)}
+          {categoriasDB.map((cat) => (
+            <li key={cat.id}>
+              <button onClick={() => setSelectedLinha(cat.nome)}
                 className="w-full text-left px-2.5 py-1.5 flex items-center text-xs transition-all"
                 style={{
-                  background: selectedLinha === linha ? "rgba(211,47,47,0.08)" : "transparent",
-                  border: selectedLinha === linha ? "1px solid rgba(211,47,47,0.3)" : "1px solid transparent",
-                  color: selectedLinha === linha ? "#D32F2F" : "#6C757D", borderRadius: "2px",
+                  background: selectedLinha === cat.nome ? "rgba(211,47,47,0.08)" : "transparent",
+                  border: selectedLinha === cat.nome ? "1px solid rgba(211,47,47,0.3)" : "1px solid transparent",
+                  color: selectedLinha === cat.nome ? "#D32F2F" : "#6C757D", borderRadius: "2px",
                 }}>
-                <span className="font-mono-tech truncate">{linha}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {/* TIPO DE PEÇA */}
-      <SectionHeader label="TIPO DE PEÇA" color="#1D4ED8" open={tiposOpen} onToggle={() => setTiposOpen(v => !v)} />
-      {tiposOpen && (
-        <ul className="space-y-0.5 mb-2">
-          <li>
-            <button onClick={() => setSelectedTipo("")}
-              className="w-full text-left px-2.5 py-1.5 flex items-center text-xs transition-all"
-              style={{
-                background: !selectedTipo ? "rgba(29,78,216,0.1)" : "transparent",
-                border: !selectedTipo ? "1px solid rgba(29,78,216,0.3)" : "1px solid transparent",
-                color: !selectedTipo ? "#1D4ED8" : "#6C757D", borderRadius: "2px",
-              }}>
-              <span className="font-mono-tech">Todos os Tipos</span>
-            </button>
-          </li>
-          {TIPOS_PECA.map((tipo) => (
-            <li key={tipo}>
-              <button onClick={() => setSelectedTipo(tipo)}
-                className="w-full text-left px-2.5 py-1.5 flex items-center text-xs transition-all"
-                style={{
-                  background: selectedTipo === tipo ? "rgba(29,78,216,0.1)" : "transparent",
-                  border: selectedTipo === tipo ? "1px solid rgba(29,78,216,0.3)" : "1px solid transparent",
-                  color: selectedTipo === tipo ? "#1D4ED8" : "#6C757D", borderRadius: "2px",
-                }}>
-                <span className="font-mono-tech truncate">{tipo}</span>
+                <span className="font-mono-tech truncate">{cat.nome}</span>
               </button>
             </li>
           ))}

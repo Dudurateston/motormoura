@@ -87,6 +87,7 @@ export default function Admin() {
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const [formData, setFormData] = useState({});
+  const [produtosSelecionados, setProdutosSelecionados] = useState([]);
 
   // Categorias CRUD state
   const CAT_FORM_DEFAULT = { nome: "", descricao: "", icone: "Settings", ativa: true };
@@ -289,6 +290,19 @@ export default function Admin() {
     try {
       await base44.entities.Produtos.delete(p.id);
       showFeedback("Produto excluído.");
+      setProdutosSelecionados(prev => prev.filter(id => id !== p.id));
+      await loadProdutos();
+    } catch (e) {
+      showFeedback("Erro ao excluir: " + e.message, false);
+    }
+  };
+
+  const handleDeleteSelecionados = async () => {
+    if (!window.confirm(`Excluir ${produtosSelecionados.length} produto(s) selecionado(s)? Esta ação não pode ser desfeita.`)) return;
+    try {
+      await Promise.all(produtosSelecionados.map(id => base44.entities.Produtos.delete(id)));
+      showFeedback(`${produtosSelecionados.length} produto(s) excluído(s).`);
+      setProdutosSelecionados([]);
       await loadProdutos();
     } catch (e) {
       showFeedback("Erro ao excluir: " + e.message, false);
@@ -995,6 +1009,23 @@ export default function Admin() {
               </div>
             )}
 
+            {/* Bulk action bar */}
+            {produtosSelecionados.length > 0 && (
+              <div className="flex items-center gap-3 mb-3 px-4 py-2.5" style={{ background: "rgba(211,47,47,0.06)", border: "1px solid rgba(211,47,47,0.25)", borderRadius: "4px" }}>
+                <span className="text-xs font-mono-tech" style={{ color: "#D32F2F" }}>{produtosSelecionados.length} produto(s) selecionado(s)</span>
+                <button onClick={handleDeleteSelecionados}
+                  className="flex items-center gap-1.5 h-7 px-3 text-xs font-mono-tech font-bold ml-auto"
+                  style={{ background: "linear-gradient(135deg, #D32F2F, #B71C1C)", color: "#fff", border: "none", borderRadius: "2px" }}>
+                  <Trash2 className="w-3 h-3" /> EXCLUIR SELECIONADOS
+                </button>
+                <button onClick={() => setProdutosSelecionados([])}
+                  className="h-7 px-3 text-xs font-mono-tech"
+                  style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", color: "#6C757D", borderRadius: "2px" }}>
+                  CANCELAR
+                </button>
+              </div>
+            )}
+
             {/* Toolbar */}
             <div className="flex items-center gap-3 mb-4">
               <div className="relative flex-1 max-w-sm">
@@ -1027,6 +1058,16 @@ export default function Admin() {
               <table className="w-full text-sm">
                 <thead style={{ background: "#F8F9FA", borderBottom: "1px solid #E2E8F0" }}>
                   <tr>
+                    <th className="px-4 py-3 w-8">
+                      <input type="checkbox"
+                        checked={produtosSelecionados.length > 0 && produtos.filter(p => { const q = catalogoBusca.toLowerCase(); return !q || p.nome_peca?.toLowerCase().includes(q) || p.sku_codigo?.toLowerCase().includes(q); }).every(p => produtosSelecionados.includes(p.id))}
+                        onChange={(e) => {
+                          const visiveis = produtos.filter(p => { const q = catalogoBusca.toLowerCase(); return !q || p.nome_peca?.toLowerCase().includes(q) || p.sku_codigo?.toLowerCase().includes(q); }).map(p => p.id);
+                          setProdutosSelecionados(e.target.checked ? visiveis : []);
+                        }}
+                        style={{ accentColor: "#D32F2F", cursor: "pointer" }}
+                      />
+                    </th>
                     {["SKU", "Nome", "Categoria", "Marca", "Preço", "Estoque", "Status", "Ações"].map(h => (
                       <th key={h} className="text-left px-4 py-3 text-xs font-mono-tech" style={{ color: "#6C757D" }}>{h}</th>
                     ))}
@@ -1039,7 +1080,14 @@ export default function Admin() {
                       return !q || p.nome_peca?.toLowerCase().includes(q) || p.sku_codigo?.toLowerCase().includes(q);
                     })
                     .map((p) => (
-                    <tr key={p.id} style={{ borderBottom: "1px solid #F1F5F9" }}>
+                    <tr key={p.id} style={{ borderBottom: "1px solid #F1F5F9", background: produtosSelecionados.includes(p.id) ? "rgba(211,47,47,0.03)" : undefined }}>
+                      <td className="px-4 py-3 w-8">
+                        <input type="checkbox"
+                          checked={produtosSelecionados.includes(p.id)}
+                          onChange={(e) => setProdutosSelecionados(prev => e.target.checked ? [...prev, p.id] : prev.filter(id => id !== p.id))}
+                          style={{ accentColor: "#D32F2F", cursor: "pointer" }}
+                        />
+                      </td>
                       <td className="px-4 py-3 font-mono text-xs" style={{ color: "#1D4ED8" }}>{p.sku_codigo}</td>
                       <td className="px-4 py-3 text-sm font-medium" style={{ color: "#212529", maxWidth: 200 }}>
                         <p className="truncate">{p.nome_peca}</p>
