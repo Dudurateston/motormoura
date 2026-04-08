@@ -88,6 +88,14 @@ export default function Admin() {
   const [feedback, setFeedback] = useState(null);
   const [formData, setFormData] = useState({});
 
+  // Categorias CRUD state
+  const CAT_FORM_DEFAULT = { nome: "", descricao: "", icone: "Settings", ativa: true };
+  const [catFormOpen, setCatFormOpen] = useState(false);
+  const [editingCategoria, setEditingCategoria] = useState(null);
+  const [catForm, setCatForm] = useState(CAT_FORM_DEFAULT);
+  const [catFeedback, setCatFeedback] = useState(null);
+  const [catSaving, setCatSaving] = useState(false);
+
   const FORM_DEFAULT = { sku_codigo: "", nome_peca: "", descricao: "", relacionamento_categoria: "", relacionamento_marca: "", preco_base_atacado: "", estoque_disponivel: "", imagem_url: "", destaque: false, ativo: true };
 
   const showFeedback = (msg, ok = true) => {
@@ -98,6 +106,62 @@ export default function Admin() {
   const loadProdutos = async () => {
     const p = await base44.entities.Produtos.list("-created_date", 200);
     setProdutos(p || []);
+  };
+
+  const loadCategorias = async () => {
+    const cats = await base44.entities.Categorias.list("-created_date");
+    setCategorias(cats || []);
+  };
+
+  const showCatFeedback = (msg, ok = true) => {
+    setCatFeedback({ msg, ok });
+    setTimeout(() => setCatFeedback(null), 3000);
+  };
+
+  const openCatCreate = () => { setEditingCategoria(null); setCatForm(CAT_FORM_DEFAULT); setCatFormOpen(true); };
+  const openCatEdit = (c) => {
+    setEditingCategoria(c);
+    setCatForm({ nome: c.nome || "", descricao: c.descricao || "", icone: c.icone || "Settings", ativa: c.ativa !== false });
+    setCatFormOpen(true);
+  };
+
+  const handleCatSave = async () => {
+    if (!catForm.nome) return;
+    setCatSaving(true);
+    try {
+      if (editingCategoria) {
+        await base44.entities.Categorias.update(editingCategoria.id, catForm);
+        showCatFeedback("Categoria atualizada!");
+      } else {
+        await base44.entities.Categorias.create(catForm);
+        showCatFeedback("Categoria criada!");
+      }
+      setCatFormOpen(false);
+      await loadCategorias();
+    } catch (e) {
+      showCatFeedback("Erro: " + e.message, false);
+    }
+    setCatSaving(false);
+  };
+
+  const handleCatDelete = async (c) => {
+    if (!window.confirm(`Excluir categoria "${c.nome}"? Esta ação não pode ser desfeita.`)) return;
+    try {
+      await base44.entities.Categorias.delete(c.id);
+      showCatFeedback("Categoria excluída.");
+      await loadCategorias();
+    } catch (e) {
+      showCatFeedback("Erro ao excluir: " + e.message, false);
+    }
+  };
+
+  const handleCatToggle = async (c) => {
+    try {
+      await base44.entities.Categorias.update(c.id, { ativa: !c.ativa });
+      await loadCategorias();
+    } catch (e) {
+      showCatFeedback("Erro: " + e.message, false);
+    }
   };
 
   const loadCatalogOptions = async () => {
@@ -170,6 +234,7 @@ export default function Admin() {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     if (tab === "catalogo" && categorias.length === 0) loadCatalogOptions();
+    if (tab === "categorias") loadCategorias();
   };
 
   useEffect(() => {
@@ -302,8 +367,10 @@ export default function Admin() {
     return l.status === "pendente" && dias > 3;
   });
 
-  const TABS = ["dashboard", "lojistas", "orcamentos", "catalogo"];
-  const TAB_LABELS = { dashboard: "Dashboard", lojistas: "Lojistas", orcamentos: "Orçamentos", catalogo: "Catálogo" };
+  const TABS = ["dashboard", "lojistas", "orcamentos", "catalogo", "categorias"];
+  const TAB_LABELS = { dashboard: "Dashboard", lojistas: "Lojistas", orcamentos: "Orçamentos", catalogo: "Catálogo", categorias: "Categorias" };
+
+  const ICON_OPTIONS = ["Cpu", "Zap", "Droplets", "Leaf", "Filter", "RotateCw", "Fuel", "Settings", "Flame", "Activity", "Wrench", "Star", "Battery", "Sprout", "Package"];
 
   return (
     <div style={{ background: "#F8F9FA", minHeight: "100vh" }}>
@@ -649,6 +716,135 @@ export default function Admin() {
           </div>
         )}
 
+        {/* ── CATEGORIAS TAB ── */}
+        {activeTab === "categorias" && (
+          <div key="categorias" style={{ animation: "fadeInTab 0.2s ease" }}>
+
+            {/* Feedback */}
+            {catFeedback && (
+              <div className="flex items-center gap-2 mb-4 px-4 py-3" style={{ background: catFeedback.ok ? "rgba(22,163,74,0.08)" : "rgba(211,47,47,0.08)", border: `1px solid ${catFeedback.ok ? "rgba(22,163,74,0.3)" : "rgba(211,47,47,0.3)"}`, borderRadius: "4px" }}>
+                {catFeedback.ok ? <CheckCircle2 className="w-4 h-4" style={{ color: "#16A34A" }} /> : <X className="w-4 h-4" style={{ color: "#D32F2F" }} />}
+                <span className="text-xs font-mono-tech" style={{ color: catFeedback.ok ? "#16A34A" : "#D32F2F" }}>{catFeedback.msg}</span>
+              </div>
+            )}
+
+            {/* Toolbar */}
+            <div className="flex items-center gap-3 mb-4">
+              <button onClick={openCatCreate}
+                className="flex items-center gap-2 h-9 px-4 text-xs font-mono-tech font-bold"
+                style={{ background: "linear-gradient(135deg, #D32F2F, #B71C1C)", color: "#fff", border: "none", borderRadius: "2px" }}>
+                <Plus className="w-3.5 h-3.5" /> NOVA CATEGORIA
+              </button>
+              <span className="text-xs font-mono-tech ml-auto" style={{ color: "#9CA3AF" }}>
+                {categorias.filter(c => c.ativa !== false).length} ativas · {categorias.filter(c => c.ativa === false).length} inativas
+              </span>
+            </div>
+
+            {/* Inline form */}
+            {catFormOpen && (
+              <div className="mb-5 p-5" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px" }}>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-mono-tech font-bold" style={{ color: "#D32F2F" }}>{editingCategoria ? "EDITAR CATEGORIA" : "NOVA CATEGORIA"}</span>
+                  <button onClick={() => setCatFormOpen(false)} className="w-7 h-7 flex items-center justify-center hover:bg-gray-100" style={{ borderRadius: "2px", color: "#6C757D" }}><X className="w-4 h-4" /></button>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>NOME *</label>
+                    <input value={catForm.nome} onChange={e => setCatForm(f => ({ ...f, nome: e.target.value }))}
+                      className="w-full h-9 px-3 text-sm focus:outline-none"
+                      style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>ÍCONE</label>
+                    <select value={catForm.icone} onChange={e => setCatForm(f => ({ ...f, icone: e.target.value }))}
+                      className="w-full h-9 px-3 text-sm focus:outline-none appearance-none"
+                      style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }}>
+                      {ICON_OPTIONS.map(ic => <option key={ic} value={ic}>{ic}</option>)}
+                    </select>
+                  </div>
+                </div>
+                <div className="mb-4">
+                  <label className="block text-xs font-mono-tech mb-1" style={{ color: "#6C757D" }}>DESCRIÇÃO</label>
+                  <textarea value={catForm.descricao} onChange={e => setCatForm(f => ({ ...f, descricao: e.target.value }))}
+                    rows={2} className="w-full px-3 py-2 text-sm focus:outline-none resize-none"
+                    style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }} />
+                </div>
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={catForm.ativa} onChange={e => setCatForm(f => ({ ...f, ativa: e.target.checked }))}
+                      className="w-4 h-4" style={{ accentColor: "#16A34A" }} />
+                    <span className="text-xs font-mono-tech" style={{ color: "#6C757D" }}>Categoria ativa no catálogo</span>
+                  </label>
+                  <div className="flex gap-2">
+                    <button onClick={() => setCatFormOpen(false)}
+                      className="h-9 px-4 text-xs font-mono-tech"
+                      style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", color: "#6C757D", borderRadius: "2px" }}>CANCELAR</button>
+                    <button onClick={handleCatSave} disabled={catSaving || !catForm.nome}
+                      className="h-9 px-5 text-xs font-mono-tech font-bold disabled:opacity-50"
+                      style={{ background: "linear-gradient(135deg, #D32F2F, #B71C1C)", color: "#fff", border: "none", borderRadius: "2px" }}>
+                      {catSaving ? "SALVANDO..." : editingCategoria ? "SALVAR" : "CRIAR"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Table */}
+            <div className="overflow-x-auto" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "4px" }}>
+              <table className="w-full text-sm">
+                <thead style={{ background: "#F8F9FA", borderBottom: "1px solid #E2E8F0" }}>
+                  <tr>
+                    {["Ícone", "Nome", "Descrição", "Status", "Ações"].map(h => (
+                      <th key={h} className="text-left px-4 py-3 text-xs font-mono-tech" style={{ color: "#6C757D" }}>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {categorias.map((c) => (
+                    <tr key={c.id} style={{ borderBottom: "1px solid #F1F5F9" }}>
+                      <td className="px-4 py-3">
+                        <span className="text-xs font-mono-tech px-2 py-0.5" style={{ background: "rgba(29,78,216,0.06)", border: "1px solid rgba(29,78,216,0.15)", color: "#1D4ED8", borderRadius: "2px" }}>{c.icone || "—"}</span>
+                      </td>
+                      <td className="px-4 py-3 font-medium text-sm" style={{ color: "#212529" }}>{c.nome}</td>
+                      <td className="px-4 py-3 text-xs" style={{ color: "#6C757D", maxWidth: 260 }}>
+                        <p className="truncate">{c.descricao || "—"}</p>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="text-xs font-mono-tech px-2 py-0.5" style={{
+                          background: c.ativa !== false ? "rgba(22,163,74,0.1)" : "rgba(211,47,47,0.08)",
+                          color: c.ativa !== false ? "#16A34A" : "#D32F2F", borderRadius: "2px"
+                        }}>{c.ativa !== false ? "ATIVA" : "INATIVA"}</span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex gap-1.5">
+                          <button onClick={() => openCatEdit(c)}
+                            className="h-7 px-3 text-xs font-mono-tech flex items-center gap-1"
+                            style={{ background: "rgba(29,78,216,0.08)", border: "1px solid rgba(29,78,216,0.2)", color: "#1D4ED8", borderRadius: "2px" }}>
+                            <Pencil className="w-3 h-3" /> Editar
+                          </button>
+                          <button onClick={() => handleCatToggle(c)}
+                            className="h-7 px-3 text-xs font-mono-tech"
+                            style={{ background: "rgba(180,83,9,0.07)", border: "1px solid rgba(180,83,9,0.2)", color: "#B45309", borderRadius: "2px" }}>
+                            {c.ativa !== false ? "Desativar" : "Ativar"}
+                          </button>
+                          <button onClick={() => handleCatDelete(c)}
+                            className="h-7 px-3 text-xs font-mono-tech flex items-center gap-1"
+                            style={{ background: "rgba(211,47,47,0.08)", border: "1px solid rgba(211,47,47,0.2)", color: "#D32F2F", borderRadius: "2px" }}>
+                            <Trash2 className="w-3 h-3" /> Excluir
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                  {categorias.length === 0 && (
+                    <tr><td colSpan={5} className="text-center py-10 text-xs" style={{ color: "#9CA3AF" }}>Nenhuma categoria cadastrada</td></tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
         {/* ── CATÁLOGO TAB ── */}
         {activeTab === "catalogo" && (
           <div key="catalogo" style={{ animation: "fadeInTab 0.2s ease" }}>
@@ -800,7 +996,7 @@ export default function Admin() {
                             className="w-full h-9 px-3 text-sm focus:outline-none appearance-none"
                             style={{ background: "#F8F9FA", border: "1px solid #E2E8F0", borderRadius: "2px", color: "#212529" }}>
                             <option value="">Selecione...</option>
-                            {categorias.map(c => <option key={c.id} value={c.nome}>{c.nome}</option>)}
+                            {categorias.filter(c => c.ativa !== false).map(c => <option key={c.id} value={c.nome}>{c.nome}</option>)}
                           </select>
                         </div>
                         <div>
