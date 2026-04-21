@@ -317,7 +317,7 @@ export default function Home() {
 
         {/* ── CARROSSEL DE CATEGORIAS ── */}
         <section style={{ background: "#F8F9FA" }}>
-          <HomeCategoryCarousel />
+          <HomeCategoryCarousel segment={segment} />
         </section>
 
         {/* ── RECOMENDAÇÕES DA FROTA ── */}
@@ -392,6 +392,7 @@ export default function Home() {
         <section style={{ background: "linear-gradient(180deg, #F8F9FA 0%, #FFFFFF 100%)" }}>
           <HomeVitrine
             title="Equipamentos por Linha"
+            segment={segment}
             tabs={["Motores Estacionários", "Geradores", "Motobombas"]} />
           
         </section>
@@ -476,6 +477,8 @@ export default function Home() {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
+        @keyframes dotpulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        @keyframes blinkcaret { 0%, 100% { border-color: inherit; } 50% { border-color: transparent; } }
       `}</style>
     </>);
 
