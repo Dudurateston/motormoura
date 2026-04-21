@@ -8,6 +8,8 @@ import SEOHead from "../components/SEOHead";
 import HomeCategoryCarousel from "../components/home/HomeCategoryCarousel";
 import HomeVitrine from "../components/home/HomeVitrine";
 import RecomendacoesFrota from "../components/home/RecomendacoesFrota";
+import HeroCarousel from "../components/home/HeroCarousel";
+import MarcasSection from "../components/home/MarcasSection";
 
 const HERO_BG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/92e3f7932_Image231.png";
 const PARTS_IMG = "https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/73d1d5761_BannerCatlogo-MOTORMOURA.png";
@@ -172,35 +174,34 @@ export default function Home() {
       <div style={{ background: "#F8F9FA" }}>
 
         {/* ── HERO ─────────────────────────────────────────────── */}
-        <section style={{ background: '#07090e', display: 'flex', minHeight: '400px', position: 'relative', overflow: 'hidden', transition: 'background 0.5s ease' }}>
-          {/* Background grid + glow */}
-          <div style={{ position: 'absolute', inset: 0, backgroundImage: `linear-gradient(${segTheme.accentA05} 1px, transparent 1px), linear-gradient(90deg, ${segTheme.accentA05} 1px, transparent 1px)`, backgroundSize: '38px 38px', transition: 'background-image 0.5s ease' }} />
-          <div style={{ position: 'absolute', top: '-80px', left: '-40px', width: '400px', height: '300px', background: `radial-gradient(ellipse, ${segTheme.glow} 0%, transparent 65%)`, pointerEvents: 'none', transition: 'background 0.5s ease' }} />
+        <section style={{ background: '#07090e', display: 'flex', minHeight: 'clamp(480px, 55vw, 680px)', position: 'relative', overflow: 'hidden' }}>
+          {/* Carousel background images */}
+          <HeroCarousel />
           {/* Corner marks */}
-          <div style={{ position: 'absolute', top: 14, left: 14, width: 18, height: 18, borderTop: `1px solid ${segTheme.accentA20}`, borderLeft: `1px solid ${segTheme.accentA20}`, transition: 'border-color 0.4s' }} />
-          <div style={{ position: 'absolute', top: 14, right: 14, width: 18, height: 18, borderTop: `1px solid ${segTheme.accentA20}`, borderRight: `1px solid ${segTheme.accentA20}`, transition: 'border-color 0.4s' }} />
+          <div style={{ position: 'absolute', top: 14, left: 14, width: 22, height: 22, borderTop: `1px solid ${segTheme.accentA20}`, borderLeft: `1px solid ${segTheme.accentA20}`, transition: 'border-color 0.4s', zIndex: 3 }} />
+          <div style={{ position: 'absolute', top: 14, right: 14, width: 22, height: 22, borderTop: `1px solid ${segTheme.accentA20}`, borderRight: `1px solid ${segTheme.accentA20}`, transition: 'border-color 0.4s', zIndex: 3 }} />
 
           {/* MAIN CONTENT */}
-          <div style={{ flex: 1, padding: '28px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center', zIndex: 2 }}>
+          <div style={{ flex: 1, padding: 'clamp(28px, 5vw, 56px) clamp(20px, 5vw, 56px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', zIndex: 2 }}>
             {/* Status */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(34,197,94,0.07)', border: '1px solid rgba(34,197,94,0.18)', borderRadius: 20, padding: '3px 10px' }}>
-                <span style={{ width: 5, height: 5, background: '#22c55e', borderRadius: '50%', display: 'inline-block', animation: 'dotpulse 2s infinite' }} />
-                <span style={{ fontSize: 8, fontWeight: 700, color: '#86efac', letterSpacing: '.1em' }}>DISTRIBUIDOR AUTORIZADO</span>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.35)', borderRadius: 20, padding: '4px 12px' }}>
+                <span style={{ width: 6, height: 6, background: '#22c55e', borderRadius: '50%', display: 'inline-block', animation: 'dotpulse 2s infinite' }} />
+                <span style={{ fontSize: 10, fontWeight: 700, color: '#ffffff', letterSpacing: '.1em' }}>DISTRIBUIDOR AUTORIZADO</span>
               </div>
             </div>
 
             {/* Headline */}
-            <h1 style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 900, color: '#f0f4f8', lineHeight: 1.2, letterSpacing: '-.01em', marginBottom: 8 }}>
+            <h1 style={{ fontSize: 'clamp(26px, 4.5vw, 48px)', fontWeight: 900, color: '#ffffff', lineHeight: 1.15, letterSpacing: '-.01em', marginBottom: 10 }}>
               A peça certa.<br />
               Na hora certa.<br />
-              <span style={{ color: 'transparent', WebkitTextStroke: `1px ${segTheme.accent}`, transition: 'color 0.4s' }}>Para qualquer cliente.</span>
+              <span style={{ color: segTheme.accent, transition: 'color 0.4s' }}>Para qualquer cliente.</span>
             </h1>
 
             {/* Typing line */}
-            <div style={{ display: 'flex', alignItems: 'center', minHeight: 22, marginBottom: 14 }}>
-              <span style={{ fontSize: 12, color: 'rgba(148,163,184,0.55)' }}>Do seu estoque&nbsp;</span>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#fff', borderRight: `2px solid ${segTheme.accent}`, paddingRight: 2, minWidth: 2, animation: 'blinkcaret 0.65s step-end infinite', transition: 'border-color 0.4s' }}>{typedText}</span>
+            <div style={{ display: 'flex', alignItems: 'center', minHeight: 26, marginBottom: 18 }}>
+              <span style={{ fontSize: 'clamp(12px, 1.5vw, 16px)', color: 'rgba(148,163,184,0.55)' }}>Do seu estoque&nbsp;</span>
+              <span style={{ fontSize: 'clamp(12px, 1.5vw, 16px)', fontWeight: 700, color: '#fff', borderRight: `2px solid ${segTheme.accent}`, paddingRight: 2, minWidth: 2, animation: 'blinkcaret 0.65s step-end infinite', transition: 'border-color 0.4s' }}>{typedText}</span>
             </div>
 
             {/* Segment toggle */}
@@ -213,97 +214,99 @@ export default function Home() {
             </div>
 
             {/* Copy */}
-            <p style={{ fontSize: 11, color: 'rgba(148,163,184,.65)', lineHeight: 1.75, marginBottom: 18, maxWidth: 380 }}>
+            <p style={{ fontSize: 'clamp(12px, 1.4vw, 15px)', color: 'rgba(255,255,255,0.8)', lineHeight: 1.75, marginBottom: 20, maxWidth: 480 }}>
               Distribuidora técnica B2B para lojistas e revendedores.{' '}
-              <span style={{ background: 'rgba(239,68,68,.1)', border: '1px solid rgba(239,68,68,.2)', color: '#fca5a5', padding: '1px 5px', borderRadius: 2, fontSize: 9, fontWeight: 700 }}>Honda</span>{' '}
+              <span style={{ background: 'rgba(239,68,68,.18)', border: '1px solid rgba(239,68,68,.35)', color: '#ffb3b3', padding: '1px 5px', borderRadius: 2, fontSize: 9, fontWeight: 700 }}>Honda</span>{' '}
               motores, geradores e motobombas.{' '}
-              <span style={{ background: 'rgba(59,130,246,.1)', border: '1px solid rgba(59,130,246,.2)', color: '#93c5fd', padding: '1px 5px', borderRadius: 2, fontSize: 9, fontWeight: 700 }}>Vibromak</span>{' '}
+              <span style={{ background: 'rgba(59,130,246,.18)', border: '1px solid rgba(59,130,246,.35)', color: '#bfd7ff', padding: '1px 5px', borderRadius: 2, fontSize: 9, fontWeight: 700 }}>Vibromak</span>{' '}
               construção civil.{' '}
-              <span style={{ background: 'rgba(14,165,233,.1)', border: '1px solid rgba(14,165,233,.2)', color: '#7dd3fc', padding: '1px 5px', borderRadius: 2, fontSize: 9, fontWeight: 700 }}>Makita</span>{' '}
-              ferramentas profissionais. <strong style={{ color: 'rgba(255,255,255,.85)' }}>Um único fornecedor.</strong>
+              <span style={{ background: 'rgba(14,165,233,.18)', border: '1px solid rgba(14,165,233,.35)', color: '#bae6fd', padding: '1px 5px', borderRadius: 2, fontSize: 9, fontWeight: 700 }}>Makita</span>{' '}
+              ferramentas profissionais. <strong style={{ color: '#ffffff' }}>Um único fornecedor.</strong>
             </p>
 
             {/* Search widget */}
-            <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 5, padding: 12, marginBottom: 16 }}>
-              <div style={{ fontSize: 7.5, fontWeight: 700, letterSpacing: '.14em', color: segTheme.accent, marginBottom: 8, transition: 'color 0.4s' }}>LOCALIZAR PEÇA OU EQUIPAMENTO</div>
-              <div style={{ display: 'flex', gap: 5 }}>
+            <div style={{ background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.09)', borderRadius: 6, padding: '14px 16px', marginBottom: 20, maxWidth: 520 }}>
+              <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.14em', color: segTheme.accent, marginBottom: 10, transition: 'color 0.4s' }}>LOCALIZAR PEÇA OU EQUIPAMENTO</div>
+              <div style={{ display: 'flex', gap: 6 }}>
                 <input
                   value={searchText}
                   onChange={e => setSearchText(e.target.value.slice(0, 200))}
                   onKeyDown={e => e.key === 'Enter' && handleSearch()}
                   placeholder={segment === 'motores' ? 'GX160 · EZ6500 · WB30 · carburador · partida retrátil…' : 'VK-85 · HR2470 · GA7020 · CPV-350 · compactador…'}
-                  style={{ flex: 1, background: 'rgba(255,255,255,.07)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 2, height: 31, padding: '0 10px', fontSize: 10, color: '#fff', outline: 'none' }}
+                  style={{ flex: 1, background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 3, height: 38, padding: '0 12px', fontSize: 12, color: '#fff', outline: 'none' }}
                 />
                 <button
                   onClick={handleSearch}
-                  style={{ background: segTheme.accent, border: 'none', borderRadius: 2, height: 31, padding: '0 14px', fontSize: 10, fontWeight: 700, color: '#fff', cursor: 'pointer', letterSpacing: '.04em', whiteSpace: 'nowrap', transition: 'background 0.4s' }}>
+                  style={{ background: segTheme.accent, border: 'none', borderRadius: 3, height: 38, padding: '0 18px', fontSize: 11, fontWeight: 700, color: '#fff', cursor: 'pointer', letterSpacing: '.04em', whiteSpace: 'nowrap', transition: 'background 0.4s' }}>
                   BUSCAR →
                 </button>
               </div>
             </div>
 
             {/* CTAs */}
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
               <Link to={createPageUrl('Catalogo')}>
-                <button style={{ background: segTheme.accent, color: '#fff', border: 'none', borderRadius: 3, padding: '9px 16px', fontSize: 10, fontWeight: 700, cursor: 'pointer', letterSpacing: '.06em', display: 'flex', alignItems: 'center', gap: 5, transition: 'background 0.4s' }}>
-                  <ChevronRight style={{ width: 11, height: 11 }} /> VER CATÁLOGO COMPLETO
+                <button style={{ background: segTheme.accent, color: '#fff', border: 'none', borderRadius: 4, padding: '11px 22px', fontSize: 12, fontWeight: 700, cursor: 'pointer', letterSpacing: '.06em', display: 'flex', alignItems: 'center', gap: 6, transition: 'background 0.4s', boxShadow: `0 4px 14px ${segTheme.accent}55` }}>
+                  <ChevronRight style={{ width: 13, height: 13 }} /> VER CATÁLOGO COMPLETO
                 </button>
               </Link>
               <Link to={createPageUrl('MinhaConta')}>
-                <button style={{ background: 'transparent', color: 'rgba(255,255,255,.6)', border: '1px solid rgba(255,255,255,.16)', borderRadius: 3, padding: '9px 16px', fontSize: 10, fontWeight: 700, cursor: 'pointer', letterSpacing: '.06em' }}>
+                <button style={{ background: 'transparent', color: 'rgba(255,255,255,.75)', border: '1px solid rgba(255,255,255,.22)', borderRadius: 4, padding: '11px 20px', fontSize: 12, fontWeight: 700, cursor: 'pointer', letterSpacing: '.06em' }}>
                   QUERO SER LOJISTA
                 </button>
               </Link>
-              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{ fontSize: 8.5, color: 'rgba(255,255,255,.25)', display: 'flex', alignItems: 'center', gap: 3, textDecoration: 'none', fontFamily: 'monospace' }}>
-                <MessageCircle style={{ width: 10, height: 10 }} /> WhatsApp · Especialista técnico
+              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                <button style={{ background: 'linear-gradient(135deg,#25D366,#1DA851)', color: '#fff', border: 'none', borderRadius: 4, padding: '11px 18px', fontSize: 12, fontWeight: 700, cursor: 'pointer', letterSpacing: '.04em', display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 4px 14px rgba(37,211,102,0.35)' }}>
+                  <MessageCircle style={{ width: 14, height: 14 }} /> WHATSAPP
+                </button>
               </a>
             </div>
           </div>
 
           {/* RIGHT PANEL */}
-          <div style={{ width: 240, flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.05)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="hidden lg:flex">
+          <div style={{ width: 300, flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.07)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="hidden lg:flex">
             {/* Brands */}
-            <div style={{ padding: '14px 14px 10px', borderBottom: '1px solid rgba(255,255,255,.05)' }}>
-              <div style={{ fontSize: 7.5, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.22)', marginBottom: 9 }}>PORTFÓLIO DE MARCAS</div>
+            <div style={{ padding: '18px 18px 14px', borderBottom: '1px solid rgba(255,255,255,.07)' }}>
+              <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.4)', marginBottom: 12 }}>PORTFÓLIO DE MARCAS</div>
               {[
                 { name: 'HONDA', tag: 'MOTORES & MÁQUINAS', color: '#ef4444', items: ['GX160', 'GX390', 'EZ6500', 'EU22i', 'WB30'] },
                 { name: 'VIBROMAK', tag: 'CONSTRUÇÃO CIVIL', color: '#3b82f6', items: ['VK-85', 'VMR-75H', 'CPV-350', 'MAV-2400'] },
                 { name: 'MAKITA', tag: 'FERRAMENTAS PROF.', color: '#0ea5e9', items: ['GA7020', 'HR2470', 'HM1213C', '5007N'] },
               ].map(b => (
-                <div key={b.name} style={{ borderRadius: 4, border: '1px solid rgba(255,255,255,.07)', marginBottom: 5, background: 'rgba(255,255,255,.02)', borderLeft: `3px solid ${b.color}`, padding: '8px 10px', cursor: 'pointer' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                    <span style={{ fontSize: 11, fontWeight: 900, color: '#fff' }}>{b.name}</span>
-                    <span style={{ fontSize: 7.5, color: 'rgba(255,255,255,.3)', letterSpacing: '.06em' }}>{b.tag}</span>
+                <div key={b.name} style={{ borderRadius: 4, border: '1px solid rgba(255,255,255,.08)', marginBottom: 7, background: 'rgba(255,255,255,.03)', borderLeft: `3px solid ${b.color}`, padding: '10px 12px', cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                    <span style={{ fontSize: 13, fontWeight: 900, color: '#fff' }}>{b.name}</span>
+                    <span style={{ fontSize: 9, color: 'rgba(255,255,255,.45)', letterSpacing: '.06em' }}>{b.tag}</span>
                   </div>
-                  <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
-                    {b.items.map(i => <span key={i} style={{ fontSize: 7.5, fontFamily: 'monospace', color: 'rgba(255,255,255,.4)', background: 'rgba(255,255,255,.05)', padding: '2px 5px', borderRadius: 1 }}>{i}</span>)}
+                  <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
+                    {b.items.map(i => <span key={i} style={{ fontSize: 9, fontFamily: 'monospace', color: 'rgba(255,255,255,.55)', background: 'rgba(255,255,255,.07)', padding: '2px 6px', borderRadius: 2 }}>{i}</span>)}
                   </div>
                 </div>
               ))}
             </div>
             {/* Steps */}
-            <div style={{ padding: '10px 14px', borderBottom: '1px solid rgba(255,255,255,.05)' }}>
-              <div style={{ fontSize: 7.5, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.22)', marginBottom: 8 }}>DO PEDIDO À ENTREGA</div>
+            <div style={{ padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,.07)' }}>
+              <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.4)', marginBottom: 12 }}>DO PEDIDO À ENTREGA</div>
               {[
                 { n: 1, t: 'Busque pelo SKU, modelo ou equipamento' },
                 { n: 2, t: 'Monte o orçamento e envie pelo WhatsApp' },
                 { n: 3, t: 'Receba em 24h (CE) ou 48–72h (Brasil)' },
               ].map((s, i) => (
                 <React.Fragment key={s.n}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '4px 0' }}>
-                    <div style={{ width: 16, height: 16, minWidth: 16, background: '#D32F2F', borderRadius: '50%', fontSize: 8, fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 1 }}>{s.n}</div>
-                    <div style={{ fontSize: 9, color: 'rgba(255,255,255,.45)', lineHeight: 1.4 }}>{s.t}</div>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '5px 0' }}>
+                    <div style={{ width: 20, height: 20, minWidth: 20, background: '#D32F2F', borderRadius: '50%', fontSize: 10, fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 1 }}>{s.n}</div>
+                    <div style={{ fontSize: 11, color: 'rgba(255,255,255,.65)', lineHeight: 1.5 }}>{s.t}</div>
                   </div>
-                  {i < 2 && <div style={{ width: 1, height: 6, background: 'rgba(211,47,47,.15)', marginLeft: 7 }} />}
+                  {i < 2 && <div style={{ width: 1, height: 8, background: 'rgba(211,47,47,.2)', marginLeft: 9 }} />}
                 </React.Fragment>
               ))}
             </div>
             {/* KPIs */}
-            <div style={{ padding: '9px 14px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
+            <div style={{ padding: '12px 18px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
               {NUMEROS.map(n => (
-                <div key={n.label} style={{ textAlign: 'center', padding: '7px 4px', background: 'rgba(255,255,255,.025)', border: '1px solid rgba(255,255,255,.05)', borderRadius: 3 }}>
-                  <div style={{ fontSize: 14, fontWeight: 900, color: n.color, fontFamily: 'monospace', lineHeight: 1 }}>{n.valor}</div>
-                  <div style={{ fontSize: 6.5, color: 'rgba(255,255,255,.25)', letterSpacing: '.07em', marginTop: 2, lineHeight: 1.3 }}>{n.label.toUpperCase()}</div>
+                <div key={n.label} style={{ textAlign: 'center', padding: '10px 6px', background: 'rgba(255,255,255,.035)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 4 }}>
+                  <div style={{ fontSize: 18, fontWeight: 900, color: n.color, fontFamily: 'monospace', lineHeight: 1 }}>{n.valor}</div>
+                  <div style={{ fontSize: 8, color: 'rgba(255,255,255,.4)', letterSpacing: '.07em', marginTop: 4, lineHeight: 1.4 }}>{n.label.toUpperCase()}</div>
                 </div>
               ))}
             </div>
@@ -406,48 +409,7 @@ export default function Home() {
         </section>
 
         {/* ── MARCAS ── */}
-        <section style={{
-          background: "linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%)",
-          borderTop: "1px solid #E2E8F0",
-          borderBottom: "1px solid #E2E8F0"
-        }}>
-          <div className="max-w-5xl mx-auto px-4 py-10">
-            <p className="text-center text-xs font-mono-tech mb-6" style={{ color: "#9CA3AF", letterSpacing: "0.2em" }}>
-              PORTFÓLIO MULTIMARCAS — COMPATIBILIDADE GARANTIDA
-            </p>
-            <div className="flex items-center justify-center flex-wrap gap-3">
-              {["HONDA", "TOYAMA", "TEKNA", "MAKITA", "BUFFALO", "VIBROMAK"].map((marca) =>
-              <div
-                key={marca}
-                className="px-5 py-2 font-bold font-mono-tech text-xs cursor-default"
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #E2E8F0",
-                  color: "#6C757D",
-                  borderRadius: "4px",
-                  letterSpacing: "0.12em",
-                  transition: "all 0.2s ease",
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.04)"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(211,47,47,0.35)";
-                  e.currentTarget.style.color = "#D32F2F";
-                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(211,47,47,0.12)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "#E2E8F0";
-                  e.currentTarget.style.color = "#6C757D";
-                  e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.04)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}>
-                
-                  {marca}
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
+        <MarcasSection />
 
         {/* ── CTA FINAL ── */}
         <section className="py-16 px-4" style={{ background: "linear-gradient(180deg, #F8F9FA 0%, #FFFFFF 100%)" }}>
