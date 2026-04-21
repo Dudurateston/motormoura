@@ -26,7 +26,7 @@ export default function Layout({ children, currentPageName }) {
   useEffect(() => {
     syncCart();
     window.addEventListener("storage", syncCart);
-    window.addEventListener("cartUpdated", () => {syncCart();setCartOpen(true);});
+    window.addEventListener("cartUpdated", () => { syncCart(); setCartOpen(true); });
     return () => {
       window.removeEventListener("storage", syncCart);
       window.removeEventListener("cartUpdated", syncCart);
@@ -42,16 +42,16 @@ export default function Layout({ children, currentPageName }) {
   };
 
   const updateQtd = (sku, delta) => {
-    const updated = cart.map((item) =>
-    item.sku_codigo === sku ?
-    { ...item, quantidade: Math.max(1, item.quantidade + delta) } :
-    item
+    const updated = cart.map(item =>
+      item.sku_codigo === sku
+        ? { ...item, quantidade: Math.max(1, item.quantidade + delta) }
+        : item
     );
     saveCart(updated);
   };
 
   const removeItem = (sku) => {
-    saveCart(cart.filter((i) => i.sku_codigo !== sku));
+    saveCart(cart.filter(i => i.sku_codigo !== sku));
   };
 
   const handleSendWhatsApp = async () => {
@@ -64,7 +64,7 @@ export default function Layout({ children, currentPageName }) {
     }
 
     let msg = "Olá, equipa MotorMoura! Gostaria de cotar as seguintes peças:\n\n";
-    cart.forEach((item) => {msg += `• ${item.quantidade}x ${item.nome_peca} (SKU: ${item.sku_codigo})\n`;});
+    cart.forEach(item => { msg += `• ${item.quantidade}x ${item.nome_peca} (SKU: ${item.sku_codigo})\n`; });
     if (user) msg += `\nAtenciosamente,\n${user.full_name}`;
     const url = whatsappUrl(msg);
     saveCart([]);
@@ -73,22 +73,22 @@ export default function Layout({ children, currentPageName }) {
   };
 
   const navLinks = [
-  { label: "INÍCIO", page: "Home" },
-  { label: "CATÁLOGO", page: "Catalogo" },
-  { label: "SOBRE", page: "Sobre" },
-  { label: "CONTA", page: "MinhaConta" }];
-
+    { label: "INÍCIO", page: "Home" },
+    { label: "CATÁLOGO", page: "Catalogo" },
+    { label: "SOBRE", page: "Sobre" },
+    { label: "CONTA", page: "MinhaConta" },
+  ];
   if (user?.role === "admin") navLinks.push({ label: "ADMIN", page: "Admin" });
 
   return (
     <div
       className="min-h-screen mm-bg"
-      style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-      
+      style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+    >
       {/* ── TOPBAR ── */}
       <div style={{ background: '#0a0a0a', padding: '5px 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #161616', flexWrap: 'wrap', gap: '4px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: '10px', color: '#555' }} className="bg-[hsl(var(--background))] text-[hsl(var(--card))]">📍 Fortaleza — CE</span>
+          <span style={{ fontSize: '10px', color: '#555' }}>📍 Fortaleza — CE</span>
           <span style={{ width: '1px', height: '10px', background: '#222', display: 'inline-block' }} />
           <span style={{ fontSize: '10px', color: '#555' }}>☎ (85) 98689-4081</span>
           <span style={{ width: '1px', height: '10px', background: '#222', display: 'inline-block' }} />
@@ -111,19 +111,19 @@ export default function Layout({ children, currentPageName }) {
         style={{
           background: "#CC0000",
           borderBottom: "2px solid #a81a1a",
-          boxShadow: "0 2px 12px rgba(0,0,0,0.3),"
-        }}>
-        
+          boxShadow: "0 2px 12px rgba(0,0,0,0.3),",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center gap-2.5">
-              <img
+              <img 
                 src="https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/a9d157fda_LogoMOTORMOURASimplificada-cone.png"
                 alt="MotorMoura"
                 className="h-10 w-auto"
-                style={{ objectFit: "contain" }} />
-              
+                style={{ objectFit: "contain" }}
+              />
               <div className="hidden sm:flex flex-col">
                 <span style={{ fontSize: '13px', fontWeight: 900, color: '#fff', letterSpacing: '.04em', lineHeight: 1 }}>MOTORMOURA</span>
                 <span style={{ fontSize: '7px', color: 'rgba(255,255,255,.45)', letterSpacing: '.18em' }}>EQUIPAMENTOS · B2B</span>
@@ -132,25 +132,25 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Desktop nav */}
             <nav className="hidden md:flex items-center gap-6">
-              {navLinks.map((link) =>
-              <Link
-                key={link.page}
-                to={createPageUrl(link.page)}
-                className="text-xs font-mono-tech transition-colors relative"
-                style={{
-                  color: currentPageName === link.page ? "#ffffff" : "rgba(255,255,255,0.65)",
-                  letterSpacing: "0.1em"
-                }}>
-                
+              {navLinks.map((link) => (
+                <Link
+                  key={link.page}
+                  to={createPageUrl(link.page)}
+                  className="text-xs font-mono-tech transition-colors relative"
+                  style={{
+                    color: currentPageName === link.page ? "#ffffff" : "rgba(255,255,255,0.65)",
+                    letterSpacing: "0.1em",
+                  }}
+                >
                   {link.label}
-                  {currentPageName === link.page &&
-                <span
-                  className="absolute -bottom-1 left-0 right-0 h-[1px]"
-                  style={{ background: "rgba(255,255,255,0.8)" }} />
-
-                }
+                  {currentPageName === link.page && (
+                    <span
+                      className="absolute -bottom-1 left-0 right-0 h-[1px]"
+                      style={{ background: "rgba(255,255,255,0.8)" }}
+                    />
+                  )}
                 </Link>
-              )}
+              ))}
             </nav>
 
             {/* Desktop search bar */}
@@ -168,57 +168,57 @@ export default function Layout({ children, currentPageName }) {
                   background: totalItems > 0 ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.1)",
                   border: "1px solid rgba(255,255,255,0.2)",
                   borderRadius: "2px",
-                  color: "#ffffff"
-                }}>
-                
+                  color: "#ffffff",
+                }}
+              >
                 <ShoppingCart className="w-4 h-4" />
-                {totalItems > 0 &&
-                <span className="text-xs font-mono-tech font-bold">{totalItems}</span>
-                }
+                {totalItems > 0 && (
+                  <span className="text-xs font-mono-tech font-bold">{totalItems}</span>
+                )}
               </button>
 
               {/* Auth */}
-              {user ?
-              <div className="hidden md:flex items-center gap-2">
+              {user ? (
+                <div className="hidden md:flex items-center gap-2">
                   <span className="text-xs font-mono-tech" style={{ color: "rgba(255,255,255,0.7)" }}>
                     {user.full_name?.split(" ")[0].toUpperCase()}
                   </span>
                   <button
-                  onClick={() => base44.auth.logout()}
-                  className="text-xs font-mono-tech mm-btn-tactile px-3 h-9"
-                  style={{
-                    background: "rgba(255,255,255,0.1)",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                    color: "#fff",
-                    borderRadius: "2px"
-                  }}>
-                  
+                    onClick={() => base44.auth.logout()}
+                    className="text-xs font-mono-tech mm-btn-tactile px-3 h-9"
+                    style={{
+                      background: "rgba(255,255,255,0.1)",
+                      border: "1px solid rgba(255,255,255,0.2)",
+                      color: "#fff",
+                      borderRadius: "2px",
+                      }}
+                      >
                       SAIR
                   </button>
-                </div> :
-
-              <button
-                onClick={() => {
-                  base44.auth.redirectToLogin();
-                }}
-                className="hidden md:flex mm-btn-tactile px-4 h-9 text-xs font-mono-tech font-bold items-center"
-                style={{
-                  background: "linear-gradient(135deg, #E53935, #C62828)",
-                  color: "#fff",
-                  borderRadius: "2px",
-                  border: "none"
-                }}>
-                
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    base44.auth.redirectToLogin();
+                  }}
+                  className="hidden md:flex mm-btn-tactile px-4 h-9 text-xs font-mono-tech font-bold items-center"
+                  style={{
+                    background: "linear-gradient(135deg, #E53935, #C62828)",
+                    color: "#fff",
+                    borderRadius: "2px",
+                    border: "none",
+                  }}
+                >
                   ENTRAR
                 </button>
-              }
+              )}
 
               {/* Mobile search button */}
               <button
                 className="md:hidden flex items-center justify-center w-8 h-8"
                 onClick={() => setMobileSearchOpen(true)}
-                style={{ color: "#ffffff" }}>
-                
+                style={{ color: "#ffffff" }}
+              >
                 <Search className="w-4 h-4" />
               </button>
 
@@ -226,8 +226,8 @@ export default function Layout({ children, currentPageName }) {
               <button
                 className="md:hidden"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                style={{ color: "#ffffff" }}>
-                
+                style={{ color: "#ffffff" }}
+              >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
@@ -235,55 +235,55 @@ export default function Layout({ children, currentPageName }) {
         </div>
 
         {/* Mobile nav */}
-        {mobileMenuOpen &&
-        <div
-          className="md:hidden px-4 py-3 space-y-1"
-          style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}>
-          
-            {navLinks.map((link) =>
-          <Link
-            key={link.page}
-            to={createPageUrl(link.page)}
-            className="block py-2 text-xs font-mono-tech"
-            style={{ color: currentPageName === link.page ? "#D32F2F" : "#6C757D", letterSpacing: "0.1em" }}
-            onClick={() => setMobileMenuOpen(false)}>
-            
+        {mobileMenuOpen && (
+          <div
+            className="md:hidden px-4 py-3 space-y-1"
+            style={{ background: "#FFFFFF", borderTop: "1px solid #E2E8F0" }}
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.page}
+                to={createPageUrl(link.page)}
+                className="block py-2 text-xs font-mono-tech"
+                style={{ color: currentPageName === link.page ? "#D32F2F" : "#6C757D", letterSpacing: "0.1em" }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 {link.label}
               </Link>
-          )}
-            {!user &&
-          <button
-            onClick={() => base44.auth.redirectToLogin()}
-            className="w-full h-9 mt-2 text-xs font-mono-tech font-bold mm-btn-tactile"
-            style={{
-              background: "linear-gradient(135deg, #D32F2F, #B71C1C)",
-              color: "#fff",
-              borderRadius: "2px",
-              border: "none"
-            }}>
-            
+            ))}
+            {!user && (
+              <button
+                onClick={() => base44.auth.redirectToLogin()}
+                className="w-full h-9 mt-2 text-xs font-mono-tech font-bold mm-btn-tactile"
+                style={{
+                  background: "linear-gradient(135deg, #D32F2F, #B71C1C)",
+                  color: "#fff",
+                  borderRadius: "2px",
+                  border: "none",
+                }}
+              >
                 ENTRAR / REGISTAR
               </button>
-          }
+            )}
           </div>
-        }
+        )}
       </header>
 
       {/* ── MOBILE SEARCH OVERLAY ──────────────────────────────── */}
-      {mobileSearchOpen &&
-      <div
-        className="fixed inset-0 z-[80] flex flex-col"
-        style={{ background: "rgba(248,249,250,0.98)", backdropFilter: "blur(8px)" }}>
-        
+      {mobileSearchOpen && (
+        <div
+          className="fixed inset-0 z-[80] flex flex-col"
+          style={{ background: "rgba(248,249,250,0.98)", backdropFilter: "blur(8px)" }}
+        >
           <div className="flex items-center gap-3 px-4 py-3" style={{ borderBottom: "1px solid #E2E8F0" }}>
             <div className="flex-1">
               <HeaderSearch mobile onClose={() => setMobileSearchOpen(false)} />
             </div>
             <button
-            onClick={() => setMobileSearchOpen(false)}
-            className="flex items-center justify-center w-8 h-8 flex-shrink-0"
-            style={{ color: "#6B7280" }}>
-            
+              onClick={() => setMobileSearchOpen(false)}
+              className="flex items-center justify-center w-8 h-8 flex-shrink-0"
+              style={{ color: "#6B7280" }}
+            >
               <X className="w-5 h-5" />
             </button>
           </div>
@@ -292,7 +292,7 @@ export default function Layout({ children, currentPageName }) {
             <p className="text-xs font-mono-tech" style={{ letterSpacing: "0.1em" }}>BUSQUE POR NOME, SKU OU MARCA</p>
           </div>
         </div>
-      }
+      )}
 
       {/* ── MAIN ───────────────────────────────────────────────── */}
       <main>{children}</main>
@@ -324,8 +324,8 @@ export default function Layout({ children, currentPageName }) {
                 src="https://media.base44.com/images/public/69a2232aaedb3f01dfc43e13/a9d157fda_LogoMOTORMOURASimplificada-cone.png"
                 alt="MotorMoura"
                 className="h-10 w-auto"
-                style={{ objectFit: "contain" }} />
-              
+                style={{ objectFit: "contain" }}
+              />
             </div>
             <p style={{ color: "#6B7280", fontSize: "14px", lineHeight: 1.7, marginBottom: "12px" }}>
               Distribuidora técnica especializada em peças de reposição para motores, geradores e motobombas. Revendedor oficial Makita e Vibromak.
@@ -339,18 +339,18 @@ export default function Layout({ children, currentPageName }) {
             <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>INSTITUCIONAL</h4>
             <ul className="space-y-2.5">
               {[
-              { label: "Sobre a MotorMoura", page: "Sobre" },
-              { label: "Seja um Revendedor", page: "MinhaConta" },
-              { label: "Minha Conta", page: "MinhaConta" },
-              { label: "Meus Pedidos", page: "MeusPedidos" },
-              { label: "Lista de Cotação", page: "Orcamento" }].
-              map((link) =>
-              <li key={link.label}>
+                { label: "Sobre a MotorMoura", page: "Sobre" },
+                { label: "Seja um Revendedor", page: "MinhaConta" },
+                { label: "Minha Conta", page: "MinhaConta" },
+                { label: "Meus Pedidos", page: "MeusPedidos" },
+                { label: "Lista de Cotação", page: "Orcamento" },
+              ].map(link => (
+                <li key={link.label}>
                   <Link to={createPageUrl(link.page)} className="transition-colors hover:text-[#E53935]" style={{ color: "#6B7280", fontSize: "14px" }}>
                     {link.label}
                   </Link>
                 </li>
-              )}
+              ))}
             </ul>
           </div>
 
@@ -359,24 +359,24 @@ export default function Layout({ children, currentPageName }) {
             <h4 className="text-xs font-mono-tech mb-4" style={{ color: "#E53935", letterSpacing: "0.15em" }}>CATÁLOGO RÁPIDO</h4>
             <ul className="space-y-2.5">
               {[
-              { label: "Peças de Alto Giro 🔥", cat: "Peças de Alto Giro" },
-              { label: "Motores Estacionários", cat: "Motores a Gasolina" },
-              { label: "Geradores", cat: "Geradores 4 Tempos" },
-              { label: "Motobombas", cat: "Motobombas 4 Tempos" },
-              { label: "Sistema de Partida", q: "partida" },
-              { label: "Carburadores", q: "carburador" },
-              { label: "Filtros e Manutenção", q: "filtro" }].
-              map((item) =>
-              <li key={item.label}>
+                { label: "Peças de Alto Giro 🔥", cat: "Peças de Alto Giro" },
+                { label: "Motores Estacionários", cat: "Motores a Gasolina" },
+                { label: "Geradores", cat: "Geradores 4 Tempos" },
+                { label: "Motobombas", cat: "Motobombas 4 Tempos" },
+                { label: "Sistema de Partida", q: "partida" },
+                { label: "Carburadores", q: "carburador" },
+                { label: "Filtros e Manutenção", q: "filtro" },
+              ].map(item => (
+                <li key={item.label}>
                   <Link
-                  to={createPageUrl("Catalogo") + "?" + (item.cat ? "categoria=" + encodeURIComponent(item.cat) : "q=" + encodeURIComponent(item.q))}
-                  className="transition-colors hover:text-[#E53935]"
-                  style={{ color: "#6B7280", fontSize: "14px" }}>
-                  
+                    to={createPageUrl("Catalogo") + "?" + (item.cat ? "categoria=" + encodeURIComponent(item.cat) : "q=" + encodeURIComponent(item.q))}
+                    className="transition-colors hover:text-[#E53935]"
+                    style={{ color: "#6B7280", fontSize: "14px" }}
+                  >
                     {item.label}
                   </Link>
                 </li>
-              )}
+              ))}
             </ul>
           </div>
 
@@ -433,10 +433,10 @@ export default function Layout({ children, currentPageName }) {
           background: "rgba(0,0,0,0.7)",
           opacity: cartOpen ? 1 : 0,
           pointerEvents: cartOpen ? "auto" : "none",
-          backdropFilter: cartOpen ? "blur(2px)" : "none"
+          backdropFilter: cartOpen ? "blur(2px)" : "none",
         }}
-        onClick={() => setCartOpen(false)} />
-      
+        onClick={() => setCartOpen(false)}
+      />
 
       {/* Panel */}
       <div
@@ -447,38 +447,38 @@ export default function Layout({ children, currentPageName }) {
           borderLeft: "1px solid #E2E8F0",
           boxShadow: "-8px 0 32px rgba(0,0,0,0.12)",
           transform: cartOpen ? "translateX(0)" : "translateX(100%)",
-          transition: "transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-        }}>
-        
+          transition: "transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        }}
+      >
         {/* Panel header */}
         <div
           className="flex items-center justify-between px-5 py-4"
-          style={{ borderBottom: "1px solid #E2E8F0" }}>
-          
+          style={{ borderBottom: "1px solid #E2E8F0" }}
+        >
           <div className="flex items-center gap-2">
             <ShoppingCart className="w-4 h-4" style={{ color: "#D32F2F" }} />
             <span className="text-sm font-bold font-mono-tech" style={{ color: "#212529" }}>
               LISTA DE COTAÇÃO
             </span>
-            {totalItems > 0 &&
-            <span
-              className="text-xs px-2 py-0.5 font-mono-tech"
-              style={{
-                background: "rgba(211,47,47,0.1)",
-                border: "1px solid rgba(211,47,47,0.25)",
-                color: "#D32F2F",
-                borderRadius: "2px"
-              }}>
-              
+            {totalItems > 0 && (
+              <span
+                className="text-xs px-2 py-0.5 font-mono-tech"
+                style={{
+                  background: "rgba(211,47,47,0.1)",
+                  border: "1px solid rgba(211,47,47,0.25)",
+                  color: "#D32F2F",
+                  borderRadius: "2px",
+                }}
+              >
                 {totalItems}
               </span>
-            }
+            )}
           </div>
           <button
             onClick={() => setCartOpen(false)}
             className="w-8 h-8 flex items-center justify-center transition-colors hover:bg-gray-100"
-            style={{ color: "#6C757D", borderRadius: "2px" }}>
-            
+            style={{ color: "#6C757D", borderRadius: "2px" }}
+          >
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -488,26 +488,26 @@ export default function Layout({ children, currentPageName }) {
 
         {/* Cart items */}
         <div className="flex-1 overflow-y-auto py-4 px-5">
-          {cart.length === 0 ?
-          <div className="flex flex-col items-center justify-center h-full text-center">
+          {cart.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-center">
               <ShoppingCart className="w-12 h-12 mb-3" style={{ color: "#E2E8F0" }} />
               <p className="text-sm font-mono-tech" style={{ color: "#6C757D" }}>LISTA VAZIA</p>
               <p className="text-xs mt-1" style={{ color: "#9CA3AF" }}>
                 Adicione peças do catálogo
               </p>
-            </div> :
-
-          <div className="space-y-3">
-              {cart.map((item) =>
-            <div
-              key={item.sku_codigo}
-              className="flex items-center gap-3 p-3"
-              style={{
-                background: "#F8F9FA",
-                border: "1px solid #E2E8F0",
-                borderRadius: "2px"
-              }}>
-              
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {cart.map((item) => (
+                <div
+                  key={item.sku_codigo}
+                  className="flex items-center gap-3 p-3"
+                  style={{
+                    background: "#F8F9FA",
+                    border: "1px solid #E2E8F0",
+                    borderRadius: "2px",
+                  }}
+                >
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium truncate" style={{ color: "#212529" }}>
                       {item.nome_peca}
@@ -517,58 +517,58 @@ export default function Layout({ children, currentPageName }) {
                     </p>
                   </div>
                   <div
-                className="flex items-center"
-                style={{
-                  background: "#FFFFFF",
-                  border: "1px solid #E2E8F0",
-                  borderRadius: "2px"
-                }}>
-                
+                    className="flex items-center"
+                    style={{
+                      background: "#FFFFFF",
+                      border: "1px solid #E2E8F0",
+                      borderRadius: "2px",
+                    }}
+                  >
                     <button
-                  onClick={() => updateQtd(item.sku_codigo, -1)}
-                  className="w-6 h-7 flex items-center justify-center hover:bg-gray-100 transition-colors"
-                  style={{ color: "#6C757D" }}>
-                  
+                      onClick={() => updateQtd(item.sku_codigo, -1)}
+                      className="w-6 h-7 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                      style={{ color: "#6C757D" }}
+                    >
                       <Minus className="w-3 h-3" />
                     </button>
                     <span className="w-7 text-center text-xs font-mono-tech" style={{ color: "#212529" }}>
                       {item.quantidade}
                     </span>
                     <button
-                  onClick={() => updateQtd(item.sku_codigo, 1)}
-                  className="w-6 h-7 flex items-center justify-center hover:bg-gray-100 transition-colors"
-                  style={{ color: "#6C757D" }}>
-                  
+                      onClick={() => updateQtd(item.sku_codigo, 1)}
+                      className="w-6 h-7 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                      style={{ color: "#6C757D" }}
+                    >
                       <Plus className="w-3 h-3" />
                     </button>
                   </div>
                   <button
-                onClick={() => removeItem(item.sku_codigo)}
-                className="w-7 h-7 flex items-center justify-center hover:bg-red-50 transition-colors"
-                style={{ color: "#9CA3AF", borderRadius: "2px" }}>
-                
+                    onClick={() => removeItem(item.sku_codigo)}
+                    className="w-7 h-7 flex items-center justify-center hover:bg-red-50 transition-colors"
+                    style={{ color: "#9CA3AF", borderRadius: "2px" }}
+                  >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
-            )}
+              ))}
             </div>
-          }
+          )}
         </div>
 
         {/* Panel footer actions */}
-        {cart.length > 0 &&
-        <div
-          className="px-5 py-4 space-y-3"
-          style={{ borderTop: "1px solid #E2E8F0" }}>
-          
+        {cart.length > 0 && (
+          <div
+            className="px-5 py-4 space-y-3"
+            style={{ borderTop: "1px solid #E2E8F0" }}
+          >
             <div
-            className="flex justify-between items-center py-2 px-3"
-            style={{
-              background: "#F8F9FA",
-              border: "1px solid #E2E8F0",
-              borderRadius: "2px"
-            }}>
-            
+              className="flex justify-between items-center py-2 px-3"
+              style={{
+                background: "#F8F9FA",
+                border: "1px solid #E2E8F0",
+                borderRadius: "2px",
+              }}
+            >
               <span className="text-xs font-mono-tech" style={{ color: "#6C757D" }}>TOTAL</span>
               <span className="text-sm font-bold font-mono-tech" style={{ color: "#D32F2F" }}>
                 {cart.reduce((s, i) => s + i.quantidade, 0)} unid. · {cart.length} ref.
@@ -576,36 +576,36 @@ export default function Layout({ children, currentPageName }) {
             </div>
 
             <button
-            onClick={handleSendWhatsApp}
-            className="w-full h-11 flex items-center justify-center gap-2 text-sm font-bold font-mono-tech mm-btn-tactile"
-            style={{
-              background: "linear-gradient(135deg, #25D366, #1DA851)",
-              color: "#fff",
-              borderRadius: "2px",
-              border: "none",
-              boxShadow: "0 4px 16px rgba(22,163,74,0.25)"
-            }}>
-            
+              onClick={handleSendWhatsApp}
+              className="w-full h-11 flex items-center justify-center gap-2 text-sm font-bold font-mono-tech mm-btn-tactile"
+              style={{
+                background: "linear-gradient(135deg, #25D366, #1DA851)",
+                color: "#fff",
+                borderRadius: "2px",
+                border: "none",
+                boxShadow: "0 4px 16px rgba(22,163,74,0.25)",
+              }}
+            >
               <MessageCircle className="w-4 h-4" />
               ENVIAR VIA WHATSAPP
             </button>
 
             <Link
-            to={createPageUrl("Orcamento")}
-            onClick={() => setCartOpen(false)}
-            className="block w-full h-9 flex items-center justify-center text-xs font-mono-tech"
-            style={{
-              background: "#F8F9FA",
-              border: "1px solid #E2E8F0",
-              color: "#6C757D",
-              borderRadius: "2px"
-            }}>
-            
+              to={createPageUrl("Orcamento")}
+              onClick={() => setCartOpen(false)}
+              className="block w-full h-9 flex items-center justify-center text-xs font-mono-tech"
+              style={{
+                background: "#F8F9FA",
+                border: "1px solid #E2E8F0",
+                color: "#6C757D",
+                borderRadius: "2px",
+              }}
+            >
               VER LISTA COMPLETA
             </Link>
           </div>
-        }
+        )}
       </div>
-    </div>);
-
+    </div>
+  );
 }
