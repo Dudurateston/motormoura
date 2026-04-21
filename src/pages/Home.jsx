@@ -91,8 +91,8 @@ export default function Home() {
   const typingRef = useRef({ wi: 0, ci: 0, deleting: false });
 
   const TYPING_SETS = {
-    motores: ['para motores Honda.', 'para geradores EZ/EU.', 'para motobombas WB.', 'para kits de partida.', 'para filtros originais.'],
-    construcao: ['para obras Vibromak.', 'para compactadores VK-85.', 'para ferramentas Makita.', 'para marteletes HR2470.', 'para esmerilhadeiras GA7020.'],
+    motores: ['sem esperar importação.', 'com garantia de origem.', 'no mesmo dia em Fortaleza.', 'direto do distribuidor.', 'para Honda, Toyama e Tekna.'],
+    construcao: ['para Vibromak e Makita.', 'sem parar sua obra.', 'com suporte técnico real.', 'direto do distribuidor.', 'para compactadores e ferramentas.'],
   };
 
   const segTheme = useMemo(() => segment === 'motores' ? {
@@ -199,9 +199,9 @@ export default function Home() {
             </h1>
 
             {/* Typing line */}
-            <div style={{ display: 'flex', alignItems: 'center', minHeight: 26, marginBottom: 18 }}>
-              <span style={{ fontSize: 'clamp(12px, 1.5vw, 16px)', color: 'rgba(148,163,184,0.55)' }}>Do seu estoque&nbsp;</span>
-              <span style={{ fontSize: 'clamp(12px, 1.5vw, 16px)', fontWeight: 700, color: '#fff', borderRight: `2px solid ${segTheme.accent}`, paddingRight: 2, minWidth: 2, animation: 'blinkcaret 0.65s step-end infinite', transition: 'border-color 0.4s' }}>{typedText}</span>
+            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', minHeight: 30, marginBottom: 18, gap: 4 }}>
+              <span style={{ fontSize: 'clamp(13px, 1.6vw, 17px)', color: 'rgba(255,255,255,0.65)', fontWeight: 400 }}>A peça chega&nbsp;</span>
+              <span style={{ fontSize: 'clamp(13px, 1.6vw, 17px)', fontWeight: 700, color: '#fff', borderRight: `2px solid ${segTheme.accent}`, paddingRight: 3, minWidth: 2, animation: 'blinkcaret 0.65s step-end infinite', transition: 'border-color 0.4s' }}>{typedText}</span>
             </div>
 
             {/* Segment toggle */}
@@ -263,14 +263,14 @@ export default function Home() {
             </div>
           </div>
 
-          {/* RIGHT PANEL */}
-          <div style={{ width: 300, flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.07)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="hidden lg:flex">
+          {/* RIGHT PANEL — 1/3 da largura total */}
+          <div style={{ width: 'clamp(280px, 33%, 380px)', flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.07)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="hidden lg:flex">
             {/* Brands */}
             <div style={{ padding: '18px 18px 14px', borderBottom: '1px solid rgba(255,255,255,.07)' }}>
               <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.4)', marginBottom: 12 }}>PORTFÓLIO DE MARCAS</div>
               {[
                 { name: 'HONDA', tag: 'MOTORES & MÁQUINAS', color: '#ef4444', items: ['GX160', 'GX390', 'EZ6500', 'EU22i', 'WB30'] },
-                { name: 'VIBROMAK', tag: 'CONSTRUÇÃO CIVIL', color: '#3b82f6', items: ['VK-85', 'VMR-75H', 'CPV-350', 'MAV-2400'] },
+                { name: 'VIBROMAK', tag: 'CONSTRUÇÃO CIVIL', color: '#f97316', items: ['VK-85', 'VMR-75H', 'CPV-350', 'MAV-2400'] },
                 { name: 'MAKITA', tag: 'FERRAMENTAS PROF.', color: '#0ea5e9', items: ['GA7020', 'HR2470', 'HM1213C', '5007N'] },
               ].map(b => (
                 <div key={b.name} style={{ borderRadius: 4, border: '1px solid rgba(255,255,255,.08)', marginBottom: 7, background: 'rgba(255,255,255,.03)', borderLeft: `3px solid ${b.color}`, padding: '10px 12px', cursor: 'pointer' }}>
@@ -314,14 +314,16 @@ export default function Home() {
         </section>
 
         {/* ── SEGMENT INDICATOR BAND ── */}
-        <div style={{ background: '#0d0d0d', padding: '7px 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: `1px solid ${segTheme.accent}40`, transition: 'border-color 0.4s' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-            <div style={{ width: 7, height: 7, borderRadius: '50%', background: segTheme.accent, transition: 'background 0.4s' }} />
-            <span style={{ fontSize: 9, fontWeight: 700, color: segTheme.accent, letterSpacing: '.14em', transition: 'color 0.4s' }}>VISUALIZANDO: {segTheme.label}</span>
+        <div style={{ background: '#0d0d0d', padding: '10px 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: `2px solid ${segTheme.accent}55`, transition: 'border-color 0.4s' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 9, height: 9, borderRadius: '50%', background: segTheme.accent, transition: 'background 0.4s', boxShadow: `0 0 8px ${segTheme.accent}` }} />
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#ffffff', letterSpacing: '.12em', transition: 'color 0.4s' }}>
+              VISUALIZANDO: <span style={{ color: segTheme.accent }}>{segTheme.label}</span>
+            </span>
           </div>
-          <div style={{ display: 'flex', gap: 5 }}>
-            <button onClick={() => setSegment('motores')} style={{ padding: '3px 9px', fontSize: 8, fontWeight: 700, borderRadius: 2, cursor: 'pointer', color: segment === 'motores' ? '#fff' : 'rgba(255,255,255,.3)', border: `1px solid ${segment === 'motores' ? '#D32F2F' : 'rgba(255,255,255,.1)'}`, background: segment === 'motores' ? '#D32F2F' : 'transparent', letterSpacing: '.07em', transition: 'all 0.3s' }}>MOTORES</button>
-            <button onClick={() => setSegment('construcao')} style={{ padding: '3px 9px', fontSize: 8, fontWeight: 700, borderRadius: 2, cursor: 'pointer', color: segment === 'construcao' ? '#fff' : 'rgba(255,255,255,.3)', border: `1px solid ${segment === 'construcao' ? '#1d4ed8' : 'rgba(255,255,255,.1)'}`, background: segment === 'construcao' ? '#1d4ed8' : 'transparent', letterSpacing: '.07em', transition: 'all 0.3s' }}>CONSTRUÇÃO</button>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <button onClick={() => setSegment('motores')} style={{ padding: '5px 14px', fontSize: 11, fontWeight: 700, borderRadius: 3, cursor: 'pointer', color: segment === 'motores' ? '#fff' : 'rgba(255,255,255,.45)', border: `1px solid ${segment === 'motores' ? '#D32F2F' : 'rgba(255,255,255,.15)'}`, background: segment === 'motores' ? '#D32F2F' : 'transparent', letterSpacing: '.07em', transition: 'all 0.3s' }}>MOTORES</button>
+            <button onClick={() => setSegment('construcao')} style={{ padding: '5px 14px', fontSize: 11, fontWeight: 700, borderRadius: 3, cursor: 'pointer', color: segment === 'construcao' ? '#fff' : 'rgba(255,255,255,.45)', border: `1px solid ${segment === 'construcao' ? '#1d4ed8' : 'rgba(255,255,255,.15)'}`, background: segment === 'construcao' ? '#1d4ed8' : 'transparent', letterSpacing: '.07em', transition: 'all 0.3s' }}>CONSTRUÇÃO</button>
           </div>
         </div>
 

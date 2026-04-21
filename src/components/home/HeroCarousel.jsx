@@ -85,12 +85,12 @@ export default function HeroCarousel() {
         }}
       />
 
-      {/* Dark overlay */}
+      {/* Dark overlay — mobile mais escuro para garantir legibilidade */}
       <div style={{
         position: 'absolute', inset: 0,
         background: isMobile
-          ? 'linear-gradient(180deg, rgba(5,7,12,0.55) 0%, rgba(5,7,12,0.75) 100%)'
-          : 'linear-gradient(90deg, rgba(5,7,12,0.88) 0%, rgba(5,7,12,0.60) 55%, rgba(5,7,12,0.20) 100%)'
+          ? 'linear-gradient(180deg, rgba(4,5,10,0.72) 0%, rgba(4,5,10,0.88) 60%, rgba(4,5,10,0.95) 100%)'
+          : 'linear-gradient(90deg, rgba(5,7,12,0.92) 0%, rgba(5,7,12,0.65) 55%, rgba(5,7,12,0.18) 100%)'
       }} />
 
       {/* Dots */}
