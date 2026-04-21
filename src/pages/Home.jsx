@@ -110,8 +110,18 @@ export default function Home() {
   }, [segment]);
 
   const NUMEROS = useMemo(() => [
-    { valor: produtosCount === null ? '...' : (produtosCount > 0 ? `${produtosCount}` : 'NOVO'), label: 'Produtos no Catálogo', color: '#D32F2F', icon: Package },
-    { valor: marcasCount === null ? '...' : `${marcasCount}`, label: 'Marcas Parceiras', color: '#1D4ED8', icon: Zap },
+    {
+      valor: produtosCount === null ? '...' : (produtosCount > 0 ? `${produtosCount}` : 'NOVO'),
+      label: 'Produtos no Catálogo',
+      color: '#D32F2F',
+      icon: Package
+    },
+    {
+      valor: marcasCount === null ? '...' : `${marcasCount}`,
+      label: 'Marcas Parceiras',
+      color: '#1D4ED8',
+      icon: Zap
+    },
     { valor: '24h', label: 'Entrega Fortaleza-CE', color: '#16A34A', icon: Shield },
     { valor: 'B2B', label: 'Exclusivo Lojistas', color: '#D32F2F', icon: TrendingUp },
   ], [produtosCount, marcasCount]);
@@ -316,9 +326,7 @@ export default function Home() {
         <div style={{ height: "2px", background: "linear-gradient(90deg, #F8F9FA, #E53935 30%, #1D4ED8 70%, #F8F9FA)" }} />
 
         {/* ── CARROSSEL DE CATEGORIAS ── */}
-        <section style={{ background: "#F8F9FA" }}>
-          <HomeCategoryCarousel segment={segment} />
-        </section>
+        <HomeCategoryCarousel segment={segment} />
 
         {/* ── RECOMENDAÇÕES DA FROTA ── */}
         <RecomendacoesFrota />
