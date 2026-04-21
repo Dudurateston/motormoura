@@ -301,20 +301,6 @@ export default function Layout({ children, currentPageName }) {
       <footer style={{ background: "#0A0A0C", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
         <div className="h-[2px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
 
-        {/* Revendedores Oficiais Banner */}
-        <div className="px-4 py-4" style={{ background: "#111114", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-4">
-            <span className="text-xs font-mono-tech" style={{ color: "#6B7280", letterSpacing: "0.12em" }}>REVENDEDOR OFICIAL:</span>
-            <span className="px-4 py-1.5 text-xs font-bold font-mono-tech" style={{ background: "rgba(29,78,216,0.15)", border: "1px solid rgba(29,78,216,0.35)", color: "#60A5FA", borderRadius: "2px" }}>
-              MAKITA
-            </span>
-            <span className="px-4 py-1.5 text-xs font-bold font-mono-tech" style={{ background: "rgba(229,57,53,0.12)", border: "1px solid rgba(229,57,53,0.3)", color: "#F87171", borderRadius: "2px" }}>
-              VIBROMAK
-            </span>
-            <span className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>+ Honda · Toyama · Tekna · Branco · Buffalo · Husqvarna</span>
-          </div>
-        </div>
-
         <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
           {/* Col 1: Brand */}
