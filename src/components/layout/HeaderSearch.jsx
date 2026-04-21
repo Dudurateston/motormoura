@@ -246,7 +246,7 @@ export default function HeaderSearch({ mobile = false, onClose }) {
         <div className="relative">
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none"
-            style={{ color: loading ? "#E53935" : open ? "#E53935" : "#4B5563" }}
+            style={{ color: loading ? "#ffaaaa" : open ? "#ffcccc" : "rgba(255,255,255,0.6)" }}
           />
           <input
             ref={inputRef}
@@ -257,10 +257,10 @@ export default function HeaderSearch({ mobile = false, onClose }) {
             autoComplete="off"
             className="w-full h-9 pl-9 pr-8 text-xs font-mono-tech focus:outline-none transition-all"
             style={{
-              background: "#F8F9FA",
-              border: open ? "1px solid rgba(211,47,47,0.45)" : "1px solid #E2E8F0",
+              background: "rgba(0,0,0,0.2)",
+              border: open ? "1px solid rgba(255,255,255,0.5)" : "1px solid rgba(255,255,255,0.2)",
               borderRadius: "2px",
-              color: "#212529",
+              color: "#ffffff",
             }}
           />
           {query && (

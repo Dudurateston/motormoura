@@ -85,14 +85,33 @@ export default function Layout({ children, currentPageName }) {
       className="min-h-screen mm-bg"
       style={{ fontFamily: "'Space Grotesk', sans-serif" }}
     >
+      {/* ── TOPBAR ── */}
+      <div style={{ background: '#0a0a0a', padding: '5px 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #161616', flexWrap: 'wrap', gap: '4px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: '10px', color: '#555' }}>📍 Fortaleza — CE</span>
+          <span style={{ width: '1px', height: '10px', background: '#222', display: 'inline-block' }} />
+          <span style={{ fontSize: '10px', color: '#555' }}>☎ (85) 98689-4081</span>
+          <span style={{ width: '1px', height: '10px', background: '#222', display: 'inline-block' }} />
+          <span style={{ fontSize: '10px', color: '#555' }}>Seg–Sex · 8h–18h</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
+          <span style={{ fontSize: '9px', color: '#22c55e', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <span style={{ width: '5px', height: '5px', background: '#22c55e', borderRadius: '50%', display: 'inline-block' }} />
+            ESTOQUE DISPONÍVEL
+          </span>
+          <Link to={createPageUrl("MinhaConta")} style={{ fontSize: '9px', fontWeight: 800, background: '#D32F2F', color: '#fff', padding: '3px 10px', borderRadius: '1px', letterSpacing: '.1em', textDecoration: 'none' }}>
+            SEJA LOJISTA
+          </Link>
+        </div>
+      </div>
+
       {/* ── HEADER ─────────────────────────────────────────────── */}
       <header
         className="sticky top-0 z-50"
         style={{
-          background: "#FFFFFF",
-          backdropFilter: "blur(12px)",
-          borderBottom: "1px solid #E2E8F0",
-          boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+          background: "#CC0000",
+          borderBottom: "2px solid #a81a1a",
+          boxShadow: "0 2px 12px rgba(0,0,0,0.3),",
         }}
       >
         <div className="max-w-7xl mx-auto px-4">
@@ -105,6 +124,10 @@ export default function Layout({ children, currentPageName }) {
                 className="h-10 w-auto"
                 style={{ objectFit: "contain" }}
               />
+              <div className="hidden sm:flex flex-col">
+                <span style={{ fontSize: '13px', fontWeight: 900, color: '#fff', letterSpacing: '.04em', lineHeight: 1 }}>MOTORMOURA</span>
+                <span style={{ fontSize: '7px', color: 'rgba(255,255,255,.45)', letterSpacing: '.18em' }}>EQUIPAMENTOS · B2B</span>
+              </div>
             </Link>
 
             {/* Desktop nav */}
@@ -115,7 +138,7 @@ export default function Layout({ children, currentPageName }) {
                   to={createPageUrl(link.page)}
                   className="text-xs font-mono-tech transition-colors relative"
                   style={{
-                    color: currentPageName === link.page ? "#D32F2F" : "#6C757D",
+                    color: currentPageName === link.page ? "#ffffff" : "rgba(255,255,255,0.65)",
                     letterSpacing: "0.1em",
                   }}
                 >
@@ -123,7 +146,7 @@ export default function Layout({ children, currentPageName }) {
                   {currentPageName === link.page && (
                     <span
                       className="absolute -bottom-1 left-0 right-0 h-[1px]"
-                      style={{ background: "#D32F2F" }}
+                      style={{ background: "rgba(255,255,255,0.8)" }}
                     />
                   )}
                 </Link>
@@ -142,10 +165,10 @@ export default function Layout({ children, currentPageName }) {
                 onClick={() => setCartOpen(true)}
                 className="relative flex items-center gap-2 px-3 h-9 mm-btn-tactile"
                 style={{
-                  background: totalItems > 0 ? "rgba(211,47,47,0.08)" : "#F8F9FA",
-                  border: totalItems > 0 ? "1px solid rgba(211,47,47,0.3)" : "1px solid #E2E8F0",
+                  background: totalItems > 0 ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.1)",
+                  border: "1px solid rgba(255,255,255,0.2)",
                   borderRadius: "2px",
-                  color: totalItems > 0 ? "#D32F2F" : "#6C757D",
+                  color: "#ffffff",
                 }}
               >
                 <ShoppingCart className="w-4 h-4" />
@@ -157,20 +180,20 @@ export default function Layout({ children, currentPageName }) {
               {/* Auth */}
               {user ? (
                 <div className="hidden md:flex items-center gap-2">
-                  <span className="text-xs font-mono-tech" style={{ color: "#6C757D" }}>
+                  <span className="text-xs font-mono-tech" style={{ color: "rgba(255,255,255,0.7)" }}>
                     {user.full_name?.split(" ")[0].toUpperCase()}
                   </span>
                   <button
                     onClick={() => base44.auth.logout()}
                     className="text-xs font-mono-tech mm-btn-tactile px-3 h-9"
                     style={{
-                      background: "#F8F9FA",
-                      border: "1px solid #E2E8F0",
-                      color: "#6C757D",
+                      background: "rgba(255,255,255,0.1)",
+                      border: "1px solid rgba(255,255,255,0.2)",
+                      color: "#fff",
                       borderRadius: "2px",
-                    }}
-                  >
-                    SAIR
+                      }}
+                      >
+                      SAIR
                   </button>
                 </div>
               ) : (
@@ -194,7 +217,7 @@ export default function Layout({ children, currentPageName }) {
               <button
                 className="md:hidden flex items-center justify-center w-8 h-8"
                 onClick={() => setMobileSearchOpen(true)}
-                style={{ color: "#6B7280" }}
+                style={{ color: "#ffffff" }}
               >
                 <Search className="w-4 h-4" />
               </button>
@@ -203,7 +226,7 @@ export default function Layout({ children, currentPageName }) {
               <button
                 className="md:hidden"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                style={{ color: "#6B7280" }}
+                style={{ color: "#ffffff" }}
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
