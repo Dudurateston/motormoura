@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { ShoppingCart, Zap, AlertTriangle, Plus, Minus, ExternalLink } from "lucide-react";
+import { ShoppingCart, Zap, AlertTriangle, Plus, Minus } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
 import FavoritoButton from "./FavoritoButton";
 
@@ -55,22 +55,24 @@ export default function ProdutoCard({ produto, onAddToCart }) {
 
       {/* Product image */}
       <div className="relative" style={{ height: produto.imagem_url ? 160 : 80 }}>
-        {produto.imagem_url ? (
-          <LazyImage
-            src={produto.imagem_url}
-            alt={produto.nome_peca}
-            style={{ height: 160, width: "100%", background: "#F8F9FA", objectFit: "cover" }}
-            placeholder={
-              <div className="flex items-center justify-center h-full">
-                <ShoppingCart className="w-8 h-8" style={{ color: "#E2E8F0" }} />
-              </div>
-            }
-          />
-        ) : (
-          <div style={{ height: 80, background: "#F8F9FA", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <ShoppingCart className="w-8 h-8" style={{ color: "#E2E8F0" }} />
-          </div>
-        )}
+        <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`} style={{ display: "block", height: "100%" }}>
+          {produto.imagem_url ? (
+            <LazyImage
+              src={produto.imagem_url}
+              alt={produto.nome_peca}
+              style={{ height: 160, width: "100%", background: "#F8F9FA", objectFit: "cover" }}
+              placeholder={
+                <div className="flex items-center justify-center h-full">
+                  <ShoppingCart className="w-8 h-8" style={{ color: "#E2E8F0" }} />
+                </div>
+              }
+            />
+          ) : (
+            <div style={{ height: 80, background: "#F8F9FA", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <ShoppingCart className="w-8 h-8" style={{ color: "#E2E8F0" }} />
+            </div>
+          )}
+        </Link>
 
         {/* Carro-chefe badge */}
         {produto.destaque && (
@@ -85,6 +87,7 @@ export default function ProdutoCard({ produto, onAddToCart }) {
           <FavoritoButton produto={produto} />
         </div>
       </div>
+      
 
       {/* Corner marks */}
       <div className="absolute top-2 left-2 w-3 h-3 border-t border-l opacity-20" style={{ borderColor: "#D32F2F" }} />
@@ -107,8 +110,8 @@ export default function ProdutoCard({ produto, onAddToCart }) {
         </div>
 
         {/* Name */}
-        <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`} className="group">
-          <h3 className="font-semibold text-sm leading-snug mb-2 flex-1 group-hover:text-red-700 transition-colors"
+        <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`} className="group" title={produto.nome_peca}>
+          <h3 className="font-semibold text-sm leading-snug mb-2 flex-1 group-hover:text-red-700 transition-colors line-clamp-2"
             style={{ color: "#212529", fontFamily: "'Space Grotesk', sans-serif" }}>
             {produto.nome_peca}
           </h3>
@@ -175,13 +178,6 @@ export default function ProdutoCard({ produto, onAddToCart }) {
           </div>
         )}
 
-        {/* Ver detalhes */}
-        <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`}
-          className="flex items-center gap-1 text-xs font-mono-tech mb-3 hover:text-blue-700 transition-colors"
-          style={{ color: "#9CA3AF" }}>
-          <ExternalLink className="w-3 h-3" /> VER DETALHES
-        </Link>
-
         {/* Quantity + Add */}
         <div className="flex items-center gap-2 mt-auto">
           <div className="flex items-center" style={{
@@ -215,6 +211,13 @@ export default function ProdutoCard({ produto, onAddToCart }) {
             {produto.disponibilidade === "sem_estoque" ? "SOLICITAR" : "COTAR"}
           </button>
         </div>
+
+        {/* Ver detalhes */}
+        <Link to={`${createPageUrl("ProdutoDetalhe")}?id=${produto.id}`} style={{ textDecoration: 'none', display: 'block', width: '100%', marginTop: 4 }}>
+          <button style={{ width: '100%', background: 'transparent', border: '1px solid #D32F2F', color: '#D32F2F', padding: '4px 0', fontSize: 10, fontWeight: 700, borderRadius: 2, cursor: 'pointer', letterSpacing: '.04em' }}>
+            VER DETALHES →
+          </button>
+        </Link>
       </div>
     </div>
   );

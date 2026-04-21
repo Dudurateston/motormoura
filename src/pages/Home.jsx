@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { base44 } from "@/api/base44Client";
@@ -76,16 +76,74 @@ function KPICard({ valor, label, color, icon: Icon }) {
 
 }
 
-const NUMEROS = [
-{ valor: "+1.000", label: "SKUs em Estoque", color: "#D32F2F", icon: Package },
-{ valor: "10+", label: "Categorias Técnicas", color: "#1D4ED8", icon: Zap },
-{ valor: "100%", label: "Suporte B2B", color: "#16A34A", icon: Shield },
-{ valor: "CE→BR", label: "Despacho Nacional", color: "#D32F2F", icon: TrendingUp }];
+
 
 
 export default function Home() {
   const [searchText, setSearchText] = useState("");
   const parallaxY = useParallax(0.35);
+  const [segment, setSegment] = useState('motores');
+  const [typedText, setTypedText] = useState('');
+  const [produtosCount, setProdutosCount] = useState(null);
+  const [marcasCount, setMarcasCount] = useState(null);
+  const typingRef = useRef({ wi: 0, ci: 0, deleting: false });
+
+  const TYPING_SETS = {
+    motores: ['para motores Honda.', 'para geradores EZ/EU.', 'para motobombas WB.', 'para kits de partida.', 'para filtros originais.'],
+    construcao: ['para obras Vibromak.', 'para compactadores VK-85.', 'para ferramentas Makita.', 'para marteletes HR2470.', 'para esmerilhadeiras GA7020.'],
+  };
+
+  const segTheme = useMemo(() => segment === 'motores' ? {
+    accent: '#D32F2F',
+    accentA10: 'rgba(211,47,47,0.1)',
+    accentA05: 'rgba(211,47,47,0.05)',
+    accentA20: 'rgba(211,47,47,0.2)',
+    glow: 'rgba(211,47,47,0.12)',
+    label: 'MOTORES & MÁQUINAS',
+  } : {
+    accent: '#1d4ed8',
+    accentA10: 'rgba(29,78,216,0.1)',
+    accentA05: 'rgba(29,78,216,0.05)',
+    accentA20: 'rgba(29,78,216,0.2)',
+    glow: 'rgba(29,78,216,0.12)',
+    label: 'CONSTRUÇÃO CIVIL',
+  }, [segment]);
+
+  const NUMEROS = useMemo(() => [
+    { valor: produtosCount === null ? '...' : (produtosCount > 0 ? `${produtosCount}` : 'NOVO'), label: 'Produtos no Catálogo', color: '#D32F2F', icon: Package },
+    { valor: marcasCount === null ? '...' : `${marcasCount}`, label: 'Marcas Parceiras', color: '#1D4ED8', icon: Zap },
+    { valor: '24h', label: 'Entrega Fortaleza-CE', color: '#16A34A', icon: Shield },
+    { valor: 'B2B', label: 'Exclusivo Lojistas', color: '#D32F2F', icon: TrendingUp },
+  ], [produtosCount, marcasCount]);
+
+  useEffect(() => {
+    base44.entities.Produtos.list().then(r => setProdutosCount(r.length)).catch(() => setProdutosCount(null));
+    base44.entities.MarcasCompativeis.list().then(r => setMarcasCount(r.filter(m => m.ativa !== false).length)).catch(() => setMarcasCount(null));
+  }, []);
+
+  useEffect(() => {
+    const words = TYPING_SETS[segment];
+    const s = typingRef.current;
+    s.wi = 0; s.ci = 0; s.deleting = false;
+    setTypedText('');
+    let tid;
+    function tick() {
+      const w = words[s.wi];
+      if (!s.deleting) {
+        s.ci++;
+        setTypedText(w.slice(0, s.ci));
+        if (s.ci >= w.length) { s.deleting = true; tid = setTimeout(tick, 1900); return; }
+        tid = setTimeout(tick, 85);
+      } else {
+        s.ci--;
+        setTypedText(w.slice(0, s.ci));
+        if (s.ci <= 0) { s.wi = (s.wi + 1) % words.length; s.deleting = false; tid = setTimeout(tick, 200); return; }
+        tid = setTimeout(tick, 55);
+      }
+    }
+    tid = setTimeout(tick, 400);
+    return () => clearTimeout(tid);
+  }, [segment]);
 
   const handleSearch = () => {
     const safe = sanitizeSearchQuery(searchText);
@@ -104,148 +162,158 @@ export default function Home() {
       <div style={{ background: "#F8F9FA" }}>
 
         {/* ── HERO ─────────────────────────────────────────────── */}
-        <section className="relative flex items-center min-h-[560px] md:min-h-[620px] overflow-hidden">
-          {/* Parallax background */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url(${HERO_BG})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              transform: `translateY(${parallaxY}px)`,
-              willChange: "transform",
-              top: "-60px",
-              bottom: "-60px"
-            }} />
-          
+        <section style={{ background: '#07090e', display: 'flex', minHeight: '400px', position: 'relative', overflow: 'hidden', transition: 'background 0.5s ease' }}>
+          {/* Background grid + glow */}
+          <div style={{ position: 'absolute', inset: 0, backgroundImage: `linear-gradient(${segTheme.accentA05} 1px, transparent 1px), linear-gradient(90deg, ${segTheme.accentA05} 1px, transparent 1px)`, backgroundSize: '38px 38px', transition: 'background-image 0.5s ease' }} />
+          <div style={{ position: 'absolute', top: '-80px', left: '-40px', width: '400px', height: '300px', background: `radial-gradient(ellipse, ${segTheme.glow} 0%, transparent 65%)`, pointerEvents: 'none', transition: 'background 0.5s ease' }} />
+          {/* Corner marks */}
+          <div style={{ position: 'absolute', top: 14, left: 14, width: 18, height: 18, borderTop: `1px solid ${segTheme.accentA20}`, borderLeft: `1px solid ${segTheme.accentA20}`, transition: 'border-color 0.4s' }} />
+          <div style={{ position: 'absolute', top: 14, right: 14, width: 18, height: 18, borderTop: `1px solid ${segTheme.accentA20}`, borderRight: `1px solid ${segTheme.accentA20}`, transition: 'border-color 0.4s' }} />
 
-        
-
-          {/* Top accent line */}
-          <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #1D4ED8, #E53935, #1D4ED8)" }} />
-
-          {/* Subtle bottom fade to white */}
-          <div className="absolute bottom-0 left-0 right-0 h-24" style={{ background: "linear-gradient(to bottom, transparent, rgba(248,249,250,0.35))" }} />
-
-          <div className="relative z-10 max-w-4xl mx-auto px-6 py-20 w-full text-center">
-            <div className="flex items-center justify-center gap-2 mb-5">
-              <div className="w-8 h-[1px]" style={{ background: "rgba(229,57,53,0.7)" }} />
-              <span className="text-xs font-mono-tech tracking-widest" style={{ color: "rgba(229,57,53,0.9)", letterSpacing: "0.18em" }}>
-                PLATAFORMA B2B · FORTALEZA-CE
-              </span>
-              <div className="w-8 h-[1px]" style={{ background: "rgba(229,57,53,0.7)" }} />
+          {/* MAIN CONTENT */}
+          <div style={{ flex: 1, padding: '28px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center', zIndex: 2 }}>
+            {/* Status */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(34,197,94,0.07)', border: '1px solid rgba(34,197,94,0.18)', borderRadius: 20, padding: '3px 10px' }}>
+                <span style={{ width: 5, height: 5, background: '#22c55e', borderRadius: '50%', display: 'inline-block', animation: 'dotpulse 2s infinite' }} />
+                <span style={{ fontSize: 8, fontWeight: 700, color: '#86efac', letterSpacing: '.1em' }}>DISTRIBUIDOR AUTORIZADO</span>
+              </div>
             </div>
 
-            <h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold font-mono-tech mb-4 leading-tight"
-              style={{ color: "#FFFFFF", textShadow: "0 2px 20px rgba(0,0,0,0.5)" }}>
-              
-              Reposição Imediata para<br />
-              <span style={{
-                background: "linear-gradient(135deg, #EF5350, #E53935, #C62828)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text"
-              }}>
-                o seu Negócio.
-              </span>
+            {/* Headline */}
+            <h1 style={{ fontSize: 'clamp(20px, 4vw, 26px)', fontWeight: 900, color: '#f0f4f8', lineHeight: 1.2, letterSpacing: '-.01em', marginBottom: 8 }}>
+              A peça certa.<br />
+              Na hora certa.<br />
+              <span style={{ color: 'transparent', WebkitTextStroke: `1px ${segTheme.accent}`, transition: 'color 0.4s' }}>Para qualquer cliente.</span>
             </h1>
 
-            <p className="text-base md:text-lg mb-10 max-w-xl mx-auto" style={{ color: "rgba(203,213,225,0.85)" }}>
-              Estoque em Fortaleza para abastecimento rápido em todo o Norte e Nordete.
+            {/* Typing line */}
+            <div style={{ display: 'flex', alignItems: 'center', minHeight: 22, marginBottom: 14 }}>
+              <span style={{ fontSize: 12, color: 'rgba(148,163,184,0.55)' }}>Do seu estoque&nbsp;</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#fff', borderRight: `2px solid ${segTheme.accent}`, paddingRight: 2, minWidth: 2, animation: 'blinkcaret 0.65s step-end infinite', transition: 'border-color 0.4s' }}>{typedText}</span>
+            </div>
+
+            {/* Segment toggle */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 14 }}>
+              <span style={{ fontSize: 8, color: 'rgba(255,255,255,.25)', letterSpacing: '.12em', fontWeight: 700 }}>SEGMENTO:</span>
+              <div style={{ display: 'flex', gap: 3, background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 3, padding: 2 }}>
+                <button onClick={() => setSegment('motores')} style={{ padding: '4px 10px', fontSize: 8, fontWeight: 700, letterSpacing: '.08em', borderRadius: 2, cursor: 'pointer', color: segment === 'motores' ? '#fff' : 'rgba(255,255,255,.35)', border: 'none', background: segment === 'motores' ? '#D32F2F' : 'transparent', transition: 'all 0.3s' }}>MOTORES &amp; MÁQUINAS</button>
+                <button onClick={() => setSegment('construcao')} style={{ padding: '4px 10px', fontSize: 8, fontWeight: 700, letterSpacing: '.08em', borderRadius: 2, cursor: 'pointer', color: segment === 'construcao' ? '#fff' : 'rgba(255,255,255,.35)', border: 'none', background: segment === 'construcao' ? '#1d4ed8' : 'transparent', transition: 'all 0.3s' }}>CONSTRUÇÃO CIVIL</button>
+              </div>
+            </div>
+
+            {/* Copy */}
+            <p style={{ fontSize: 11, color: 'rgba(148,163,184,.65)', lineHeight: 1.75, marginBottom: 18, maxWidth: 380 }}>
+              Distribuidora técnica B2B para lojistas e revendedores.{' '}
+              <span style={{ background: 'rgba(239,68,68,.1)', border: '1px solid rgba(239,68,68,.2)', color: '#fca5a5', padding: '1px 5px', borderRadius: 2, fontSize: 9, fontWeight: 700 }}>Honda</span>{' '}
+              motores, geradores e motobombas.{' '}
+              <span style={{ background: 'rgba(59,130,246,.1)', border: '1px solid rgba(59,130,246,.2)', color: '#93c5fd', padding: '1px 5px', borderRadius: 2, fontSize: 9, fontWeight: 700 }}>Vibromak</span>{' '}
+              construção civil.{' '}
+              <span style={{ background: 'rgba(14,165,233,.1)', border: '1px solid rgba(14,165,233,.2)', color: '#7dd3fc', padding: '1px 5px', borderRadius: 2, fontSize: 9, fontWeight: 700 }}>Makita</span>{' '}
+              ferramentas profissionais. <strong style={{ color: 'rgba(255,255,255,.85)' }}>Um único fornecedor.</strong>
             </p>
 
-            {/* Search bar — glassmorphism */}
-            <div
-              className="flex gap-2 max-w-xl mx-auto mb-7 p-2"
-              style={{
-                background: "rgba(255,255,255,0.07)",
-                border: "1px solid rgba(255,255,255,0.14)",
-                borderRadius: "8px",
-                backdropFilter: "blur(12px)",
-                boxShadow: "0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.1)"
-              }}>
-              
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "#9CA3AF" }} />
+            {/* Search widget */}
+            <div style={{ background: 'rgba(255,255,255,.03)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 5, padding: 12, marginBottom: 16 }}>
+              <div style={{ fontSize: 7.5, fontWeight: 700, letterSpacing: '.14em', color: segTheme.accent, marginBottom: 8, transition: 'color 0.4s' }}>LOCALIZAR PEÇA OU EQUIPAMENTO</div>
+              <div style={{ display: 'flex', gap: 5 }}>
                 <input
-                  placeholder="Buscar por SKU, nome ou marca…"
                   value={searchText}
-                  onChange={(e) => setSearchText(e.target.value.slice(0, 200))}
-                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                  className="w-full h-11 pl-10 pr-3 text-sm font-mono-tech focus:outline-none bg-transparent"
-                  style={{ color: "#FFFFFF" }} />
-                
+                  onChange={e => setSearchText(e.target.value.slice(0, 200))}
+                  onKeyDown={e => e.key === 'Enter' && handleSearch()}
+                  placeholder={segment === 'motores' ? 'GX160 · EZ6500 · WB30 · carburador · partida retrátil…' : 'VK-85 · HR2470 · GA7020 · CPV-350 · compactador…'}
+                  style={{ flex: 1, background: 'rgba(255,255,255,.07)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 2, height: 31, padding: '0 10px', fontSize: 10, color: '#fff', outline: 'none' }}
+                />
+                <button
+                  onClick={handleSearch}
+                  style={{ background: segTheme.accent, border: 'none', borderRadius: 2, height: 31, padding: '0 14px', fontSize: 10, fontWeight: 700, color: '#fff', cursor: 'pointer', letterSpacing: '.04em', whiteSpace: 'nowrap', transition: 'background 0.4s' }}>
+                  BUSCAR →
+                </button>
               </div>
-              <button
-                onClick={handleSearch}
-                className="px-6 h-11 text-sm font-mono-tech font-bold flex-shrink-0"
-                style={{
-                  background: "linear-gradient(135deg, #E53935, #C62828)",
-                  color: "#fff",
-                  borderRadius: "6px",
-                  border: "none",
-                  boxShadow: "0 4px 12px rgba(229,57,53,0.4)",
-                  transition: "box-shadow 0.2s, transform 0.1s"
-                }}
-                onMouseEnter={(e) => {e.currentTarget.style.boxShadow = "0 6px 20px rgba(229,57,53,0.55)";e.currentTarget.style.transform = "translateY(-1px)";}}
-                onMouseLeave={(e) => {e.currentTarget.style.boxShadow = "0 4px 12px rgba(229,57,53,0.4)";e.currentTarget.style.transform = "translateY(0)";}}>
-                
-                BUSCAR
-              </button>
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link to={createPageUrl("Catalogo")}>
-                <button
-                  className="flex items-center gap-2 px-7 h-12 text-sm font-mono-tech font-bold"
-                  style={{
-                    background: "linear-gradient(135deg, #E53935, #C62828)",
-                    color: "#fff",
-                    borderRadius: "6px",
-                    border: "none",
-                    boxShadow: "0 4px 20px rgba(229,57,53,0.35)",
-                    transition: "transform 0.15s, box-shadow 0.2s"
-                  }}
-                  onMouseEnter={(e) => {e.currentTarget.style.transform = "translateY(-2px)";e.currentTarget.style.boxShadow = "0 8px 28px rgba(229,57,53,0.5)";}}
-                  onMouseLeave={(e) => {e.currentTarget.style.transform = "translateY(0)";e.currentTarget.style.boxShadow = "0 4px 20px rgba(229,57,53,0.35)";}}>
-                  
-                  Ver Catálogo Completo <ChevronRight className="w-4 h-4" />
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+              <Link to={createPageUrl('Catalogo')}>
+                <button style={{ background: segTheme.accent, color: '#fff', border: 'none', borderRadius: 3, padding: '9px 16px', fontSize: 10, fontWeight: 700, cursor: 'pointer', letterSpacing: '.06em', display: 'flex', alignItems: 'center', gap: 5, transition: 'background 0.4s' }}>
+                  <ChevronRight style={{ width: 11, height: 11 }} /> VER CATÁLOGO COMPLETO
                 </button>
               </Link>
-              <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
-                <button
-                  className="flex items-center gap-2 px-7 h-12 text-sm font-mono-tech"
-                  style={{
-                    background: "rgba(37,211,102,0.12)",
-                    border: "1px solid rgba(37,211,102,0.35)",
-                    color: "#4ADE80",
-                    borderRadius: "6px",
-                    backdropFilter: "blur(8px)",
-                    transition: "background 0.2s, transform 0.15s"
-                  }}
-                  onMouseEnter={(e) => {e.currentTarget.style.background = "rgba(37,211,102,0.2)";e.currentTarget.style.transform = "translateY(-1px)";}}
-                  onMouseLeave={(e) => {e.currentTarget.style.background = "rgba(37,211,102,0.12)";e.currentTarget.style.transform = "translateY(0)";}}>
-                  
-                  <MessageCircle className="w-4 h-4" /> Falar com Especialista
+              <Link to={createPageUrl('MinhaConta')}>
+                <button style={{ background: 'transparent', color: 'rgba(255,255,255,.6)', border: '1px solid rgba(255,255,255,.16)', borderRadius: 3, padding: '9px 16px', fontSize: 10, fontWeight: 700, cursor: 'pointer', letterSpacing: '.06em' }}>
+                  QUERO SER LOJISTA
                 </button>
+              </Link>
+              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" style={{ fontSize: 8.5, color: 'rgba(255,255,255,.25)', display: 'flex', alignItems: 'center', gap: 3, textDecoration: 'none', fontFamily: 'monospace' }}>
+                <MessageCircle style={{ width: 10, height: 10 }} /> WhatsApp · Especialista técnico
               </a>
+            </div>
+          </div>
+
+          {/* RIGHT PANEL */}
+          <div style={{ width: 240, flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.05)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="hidden lg:flex">
+            {/* Brands */}
+            <div style={{ padding: '14px 14px 10px', borderBottom: '1px solid rgba(255,255,255,.05)' }}>
+              <div style={{ fontSize: 7.5, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.22)', marginBottom: 9 }}>PORTFÓLIO DE MARCAS</div>
+              {[
+                { name: 'HONDA', tag: 'MOTORES & MÁQUINAS', color: '#ef4444', items: ['GX160', 'GX390', 'EZ6500', 'EU22i', 'WB30'] },
+                { name: 'VIBROMAK', tag: 'CONSTRUÇÃO CIVIL', color: '#3b82f6', items: ['VK-85', 'VMR-75H', 'CPV-350', 'MAV-2400'] },
+                { name: 'MAKITA', tag: 'FERRAMENTAS PROF.', color: '#0ea5e9', items: ['GA7020', 'HR2470', 'HM1213C', '5007N'] },
+              ].map(b => (
+                <div key={b.name} style={{ borderRadius: 4, border: '1px solid rgba(255,255,255,.07)', marginBottom: 5, background: 'rgba(255,255,255,.02)', borderLeft: `3px solid ${b.color}`, padding: '8px 10px', cursor: 'pointer' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                    <span style={{ fontSize: 11, fontWeight: 900, color: '#fff' }}>{b.name}</span>
+                    <span style={{ fontSize: 7.5, color: 'rgba(255,255,255,.3)', letterSpacing: '.06em' }}>{b.tag}</span>
+                  </div>
+                  <div style={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+                    {b.items.map(i => <span key={i} style={{ fontSize: 7.5, fontFamily: 'monospace', color: 'rgba(255,255,255,.4)', background: 'rgba(255,255,255,.05)', padding: '2px 5px', borderRadius: 1 }}>{i}</span>)}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/* Steps */}
+            <div style={{ padding: '10px 14px', borderBottom: '1px solid rgba(255,255,255,.05)' }}>
+              <div style={{ fontSize: 7.5, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.22)', marginBottom: 8 }}>DO PEDIDO À ENTREGA</div>
+              {[
+                { n: 1, t: 'Busque pelo SKU, modelo ou equipamento' },
+                { n: 2, t: 'Monte o orçamento e envie pelo WhatsApp' },
+                { n: 3, t: 'Receba em 24h (CE) ou 48–72h (Brasil)' },
+              ].map((s, i) => (
+                <React.Fragment key={s.n}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '4px 0' }}>
+                    <div style={{ width: 16, height: 16, minWidth: 16, background: '#D32F2F', borderRadius: '50%', fontSize: 8, fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 1 }}>{s.n}</div>
+                    <div style={{ fontSize: 9, color: 'rgba(255,255,255,.45)', lineHeight: 1.4 }}>{s.t}</div>
+                  </div>
+                  {i < 2 && <div style={{ width: 1, height: 6, background: 'rgba(211,47,47,.15)', marginLeft: 7 }} />}
+                </React.Fragment>
+              ))}
+            </div>
+            {/* KPIs */}
+            <div style={{ padding: '9px 14px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
+              {NUMEROS.map(n => (
+                <div key={n.label} style={{ textAlign: 'center', padding: '7px 4px', background: 'rgba(255,255,255,.025)', border: '1px solid rgba(255,255,255,.05)', borderRadius: 3 }}>
+                  <div style={{ fontSize: 14, fontWeight: 900, color: n.color, fontFamily: 'monospace', lineHeight: 1 }}>{n.valor}</div>
+                  <div style={{ fontSize: 6.5, color: 'rgba(255,255,255,.25)', letterSpacing: '.07em', marginTop: 2, lineHeight: 1.3 }}>{n.label.toUpperCase()}</div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
+        {/* ── SEGMENT INDICATOR BAND ── */}
+        <div style={{ background: '#0d0d0d', padding: '7px 1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: `1px solid ${segTheme.accent}40`, transition: 'border-color 0.4s' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+            <div style={{ width: 7, height: 7, borderRadius: '50%', background: segTheme.accent, transition: 'background 0.4s' }} />
+            <span style={{ fontSize: 9, fontWeight: 700, color: segTheme.accent, letterSpacing: '.14em', transition: 'color 0.4s' }}>VISUALIZANDO: {segTheme.label}</span>
+          </div>
+          <div style={{ display: 'flex', gap: 5 }}>
+            <button onClick={() => setSegment('motores')} style={{ padding: '3px 9px', fontSize: 8, fontWeight: 700, borderRadius: 2, cursor: 'pointer', color: segment === 'motores' ? '#fff' : 'rgba(255,255,255,.3)', border: `1px solid ${segment === 'motores' ? '#D32F2F' : 'rgba(255,255,255,.1)'}`, background: segment === 'motores' ? '#D32F2F' : 'transparent', letterSpacing: '.07em', transition: 'all 0.3s' }}>MOTORES</button>
+            <button onClick={() => setSegment('construcao')} style={{ padding: '3px 9px', fontSize: 8, fontWeight: 700, borderRadius: 2, cursor: 'pointer', color: segment === 'construcao' ? '#fff' : 'rgba(255,255,255,.3)', border: `1px solid ${segment === 'construcao' ? '#1d4ed8' : 'rgba(255,255,255,.1)'}`, background: segment === 'construcao' ? '#1d4ed8' : 'transparent', letterSpacing: '.07em', transition: 'all 0.3s' }}>CONSTRUÇÃO</button>
+          </div>
+        </div>
+
         {/* ── GRADIENT DIVIDER ── */}
         <div style={{ height: "2px", background: "linear-gradient(90deg, #F8F9FA, #E53935 30%, #1D4ED8 70%, #F8F9FA)" }} />
-
-        {/* ── KPI STRIP ── */}
-        <section style={{ background: "linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%)", borderBottom: "1px solid #E2E8F0" }}>
-          <div className="max-w-5xl mx-auto px-4 py-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-            {NUMEROS.map((n) =>
-            <KPICard key={n.label} {...n} />
-            )}
-          </div>
-        </section>
 
         {/* ── CARROSSEL DE CATEGORIAS ── */}
         <section style={{ background: "#F8F9FA" }}>
