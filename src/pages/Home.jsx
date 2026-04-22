@@ -302,9 +302,9 @@ export default function Home() {
               )}
             </div>
             {/* KPIs */}
-            <div style={{ padding: '12px 18px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
+            <div style={{ padding: '12px 18px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }} className="my-8">
               {NUMEROS.map((n) =>
-              <div key={n.label} style={{ textAlign: 'center', padding: '10px 6px', background: 'rgba(255,255,255,.035)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 4 }}>
+              <div key={n.label} style={{ textAlign: 'center', padding: '10px 6px', background: 'rgba(255,255,255,.035)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 4 }} className="mt-4">
                   <div style={{ fontSize: 18, fontWeight: 900, color: n.color, fontFamily: 'monospace', lineHeight: 1 }}>{n.valor}</div>
                   <div style={{ fontSize: 8, color: 'rgba(255,255,255,.4)', letterSpacing: '.07em', marginTop: 4, lineHeight: 1.4 }}>{n.label.toUpperCase()}</div>
                 </div>
