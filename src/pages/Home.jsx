@@ -264,7 +264,7 @@ export default function Home() {
           </div>
 
           {/* RIGHT PANEL — 1/3 da largura total */}
-          <div style={{ width: 'clamp(280px, 33%, 380px)', flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.07)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="mr-8 pl-1 hidden lg:flex">
+          <div style={{ width: 'clamp(280px, 33%, 380px)', flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.07)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="mr-8 pb-8 hidden lg:flex">
             {/* Brands */}
             <div style={{ padding: '18px 18px 14px', borderBottom: '1px solid rgba(255,255,255,.07)' }}>
               <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.4)', marginBottom: 12 }}>PORTFÓLIO DE MARCAS</div>
