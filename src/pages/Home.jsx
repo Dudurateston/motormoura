@@ -264,7 +264,7 @@ export default function Home() {
           </div>
 
           {/* RIGHT PANEL — 1/3 da largura total */}
-          <div style={{ width: 'clamp(280px, 33%, 380px)', flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.07)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="mr-10 hidden lg:flex">
+          <div style={{ width: 'clamp(280px, 33%, 380px)', flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.07)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="mr-12 hidden lg:flex">
             {/* Brands */}
             <div style={{ padding: '18px 18px 14px', borderBottom: '1px solid rgba(255,255,255,.07)' }}>
               <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.4)', marginBottom: 12 }}>PORTFÓLIO DE MARCAS</div>
@@ -302,7 +302,7 @@ export default function Home() {
               )}
             </div>
             {/* KPIs */}
-            <div style={{ padding: '12px 18px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }} className="my-8">
+            <div style={{ padding: '12px 18px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }} className="my-1">
               {NUMEROS.map((n) =>
               <div key={n.label} style={{ textAlign: 'center', padding: '10px 6px', background: 'rgba(255,255,255,.035)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 4 }} className="mt-4">
                   <div style={{ fontSize: 18, fontWeight: 900, color: n.color, fontFamily: 'monospace', lineHeight: 1 }}>{n.valor}</div>
