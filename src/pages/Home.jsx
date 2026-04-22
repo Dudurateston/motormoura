@@ -92,7 +92,7 @@ export default function Home() {
 
   const TYPING_SETS = {
     motores: ['sem esperar importação.', 'com garantia de origem.', 'no mesmo dia em Fortaleza.', 'direto do distribuidor.', 'para Honda, Toyama e Tekna.'],
-    construcao: ['para Vibromak e Makita.', 'sem parar sua obra.', 'com suporte técnico real.', 'direto do distribuidor.', 'para compactadores e ferramentas.'],
+    construcao: ['para Vibromak e Makita.', 'sem parar sua obra.', 'com suporte técnico real.', 'direto do distribuidor.', 'para compactadores e ferramentas.']
   };
 
   const segTheme = useMemo(() => segment === 'motores' ? {
@@ -101,42 +101,42 @@ export default function Home() {
     accentA05: 'rgba(211,47,47,0.05)',
     accentA20: 'rgba(211,47,47,0.2)',
     glow: 'rgba(211,47,47,0.12)',
-    label: 'MOTORES & MÁQUINAS',
+    label: 'MOTORES & MÁQUINAS'
   } : {
     accent: '#1d4ed8',
     accentA10: 'rgba(29,78,216,0.1)',
     accentA05: 'rgba(29,78,216,0.05)',
     accentA20: 'rgba(29,78,216,0.2)',
     glow: 'rgba(29,78,216,0.12)',
-    label: 'CONSTRUÇÃO CIVIL',
+    label: 'CONSTRUÇÃO CIVIL'
   }, [segment]);
 
   const NUMEROS = useMemo(() => [
-    {
-      valor: produtosCount === null ? '...' : (produtosCount > 0 ? `${produtosCount}` : 'NOVO'),
-      label: 'Produtos no Catálogo',
-      color: '#D32F2F',
-      icon: Package
-    },
-    {
-      valor: marcasCount === null ? '...' : `${marcasCount}`,
-      label: 'Marcas Parceiras',
-      color: '#1D4ED8',
-      icon: Zap
-    },
-    { valor: '24h', label: 'Entrega Fortaleza-CE', color: '#16A34A', icon: Shield },
-    { valor: 'B2B', label: 'Exclusivo Lojistas', color: '#D32F2F', icon: TrendingUp },
-  ], [produtosCount, marcasCount]);
+  {
+    valor: produtosCount === null ? '...' : produtosCount > 0 ? `${produtosCount}` : 'NOVO',
+    label: 'Produtos no Catálogo',
+    color: '#D32F2F',
+    icon: Package
+  },
+  {
+    valor: marcasCount === null ? '...' : `${marcasCount}`,
+    label: 'Marcas Parceiras',
+    color: '#1D4ED8',
+    icon: Zap
+  },
+  { valor: '24h', label: 'Entrega Fortaleza-CE', color: '#16A34A', icon: Shield },
+  { valor: 'B2B', label: 'Exclusivo Lojistas', color: '#D32F2F', icon: TrendingUp }],
+  [produtosCount, marcasCount]);
 
   useEffect(() => {
-    base44.entities.Produtos.list().then(r => setProdutosCount(r.length)).catch(() => setProdutosCount(null));
-    base44.entities.MarcasCompativeis.list().then(r => setMarcasCount(r.filter(m => m.ativa !== false).length)).catch(() => setMarcasCount(null));
+    base44.entities.Produtos.list().then((r) => setProdutosCount(r.length)).catch(() => setProdutosCount(null));
+    base44.entities.MarcasCompativeis.list().then((r) => setMarcasCount(r.filter((m) => m.ativa !== false).length)).catch(() => setMarcasCount(null));
   }, []);
 
   useEffect(() => {
     const words = TYPING_SETS[segment];
     const s = typingRef.current;
-    s.wi = 0; s.ci = 0; s.deleting = false;
+    s.wi = 0;s.ci = 0;s.deleting = false;
     setTypedText('');
     let tid;
     function tick() {
@@ -144,12 +144,12 @@ export default function Home() {
       if (!s.deleting) {
         s.ci++;
         setTypedText(w.slice(0, s.ci));
-        if (s.ci >= w.length) { s.deleting = true; tid = setTimeout(tick, 1900); return; }
+        if (s.ci >= w.length) {s.deleting = true;tid = setTimeout(tick, 1900);return;}
         tid = setTimeout(tick, 85);
       } else {
         s.ci--;
         setTypedText(w.slice(0, s.ci));
-        if (s.ci <= 0) { s.wi = (s.wi + 1) % words.length; s.deleting = false; tid = setTimeout(tick, 200); return; }
+        if (s.ci <= 0) {s.wi = (s.wi + 1) % words.length;s.deleting = false;tid = setTimeout(tick, 200);return;}
         tid = setTimeout(tick, 55);
       }
     }
@@ -230,11 +230,11 @@ export default function Home() {
               <div style={{ display: 'flex', gap: 6 }}>
                 <input
                   value={searchText}
-                  onChange={e => setSearchText(e.target.value.slice(0, 200))}
-                  onKeyDown={e => e.key === 'Enter' && handleSearch()}
+                  onChange={(e) => setSearchText(e.target.value.slice(0, 200))}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                   placeholder={segment === 'motores' ? 'GX160 · EZ6500 · WB30 · carburador · partida retrátil…' : 'VK-85 · HR2470 · GA7020 · CPV-350 · compactador…'}
-                  style={{ flex: 1, background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 3, height: 38, padding: '0 12px', fontSize: 12, color: '#fff', outline: 'none' }}
-                />
+                  style={{ flex: 1, background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.12)', borderRadius: 3, height: 38, padding: '0 12px', fontSize: 12, color: '#fff', outline: 'none' }} />
+                
                 <button
                   onClick={handleSearch}
                   style={{ background: segTheme.accent, border: 'none', borderRadius: 3, height: 38, padding: '0 18px', fontSize: 11, fontWeight: 700, color: '#fff', cursor: 'pointer', letterSpacing: '.04em', whiteSpace: 'nowrap', transition: 'background 0.4s' }}>
@@ -264,51 +264,51 @@ export default function Home() {
           </div>
 
           {/* RIGHT PANEL — 1/3 da largura total */}
-          <div style={{ width: 'clamp(280px, 33%, 380px)', flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.07)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="hidden lg:flex">
+          <div style={{ width: 'clamp(280px, 33%, 380px)', flexShrink: 0, borderLeft: '1px solid rgba(255,255,255,.07)', display: 'flex', flexDirection: 'column', zIndex: 2 }} className="mr-1 hidden lg:flex">
             {/* Brands */}
             <div style={{ padding: '18px 18px 14px', borderBottom: '1px solid rgba(255,255,255,.07)' }}>
               <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.4)', marginBottom: 12 }}>PORTFÓLIO DE MARCAS</div>
               {[
-                { name: 'HONDA', tag: 'MOTORES & MÁQUINAS', color: '#ef4444', items: ['GX160', 'GX390', 'EZ6500', 'EU22i', 'WB30'] },
-                { name: 'VIBROMAK', tag: 'CONSTRUÇÃO CIVIL', color: '#f97316', items: ['VK-85', 'VMR-75H', 'CPV-350', 'MAV-2400'] },
-                { name: 'MAKITA', tag: 'FERRAMENTAS PROF.', color: '#0ea5e9', items: ['GA7020', 'HR2470', 'HM1213C', '5007N'] },
-              ].map(b => (
-                <div key={b.name} style={{ borderRadius: 4, border: '1px solid rgba(255,255,255,.08)', marginBottom: 7, background: 'rgba(255,255,255,.03)', borderLeft: `3px solid ${b.color}`, padding: '10px 12px', cursor: 'pointer' }}>
+              { name: 'HONDA', tag: 'MOTORES & MÁQUINAS', color: '#ef4444', items: ['GX160', 'GX390', 'EZ6500', 'EU22i', 'WB30'] },
+              { name: 'VIBROMAK', tag: 'CONSTRUÇÃO CIVIL', color: '#f97316', items: ['VK-85', 'VMR-75H', 'CPV-350', 'MAV-2400'] },
+              { name: 'MAKITA', tag: 'FERRAMENTAS PROF.', color: '#0ea5e9', items: ['GA7020', 'HR2470', 'HM1213C', '5007N'] }].
+              map((b) =>
+              <div key={b.name} style={{ borderRadius: 4, border: '1px solid rgba(255,255,255,.08)', marginBottom: 7, background: 'rgba(255,255,255,.03)', borderLeft: `3px solid ${b.color}`, padding: '10px 12px', cursor: 'pointer' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
                     <span style={{ fontSize: 13, fontWeight: 900, color: '#fff' }}>{b.name}</span>
                     <span style={{ fontSize: 9, color: 'rgba(255,255,255,.45)', letterSpacing: '.06em' }}>{b.tag}</span>
                   </div>
                   <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-                    {b.items.map(i => <span key={i} style={{ fontSize: 9, fontFamily: 'monospace', color: 'rgba(255,255,255,.55)', background: 'rgba(255,255,255,.07)', padding: '2px 6px', borderRadius: 2 }}>{i}</span>)}
+                    {b.items.map((i) => <span key={i} style={{ fontSize: 9, fontFamily: 'monospace', color: 'rgba(255,255,255,.55)', background: 'rgba(255,255,255,.07)', padding: '2px 6px', borderRadius: 2 }}>{i}</span>)}
                   </div>
                 </div>
-              ))}
+              )}
             </div>
             {/* Steps */}
             <div style={{ padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,.07)' }}>
               <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: '.16em', color: 'rgba(255,255,255,.4)', marginBottom: 12 }}>DO PEDIDO À ENTREGA</div>
               {[
-                { n: 1, t: 'Busque pelo SKU, modelo ou equipamento' },
-                { n: 2, t: 'Monte o orçamento e envie pelo WhatsApp' },
-                { n: 3, t: 'Receba em 24h (CE) ou 48–72h (Brasil)' },
-              ].map((s, i) => (
-                <React.Fragment key={s.n}>
+              { n: 1, t: 'Busque pelo SKU, modelo ou equipamento' },
+              { n: 2, t: 'Monte o orçamento e envie pelo WhatsApp' },
+              { n: 3, t: 'Receba em 24h (CE) ou 48–72h (Brasil)' }].
+              map((s, i) =>
+              <React.Fragment key={s.n}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '5px 0' }}>
                     <div style={{ width: 20, height: 20, minWidth: 20, background: '#D32F2F', borderRadius: '50%', fontSize: 10, fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 1 }}>{s.n}</div>
                     <div style={{ fontSize: 11, color: 'rgba(255,255,255,.65)', lineHeight: 1.5 }}>{s.t}</div>
                   </div>
                   {i < 2 && <div style={{ width: 1, height: 8, background: 'rgba(211,47,47,.2)', marginLeft: 9 }} />}
                 </React.Fragment>
-              ))}
+              )}
             </div>
             {/* KPIs */}
             <div style={{ padding: '12px 18px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6 }}>
-              {NUMEROS.map(n => (
-                <div key={n.label} style={{ textAlign: 'center', padding: '10px 6px', background: 'rgba(255,255,255,.035)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 4 }}>
+              {NUMEROS.map((n) =>
+              <div key={n.label} style={{ textAlign: 'center', padding: '10px 6px', background: 'rgba(255,255,255,.035)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 4 }}>
                   <div style={{ fontSize: 18, fontWeight: 900, color: n.color, fontFamily: 'monospace', lineHeight: 1 }}>{n.valor}</div>
                   <div style={{ fontSize: 8, color: 'rgba(255,255,255,.4)', letterSpacing: '.07em', marginTop: 4, lineHeight: 1.4 }}>{n.label.toUpperCase()}</div>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </section>
