@@ -44,7 +44,7 @@ export default function Orcamento() {
   };
 
   const formatWhatsAppMessage = () => {
-    let msg = "Olá, equipa MotorMoura! Gostaria de cotar as seguintes peças:\n\n";
+    let msg = "Olá, equipa Motormoura! Gostaria de cotar as seguintes peças:\n\n";
     cart.forEach((item) => { msg += `• ${item.quantidade}x ${item.nome_peca} (SKU: ${item.sku_codigo})\n`; });
     if (observacoes) msg += `\nObservações: ${observacoes}`;
     if (user) msg += `\n\nAtenciosamente,\n${user.full_name}`;
@@ -207,7 +207,7 @@ export default function Orcamento() {
             OBSERVAÇÕES (OPCIONAL)
           </label>
           <textarea
-            placeholder="Informe prazos, condições especiais, ou outras observações para a equipa MotorMoura..."
+            placeholder="Informe prazos, condições especiais, ou outras observações para a equipa Motormoura..."
             value={observacoes}
             onChange={(e) => setObservacoes(e.target.value)}
             rows={3}

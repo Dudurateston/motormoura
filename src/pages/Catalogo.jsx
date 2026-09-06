@@ -135,8 +135,8 @@ export default function Catalogo() {
   const pageTitle = selectedCategoria || "Todas as Peças de Reposição";
   
   const seoTitle = selectedCategoria 
-    ? `${selectedCategoria} - Peças de Reposição | MotorMoura` 
-    : "Catálogo de Peças para Motores, Geradores e Motobombas | MotorMoura";
+    ? `${selectedCategoria} - Peças de Reposição | Motormoura` 
+    : "Catálogo de Peças para Motores, Geradores e Motobombas | Motormoura";
     
   const seoDescription = selectedCategoria
     ? `Peças de reposição para ${selectedCategoria}. Mais de ${filtered.length} itens disponíveis. Importação direta, qualidade garantida. Fortaleza-CE.`

@@ -77,6 +77,7 @@ export default function Admin() {
   const [favoritos, setFavoritos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [guideVisible, setGuideVisible] = useState(localStorage.getItem("mm_guide_dismissed") !== "1");
 
   // Catálogo CRUD state
   const [catalogoBusca, setCatalogoBusca] = useState("");
@@ -458,7 +459,17 @@ export default function Admin() {
   });
 
   const TABS = ["dashboard", "lojistas", "orcamentos", "catalogo", "categorias", "marcas"];
-  const TAB_LABELS = { dashboard: "Dashboard", lojistas: "Lojistas", orcamentos: "Orçamentos", catalogo: "Catálogo", categorias: "Categorias", marcas: "Marcas" };
+  const TAB_LABELS = { dashboard: "📊 Visão Geral", lojistas: "🏪 Lojistas (Clientes)", orcamentos: "📄 Orçamentos", catalogo: "📦 Catálogo (Produtos)", categorias: "🗂️ Categorias", marcas: "🏷️ Marcas" };
+
+  // Guia rápido: descrição de cada aba (facilita o dia a dia)
+  const TAB_HELP = {
+    dashboard: "Números do site em tempo real: quantos lojistas, orçamentos e peças favoritadas.",
+    lojistas: "Lista dos lojistas cadastrados. Aprove ou recuse novos cadastros aqui.",
+    orcamentos: "Toda cotação que chega pelo site, com itens e status. Responda no WhatsApp.",
+    catalogo: "Cadastre, edite e ative/desative os produtos do site. O que estiver ATIVO aparece pra todos.",
+    categorias: "As seções do catálogo (ex.: Peças de Alto Giro, Motobombas). Crie novas seções aqui.",
+    marcas: "As marcas que aparecem no site (Honda, Makita, Vibromak, Menegotti...).",
+  };
 
   const ICON_OPTIONS = ["Cpu", "Zap", "Droplets", "Leaf", "Filter", "RotateCw", "Fuel", "Settings", "Flame", "Activity", "Wrench", "Star", "Battery", "Sprout", "Package"];
 
@@ -483,6 +494,27 @@ export default function Admin() {
             </div>
           )}
         </div>
+
+        {/* Guia rápido */}
+        {guideVisible && (
+          <div className="mb-6 p-4 flex items-start gap-3" style={{ background: "#FFFFFF", border: "1px solid #E2E8F0", borderLeft: "3px solid #D32F2F", borderRadius: "4px" }}>
+            <span className="text-lg leading-none">👋</span>
+            <div className="flex-1">
+              <p className="text-sm font-bold font-mono-tech" style={{ color: "#212529" }}>Como usar o painel</p>
+              <p className="text-xs mt-1" style={{ color: "#6C757D", lineHeight: 1.7 }}>
+                Use as abas acima: <strong>Catálogo</strong> para cadastrar e editar produtos, <strong>Lojistas</strong> para aprovar novos cadastros,
+                <strong> Orçamentos</strong> para ver as cotações que chegam pelo site. Clique no botão <em>"Ver ajuda"</em> dentro de cada aba se tiver dúvida.
+              </p>
+            </div>
+            <button
+              onClick={() => { localStorage.setItem("mm_guide_dismissed", "1"); setGuideVisible(false); }}
+              className="text-xs font-mono-tech px-3 py-1.5"
+              style={{ color: "#6C757D", border: "1px solid #E2E8F0", borderRadius: "4px", background: "#FFFFFF" }}
+            >
+              OK, ENTENDI
+            </button>
+          </div>
+        )}
 
         {/* Tabs */}
         <div className="flex gap-0 mb-6 overflow-x-auto" style={{ borderBottom: "1px solid #E2E8F0" }}>

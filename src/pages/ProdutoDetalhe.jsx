@@ -44,7 +44,7 @@ export default function ProdutoDetalhe() {
   };
 
   const handleWhatsApp = () => {
-    const msg = `Olá, MotorMoura! Gostaria de solicitar orçamento:\n\n• ${quantidade}x ${produto.nome_peca}\n  SKU: ${produto.sku_codigo}\n  Marca: ${produto.relacionamento_marca || "—"}\n\nAguardo retorno!`;
+    const msg = `Olá, Motormoura! Gostaria de solicitar orçamento:\n\n• ${quantidade}x ${produto.nome_peca}\n  SKU: ${produto.sku_codigo}\n  Marca: ${produto.relacionamento_marca || "—"}\n\nAguardo retorno!`;
     window.open(whatsappUrl(msg), "_blank");
   };
 

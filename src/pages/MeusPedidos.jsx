@@ -83,7 +83,7 @@ export default function MeusPedidos() {
   return (
     <div className="mm-bg min-h-screen">
       <SEOHead 
-        title="Meus Pedidos | MotorMoura"
+        title="Meus Pedidos | Motormoura"
         description="Histórico de orçamentos e solicitações"
       />
 

@@ -101,7 +101,7 @@ export default function Footer() {
           </h4>
           <div className="space-y-4">
             <a
-              href="https://api.whatsapp.com/send?phone=5511999999999&text=Olá,%20MotorMoura!%20Gostaria%20de%20saber%20mais."
+              href="https://api.whatsapp.com/send?phone=5511999999999&text=Olá,%20Motormoura!%20Gostaria%20de%20saber%20mais."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 group"
@@ -121,7 +121,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="mailto:b2b@motormoura.com.br"
+              href="mailto:comercial@motormouraequipamentos.com.br"
               className="flex items-center gap-3 group"
             >
               <div
@@ -133,7 +133,7 @@ export default function Footer() {
               <div>
                 <p className="text-xs font-mono-tech" style={{ color: "#4B5563" }}>E-MAIL CORPORATIVO</p>
                 <p className="group-hover:text-[#60A5FA] transition-colors" style={{ color: "#9CA3AF", fontSize: "14px" }}>
-                  b2b@motormoura.com.br
+                  comercial@motormouraequipamentos.com.br
                 </p>
               </div>
             </a>

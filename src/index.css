@@ -86,3 +86,86 @@
     @apply bg-background text-foreground;
   }
 }
+/* ═══════════════════════════════════════════════════════════════
+   MOTORMOURA — IDENTIDADE VISUAL OFICIAL (Manual da Marca)
+   Vermelho C1272D · Gunmetal 333 · Fundos claros F9F9F9/FFF
+   Tipografia: Montserrat (Bold títulos, Regular corpo)
+   ═══════════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-400.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-500.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-600.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-700.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat-800.woff2') format('woff2');
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+
+:root {
+  --mm-red: #C1272D;
+  --mm-red-hover: #DC2626;
+  --mm-gunmetal: #333333;
+  --mm-gray-dark: #595959;
+  --mm-gray: #808080;
+  --mm-gray-light: #BFBFBF;
+  --mm-bg: #F9F9F9;
+  --mm-white: #FFFFFF;
+}
+
+body, html {
+  font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif !important;
+  background: #F9F9F9;
+  color: #333333;
+}
+
+/* Padrão diagonal industrial das divisórias */
+.mm-diagonal {
+  height: 6px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #C1272D 0px, #C1272D 8px,
+    transparent 8px, transparent 16px
+  );
+  opacity: 0.9;
+}
+
+/* Botões da marca */
+.mm-btn-primary {
+  background: #C1272D; color: #FFFFFF; font-weight: 700;
+  border-radius: 4px; transition: background .18s ease, transform .12s ease;
+}
+.mm-btn-primary:hover { background: #DC2626; transform: translateY(-1px); }
+.mm-btn-outline {
+  background: #FFFFFF; color: #C1272D; font-weight: 700;
+  border: 2px solid #C1272D; border-radius: 4px;
+  transition: background .18s ease, color .18s ease;
+}
+.mm-btn-outline:hover { background: #C1272D; color: #FFFFFF; }
+
+/* WhatsApp flutuante */
+.mm-float-wa {
+  position: fixed; right: 20px; bottom: 20px; z-index: 55;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.mm-float-wa:hover { transform: scale(1.08); box-shadow: 0 6px 22px rgba(0,0,0,.3); }
+@media (max-width: 768px) { .mm-float-wa { width: 50px; height: 50px; right: 14px; bottom: 14px; } }

@@ -119,7 +119,7 @@ export default function MinhaConta() {
 
   return (
     <>
-      <SEOHead title="Minha Conta - Área do Lojista | MotorMoura" description="Gerencie sua conta de lojista MotorMoura." />
+      <SEOHead title="Minha Conta - Área do Lojista | Motormoura" description="Gerencie sua conta de lojista Motormoura." />
       <div style={{ background: "#F8F9FA", minHeight: "100vh" }}>
         <div className="max-w-5xl mx-auto px-4 py-8">
 

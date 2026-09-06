@@ -16,7 +16,7 @@ export async function loadConfig() {
 }
 
 export function whatsappUrl(msg = "") {
-  return `https://api.whatsapp.com/send?phone=${_whatsappNumber}&text=${encodeURIComponent(msg || "Olá, MotorMoura!")}`;
+  return `https://api.whatsapp.com/send?phone=${_whatsappNumber}&text=${encodeURIComponent(msg || "Olá, Motormoura!")}`;
 }
 
 export function getWhatsappNumber() {
