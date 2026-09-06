@@ -89,7 +89,7 @@ export default function Home() {
 
       {/* ══ HERO ═══════════════════════════════════════════════ */}
       <section style={{ background: "#FFFFFF" }}>
-        <div className="max-w-7xl mx-auto px-4 pt-12 pb-16 md:pt-20 md:pb-24 grid md:grid-cols-2 gap-10 items-center">
+        <div className="max-w-7xl mx-auto px-4 pt-12 pb-16 md:pt-20 md:pb-24 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 mb-6"
@@ -139,7 +139,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative hidden lg:block">
             <div
               className="w-full flex items-center justify-center"
               style={{ background: "#FFFFFF", border: "1px solid #E5E5E5", borderRadius: 12, boxShadow: "0 8px 32px rgba(0,0,0,0.07)", padding: "clamp(28px, 5vw, 56px)" }}

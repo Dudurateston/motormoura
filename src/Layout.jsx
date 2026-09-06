@@ -296,8 +296,8 @@ export default function Layout({ children, currentPageName }) {
 
           {/* Col 1: Brand */}
           <div>
-            <div className="flex items-center gap-2.5 mb-4">
-              <img src="/img/brand/logo_oficial.png" alt="Motormoura Equipamentos" className="h-14 w-auto" style={{ objectFit: "contain" }} />
+            <div className="inline-flex items-center mb-4" style={{ background: "#FFFFFF", borderRadius: 8, padding: "10px 14px" }}>
+              <img src="/img/brand/logo_oficial.png" alt="Motormoura Equipamentos" className="h-12 w-auto" style={{ objectFit: "contain" }} />
             </div>
             <p style={{ fontSize: "13px", lineHeight: 1.7, marginBottom: "12px", color: "#BFBFBF" }}>
               Distribuidora de peças de reposição e equipamentos. Honda, Makita, Vibromak e Menegotti com estoque em Fortaleza e pronta entrega.
@@ -371,7 +371,7 @@ export default function Layout({ children, currentPageName }) {
                 </div>
                 <div>
                   <p className="text-[10px] font-bold" style={{ color: "#808080" }}>E-MAIL</p>
-                  <p className="group-hover:text-white transition-colors text-[13px]" style={{ color: "#BFBFBF" }}>{CONTATO.email}</p>
+                  <p className="group-hover:text-white transition-colors text-[13px] break-all leading-snug" style={{ color: "#BFBFBF" }}>{CONTATO.email}</p>
                 </div>
               </a>
               <a href={CONTATO.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
