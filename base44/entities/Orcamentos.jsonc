@@ -1,0 +1,80 @@
+{
+  "name": "Orcamentos",
+  "type": "object",
+  "properties": {
+    "numero_orcamento": {
+      "type": "string",
+      "description": "N\u00famero sequencial do or\u00e7amento"
+    },
+    "lojista_email": {
+      "type": "string",
+      "description": "Email do lojista que fez o or\u00e7amento"
+    },
+    "lojista_nome": {
+      "type": "string",
+      "description": "Nome do lojista"
+    },
+    "itens": {
+      "type": "array",
+      "description": "Lista de itens do or\u00e7amento",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sku_codigo": {
+            "type": "string"
+          },
+          "nome_peca": {
+            "type": "string"
+          },
+          "quantidade": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pendente",
+        "em_analise",
+        "respondido",
+        "fechado"
+      ],
+      "default": "pendente"
+    },
+    "observacoes": {
+      "type": "string",
+      "description": "Observa\u00e7\u00f5es adicionais do lojista"
+    }
+  },
+  "required": [
+    "itens"
+  ],
+  "rls": {
+    "create": {
+      "data.lojista_email": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.lojista_email": "{{user.email}}"
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

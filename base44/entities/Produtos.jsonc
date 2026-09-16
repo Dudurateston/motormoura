@@ -1,0 +1,89 @@
+{
+  "name": "Produtos",
+  "type": "object",
+  "properties": {
+    "sku_codigo": {
+      "type": "string",
+      "description": "C\u00f3digo SKU do produto"
+    },
+    "nome_peca": {
+      "type": "string",
+      "description": "Nome da pe\u00e7a"
+    },
+    "descricao": {
+      "type": "string",
+      "description": "Descri\u00e7\u00e3o detalhada da pe\u00e7a"
+    },
+    "relacionamento_categoria": {
+      "type": "string",
+      "description": "Nome da categoria relacionada"
+    },
+    "relacionamento_marca": {
+      "type": "string",
+      "description": "Nome da marca compat\u00edvel"
+    },
+    "preco_base_atacado": {
+      "type": "number",
+      "description": "Pre\u00e7o base no atacado"
+    },
+    "estoque_disponivel": {
+      "type": "number",
+      "description": "Quantidade em estoque"
+    },
+    "imagem_url": {
+      "type": "string",
+      "description": "URL da imagem do produto"
+    },
+    "especificacoes_eletricas": {
+      "type": "object",
+      "description": "Especifica\u00e7\u00f5es el\u00e9tricas (para geradores)",
+      "properties": {
+        "amperes": {
+          "type": "string"
+        },
+        "voltagem": {
+          "type": "string"
+        },
+        "potencia_watts": {
+          "type": "string"
+        },
+        "potencia_hp": {
+          "type": "string"
+        }
+      }
+    },
+    "destaque": {
+      "type": "boolean",
+      "default": false,
+      "description": "Produto carro-chefe \u2014 aparece em destaque na Home"
+    },
+    "ativo": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "sku_codigo",
+    "nome_peca",
+    "relacionamento_categoria",
+    "relacionamento_marca"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

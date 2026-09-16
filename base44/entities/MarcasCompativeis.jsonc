@@ -1,0 +1,36 @@
+{
+  "name": "MarcasCompativeis",
+  "type": "object",
+  "properties": {
+    "nome": {
+      "type": "string",
+      "description": "Nome da marca compat\u00edvel"
+    },
+    "ativa": {
+      "type": "boolean",
+      "default": true,
+      "description": "Se a marca est\u00e1 ativa"
+    }
+  },
+  "required": [
+    "nome"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

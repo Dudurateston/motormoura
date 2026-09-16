@@ -1,0 +1,199 @@
+{
+  "name": "Lojistas",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "Email do utilizador associado"
+    },
+    "nome_loja": {
+      "type": "string",
+      "description": "Nome da loja/empresa"
+    },
+    "nome_contato": {
+      "type": "string",
+      "description": "Nome do respons\u00e1vel"
+    },
+    "nif": {
+      "type": "string",
+      "description": "NIF / CNPJ da empresa"
+    },
+    "telefone": {
+      "type": "string",
+      "description": "Telefone de contacto"
+    },
+    "cidade": {
+      "type": "string"
+    },
+    "estado": {
+      "type": "string"
+    },
+    "cep": {
+      "type": "string",
+      "description": "CEP / C\u00f3digo Postal"
+    },
+    "endereco": {
+      "type": "string",
+      "description": "Endere\u00e7o completo"
+    },
+    "logo_url": {
+      "type": "string",
+      "description": "URL da logo/foto de perfil da empresa"
+    },
+    "perfil_empresa": {
+      "type": "string",
+      "enum": [
+        "Oficina Mec\u00e2nica",
+        "Loja de Pe\u00e7as Revenda",
+        "Locadora de M\u00e1quinas",
+        "Construtora",
+        "Aut\u00f4nomo"
+      ],
+      "description": "Perfil do neg\u00f3cio"
+    },
+    "volume_maquinas": {
+      "type": "string",
+      "enum": [
+        "1",
+        "2 a 5",
+        "6 a 10",
+        "10 a 20",
+        "Mais de 20"
+      ],
+      "description": "Volume de m\u00e1quinas atendidas/possu\u00eddas"
+    },
+    "num_funcionarios": {
+      "type": "string",
+      "enum": [
+        "S\u00f3 eu",
+        "2 a 5",
+        "6 a 15",
+        "16 a 50",
+        "Mais de 50"
+      ],
+      "description": "N\u00famero de funcion\u00e1rios"
+    },
+    "tempo_mercado": {
+      "type": "string",
+      "enum": [
+        "Menos de 1 ano",
+        "1 a 3 anos",
+        "3 a 10 anos",
+        "Mais de 10 anos"
+      ],
+      "description": "Tempo de atua\u00e7\u00e3o no mercado"
+    },
+    "tipo_cliente": {
+      "type": "string",
+      "enum": [
+        "Consumidor final (B2C)",
+        "Outras empresas (B2B)",
+        "Ambos"
+      ],
+      "description": "P\u00fablico principal atendido"
+    },
+    "regiao_atendimento": {
+      "type": "string",
+      "enum": [
+        "Local (cidade)",
+        "Estadual",
+        "Regional (alguns estados)",
+        "Nacional"
+      ],
+      "description": "Abrang\u00eancia geogr\u00e1fica de atendimento"
+    },
+    "instagram": {
+      "type": "string",
+      "description": "Link do Instagram da loja"
+    },
+    "garagem": {
+      "type": "array",
+      "description": "Equipamentos que o lojista possui/atende",
+      "items": {
+        "type": "object",
+        "properties": {
+          "descricao_original": {
+            "type": "string"
+          },
+          "tipo_normalizado": {
+            "type": "string"
+          },
+          "marca": {
+            "type": "string"
+          },
+          "modelo": {
+            "type": "string"
+          },
+          "ano": {
+            "type": "string"
+          },
+          "potencia": {
+            "type": "string"
+          },
+          "cilindrada": {
+            "type": "string"
+          },
+          "uso_principal": {
+            "type": "string"
+          },
+          "observacoes_tecnicas": {
+            "type": "string"
+          },
+          "potencial_pecas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pendente",
+        "aprovado",
+        "suspenso"
+      ],
+      "default": "pendente",
+      "description": "Status de aprova\u00e7\u00e3o do lojista"
+    }
+  },
+  "required": [
+    "nome_loja"
+  ],
+  "rls": {
+    "create": {
+      "data.user_email": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.user_email": "{{user.email}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "data.user_email": "{{user.email}}"
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

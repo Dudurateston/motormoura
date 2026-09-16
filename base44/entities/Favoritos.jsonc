@@ -1,0 +1,48 @@
+{
+  "name": "Favoritos",
+  "type": "object",
+  "properties": {
+    "user_email": {
+      "type": "string",
+      "description": "Email do usu\u00e1rio"
+    },
+    "produto_id": {
+      "type": "string",
+      "description": "ID do produto favorito"
+    },
+    "produto_sku": {
+      "type": "string",
+      "description": "SKU do produto"
+    },
+    "produto_nome": {
+      "type": "string",
+      "description": "Nome do produto"
+    },
+    "produto_marca": {
+      "type": "string",
+      "description": "Marca do produto"
+    },
+    "produto_categoria": {
+      "type": "string",
+      "description": "Categoria do produto"
+    }
+  },
+  "required": [
+    "user_email",
+    "produto_id"
+  ],
+  "rls": {
+    "create": {
+      "data.user_email": "{{user.email}}"
+    },
+    "read": {
+      "data.user_email": "{{user.email}}"
+    },
+    "update": {
+      "data.user_email": "{{user.email}}"
+    },
+    "delete": {
+      "data.user_email": "{{user.email}}"
+    }
+  }
+}
