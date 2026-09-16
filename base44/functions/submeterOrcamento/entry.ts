@@ -26,7 +26,7 @@ Deno.serve(async (req) => {
     return Response.json({ error: 'Method not allowed' }, { status: 405 });
   }
 
-  const ip = req.headers.get('x-forwarded-for') || req.headers.get('cf-connecting-ip') || 'unknown';
+  const ip = req.headers.get('cf-connecting-ip') || req.headers.get('x-forwarded-for') || 'unknown';
   if (!checkRateLimit(ip)) {
     return Response.json({ error: 'Muitas requisições. Aguarde alguns minutos.' }, { status: 429 });
   }
